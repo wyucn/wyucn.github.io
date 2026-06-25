@@ -10,42 +10,46 @@ export default function Hero() {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.3 });
+    // 仅在系统未开启「减弱动态效果」时播放动画（入场 + 无限装饰动画）。
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({ delay: 0.3 });
 
-      tl.from(".hero-line", {
-        y: 120,
-        opacity: 0,
-        duration: 1,
-        ease: "power4.out",
-        stagger: 0.15,
-      })
-        .from(
-          subtitleRef.current,
-          { y: 30, opacity: 0, duration: 0.8, ease: "power3.out" },
-          "-=0.4"
-        )
-        .from(
-          ".hero-badge",
-          { scale: 0, opacity: 0, duration: 0.6, ease: "back.out(2)" },
-          "-=0.3"
-        )
-        .from(
-          scrollIndicatorRef.current,
-          { y: 20, opacity: 0, duration: 0.6, ease: "power2.out" },
-          "-=0.2"
-        );
+        tl.from(".hero-line", {
+          y: 120,
+          opacity: 0,
+          duration: 1,
+          ease: "power4.out",
+          stagger: 0.15,
+        })
+          .from(
+            subtitleRef.current,
+            { y: 30, opacity: 0, duration: 0.8, ease: "power3.out" },
+            "-=0.4"
+          )
+          .from(
+            ".hero-badge",
+            { scale: 0, opacity: 0, duration: 0.6, ease: "back.out(2)" },
+            "-=0.3"
+          )
+          .from(
+            scrollIndicatorRef.current,
+            { y: 20, opacity: 0, duration: 0.6, ease: "power2.out" },
+            "-=0.2"
+          );
 
-      gsap.to(".hero-bg-gradient", {
-        rotation: 360, duration: 30, repeat: -1, ease: "none",
-      });
+        gsap.to(".hero-bg-gradient", {
+          rotation: 360, duration: 30, repeat: -1, ease: "none",
+        });
 
-      gsap.to(".floating-shape", {
-        y: -20, duration: 3, repeat: -1, yoyo: true, ease: "power1.inOut", stagger: 0.5,
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
+        gsap.to(".floating-shape", {
+          y: -20, duration: 3, repeat: -1, yoyo: true, ease: "power1.inOut", stagger: 0.5,
+        });
+      }, sectionRef);
+      return () => ctx.revert();
+    });
+    return () => mm.revert();
   }, []);
 
   return (

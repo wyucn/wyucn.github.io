@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 视频原始备份（压缩前的源文件）。放在 public 之外，既不入库也不会被打包进 out/
+/.backups/

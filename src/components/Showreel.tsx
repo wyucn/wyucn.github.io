@@ -12,17 +12,21 @@ export default function Showreel() {
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".showreel-content", {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
-        y: 60, opacity: 0, duration: 1, ease: "power3.out",
-      });
-      gsap.from(".showreel-frame", {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 60%" },
-        scale: 0.85, opacity: 0, duration: 1.2, ease: "power3.out",
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const ctx = gsap.context(() => {
+        gsap.from(".showreel-content", {
+          scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
+          y: 60, opacity: 0, duration: 1, ease: "power3.out",
+        });
+        gsap.from(".showreel-frame", {
+          scrollTrigger: { trigger: sectionRef.current, start: "top 60%" },
+          scale: 0.85, opacity: 0, duration: 1.2, ease: "power3.out",
+        });
+      }, sectionRef);
+      return () => ctx.revert();
+    });
+    return () => mm.revert();
   }, []);
 
   const togglePlay = useCallback(() => {
@@ -54,9 +58,10 @@ export default function Showreel() {
           <video
             ref={videoRef}
             src="/videos/showreel.mp4"
+            poster="/images/showreel-poster.jpg"
             className="absolute inset-0 w-full h-full object-cover"
             playsInline
-            preload="metadata"
+            preload="none"
             onEnded={handleVideoEnd}
           />
 

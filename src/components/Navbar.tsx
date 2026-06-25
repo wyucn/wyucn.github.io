@@ -40,10 +40,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="interactive text-sm font-medium uppercase tracking-widest transition-colors duration-300"
-              style={{ color: "var(--c-muted)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--c-accent)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--c-muted)")}
+              className="link-accent interactive text-sm font-medium uppercase tracking-widest transition-colors duration-300"
             >
               {link.label}
             </a>
@@ -51,19 +48,7 @@ export default function Navbar() {
           <ThemeToggle />
           <a
             href="#contact"
-            className="interactive ml-2 px-5 py-2 text-sm font-semibold uppercase tracking-wider rounded-full transition-all duration-300"
-            style={{
-              border: "1px solid var(--c-accent)",
-              color: "var(--c-accent)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "var(--c-accent)";
-              e.currentTarget.style.color = "var(--c-bg)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.color = "var(--c-accent)";
-            }}
+            className="btn-outline interactive ml-2 px-5 py-2 text-sm font-semibold uppercase tracking-wider rounded-full transition-all duration-300"
           >
             Let&apos;s Talk
           </a>
@@ -105,10 +90,7 @@ export default function Navbar() {
             key={link.href}
             href={link.href}
             onClick={() => setMenuOpen(false)}
-            className="text-3xl font-bold uppercase tracking-wider transition-colors"
-            style={{ color: "var(--c-fg)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--c-accent)")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--c-fg)")}
+            className="link-strong text-3xl font-bold uppercase tracking-wider transition-colors"
           >
             {link.label}
           </a>

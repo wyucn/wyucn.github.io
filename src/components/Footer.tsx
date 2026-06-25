@@ -3,27 +3,33 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { BILIBILI_URL } from "@/lib/site";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// 只渲染有真实地址的社媒；占位项 href 留空即可（拿到真实链接后填进去）。
 const socials = [
-  { name: "Bilibili", href: "https://space.bilibili.com/8286059" },
-  { name: "YouTube", href: "#" },
-  { name: "Behance", href: "#" },
-  { name: "Twitter / X", href: "#" },
-];
+  { name: "Bilibili", href: BILIBILI_URL },
+  { name: "YouTube", href: "" },
+  { name: "Behance", href: "" },
+  { name: "Twitter / X", href: "" },
+].filter((s) => s.href);
 
 export default function Footer() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".footer-cta", {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
-        y: 60, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.2,
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const ctx = gsap.context(() => {
+        gsap.from(".footer-cta", {
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+          y: 60, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.2,
+        });
+      }, sectionRef);
+      return () => ctx.revert();
+    });
+    return () => mm.revert();
   }, []);
 
   return (
@@ -41,10 +47,7 @@ export default function Footer() {
           </p>
           <a
             href="mailto:wangyu.hd@qq.com"
-            className="interactive inline-flex items-center gap-3 px-8 py-4 font-bold uppercase tracking-wider text-base rounded-full hover:scale-105 transition-all duration-300"
-            style={{ background: "var(--c-accent)", color: "var(--c-bg)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--c-accent-dark)")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "var(--c-accent)")}
+            className="btn-accent interactive inline-flex items-center gap-3 px-8 py-4 font-bold uppercase tracking-wider text-base rounded-full hover:scale-105 transition-all duration-300"
           >
             wangyu.hd@qq.com
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -61,10 +64,9 @@ export default function Footer() {
               <a
                 key={social.name}
                 href={social.href}
-                className="interactive text-xs font-mono uppercase tracking-wider transition-colors duration-300"
-                style={{ color: "var(--c-muted)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--c-accent)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--c-muted)")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-accent interactive text-xs font-mono uppercase tracking-wider transition-colors duration-300"
               >
                 {social.name}
               </a>

@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# wangyu-portfolio-site
 
-## Getting Started
+王玉的个人作品集网站 —— 视频后期 / Motion & AIGC。
 
-First, run the development server:
+单页作品集，包含 Hero、精选作品、Showreel、关于我、联系方式等模块，支持深 / 浅色主题切换。
+
+## 技术栈
+
+- [Next.js 16](https://nextjs.org)（App Router，静态导出 `output: "export"`）
+- React 19 + TypeScript
+- [Tailwind CSS 4](https://tailwindcss.com)
+- [GSAP](https://gsap.com) —— 滚动触发与入场动画
+- [Lenis](https://github.com/darkroomengineering/lenis) —— 平滑滚动
+
+## 本地开发
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install      # 安装依赖
+npm run dev      # 启动开发服务器 http://localhost:3000
+npm run lint     # 代码检查
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 构建与部署
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build    # 静态导出，产物在 out/ 目录
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+本项目使用 `output: "export"`，构建产物为纯静态文件（`out/`），可直接部署到任意静态托管（如对象存储 / Nginx / Vercel / GitHub Pages）。
 
-## Learn More
+## 上线前需要补充的内容
 
-To learn more about Next.js, take a look at the following resources:
+- `src/lib/site.ts` 中的 `SITE_URL` 改为真实域名（影响 SEO / 分享卡片 / sitemap）。
+- `src/data/projects.ts` 中将占位作品替换为真实作品图与链接。
+- 放入简历 `public/resume.pdf` 后，可在「关于我」区开启「下载简历」按钮。
+- 在 `src/components/Footer.tsx` 中补全社媒真实链接（YouTube / Behance / Twitter 等）。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 目录结构
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/          页面、布局、全局样式、SEO 文件（sitemap / robots / OG 图）
+  components/   各区块组件（Hero / Works / Showreel / About / Footer ...）
+  data/         作品等内容数据（与组件分离，便于维护）
+public/
+  images/       头像、封面图
+  videos/       Showreel 视频
+```

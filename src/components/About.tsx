@@ -21,25 +21,29 @@ export default function About() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".about-text-block", {
-        scrollTrigger: { trigger: ".about-text-block", start: "top 80%" },
-        y: 50, opacity: 0, duration: 0.8, ease: "power3.out", stagger: 0.15,
-      });
-      gsap.from(".about-portrait", {
-        scrollTrigger: { trigger: ".about-portrait", start: "top 80%" },
-        scale: 0.9, opacity: 0, duration: 1, ease: "power3.out",
-      });
-      gsap.from(".skill-tag", {
-        scrollTrigger: { trigger: ".skills-area", start: "top 85%" },
-        y: 20, opacity: 0, duration: 0.5, ease: "power2.out", stagger: 0.05,
-      });
-      gsap.from(".about-portrait-inner", {
-        scrollTrigger: { trigger: ".about-portrait", start: "top bottom", end: "bottom top", scrub: true },
-        yPercent: -15, ease: "none",
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const ctx = gsap.context(() => {
+        gsap.from(".about-text-block", {
+          scrollTrigger: { trigger: ".about-text-block", start: "top 80%" },
+          y: 50, opacity: 0, duration: 0.8, ease: "power3.out", stagger: 0.15,
+        });
+        gsap.from(".about-portrait", {
+          scrollTrigger: { trigger: ".about-portrait", start: "top 80%" },
+          scale: 0.9, opacity: 0, duration: 1, ease: "power3.out",
+        });
+        gsap.from(".skill-tag", {
+          scrollTrigger: { trigger: ".skills-area", start: "top 85%" },
+          y: 20, opacity: 0, duration: 0.5, ease: "power2.out", stagger: 0.05,
+        });
+        gsap.from(".about-portrait-inner", {
+          scrollTrigger: { trigger: ".about-portrait", start: "top bottom", end: "bottom top", scrub: true },
+          yPercent: -15, ease: "none",
+        });
+      }, sectionRef);
+      return () => ctx.revert();
+    });
+    return () => mm.revert();
   }, []);
 
   return (
@@ -90,10 +94,7 @@ export default function About() {
                 {skills.map((skill) => (
                   <span
                     key={skill}
-                    className="skill-tag px-4 py-2 rounded-full text-sm interactive transition-colors duration-300"
-                    style={{ border: "1px solid var(--c-border)", color: "var(--c-fg-secondary)" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--c-accent)"; e.currentTarget.style.color = "var(--c-accent)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--c-border)"; e.currentTarget.style.color = "var(--c-fg-secondary)"; }}
+                    className="skill-tag tag px-4 py-2 rounded-full text-sm interactive transition-colors duration-300"
                   >
                     {skill}
                   </span>
@@ -109,10 +110,7 @@ export default function About() {
                 {tools.map((tool) => (
                   <span
                     key={tool}
-                    className="skill-tag px-3 py-1.5 rounded-lg text-xs font-mono transition-colors duration-300"
-                    style={{ background: "var(--c-surface)", color: "var(--c-muted)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--c-accent)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--c-muted)")}
+                    className="skill-tag tag-mono px-3 py-1.5 rounded-lg text-xs font-mono transition-colors duration-300"
                   >
                     {tool}
                   </span>
@@ -120,13 +118,13 @@ export default function About() {
               </div>
             </div>
 
+            {/* 「下载简历」暂隐藏（还没有简历文件）。
+                以后把简历放到 public/resume.pdf，取消下面这段注释即可启用：
             <div className="about-text-block">
               <a
-                href="#contact"
-                className="interactive inline-flex items-center gap-3 px-6 py-3 font-bold uppercase tracking-wider text-sm rounded-full transition-colors duration-300"
-                style={{ background: "var(--c-accent)", color: "var(--c-bg)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--c-accent-dark)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "var(--c-accent)")}
+                href="/resume.pdf"
+                download
+                className="btn-accent interactive inline-flex items-center gap-3 px-6 py-3 font-bold uppercase tracking-wider text-sm rounded-full transition-colors duration-300"
               >
                 下载简历
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -134,6 +132,7 @@ export default function About() {
                 </svg>
               </a>
             </div>
+            */}
           </div>
         </div>
       </div>
