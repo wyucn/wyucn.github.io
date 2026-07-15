@@ -1,6 +1,6 @@
 // 站点级常量，集中一处维护。
 // 上线前把 SITE_URL 改为真实域名，会同时作用于 SEO / 分享卡片 / sitemap / robots。
-export const SITE_URL = "https://wangyu-portfolio.pages.dev";
+export const SITE_URL = "https://mwangyu.github.io";
 
 export const SITE_TITLE = "王玉 — 视频后期 / Motion & AIGC";
 export const SITE_DESCRIPTION =
