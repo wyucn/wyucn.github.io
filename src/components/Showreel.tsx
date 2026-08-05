@@ -1,27 +1,31 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const proofPoints = [
+  { value: "2020—NOW", label: "视频内容经验" },
+  { value: "POST / MOTION", label: "剪辑与动态视觉" },
+  { value: "AIGC", label: "生成式内容实践" },
+  { value: "AI WORKFLOW", label: "工具与流程探索" },
+];
+
 export default function Showreel() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const ctx = gsap.context(() => {
-        gsap.from(".showreel-content", {
-          scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
-          y: 60, opacity: 0, duration: 1, ease: "power3.out",
-        });
-        gsap.from(".showreel-frame", {
-          scrollTrigger: { trigger: sectionRef.current, start: "top 60%" },
-          scale: 0.85, opacity: 0, duration: 1.2, ease: "power3.out",
+        gsap.from(".showreel-reveal", {
+          scrollTrigger: { trigger: sectionRef.current, start: "top 92%" },
+          y: 34,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: "power3.out",
         });
       }, sectionRef);
       return () => ctx.revert();
@@ -29,73 +33,66 @@ export default function Showreel() {
     return () => mm.revert();
   }, []);
 
-  const togglePlay = useCallback(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.paused) { video.play(); setIsPlaying(true); }
-    else { video.pause(); setIsPlaying(false); }
-  }, []);
-
-  const handleVideoEnd = useCallback(() => setIsPlaying(false), []);
-
   return (
-    <section ref={sectionRef} id="showreel" className="relative py-32 md:py-40 px-6 md:px-10">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="showreel-content text-center mb-12 md:mb-16">
-          <p className="text-xs md:text-sm font-mono uppercase tracking-[0.3em] mb-3" style={{ color: "var(--c-accent)" }}>
-            Motion Reel
-          </p>
-          <h2 className="text-5xl md:text-7xl font-extrabold uppercase tracking-tighter" style={{ color: "var(--c-fg)" }}>
-            Show<span className="gradient-text">reel</span>
-          </h2>
-        </div>
+    <section ref={sectionRef} id="showreel" className="relative overflow-hidden px-5 py-20 md:px-10 md:py-28">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, var(--c-accent-30), transparent)" }} />
 
-        <div
-          className="showreel-frame relative rounded-2xl overflow-hidden aspect-video max-w-5xl mx-auto group interactive"
-          style={{ background: "var(--c-bg)", border: "1px solid var(--c-border)" }}
-          onClick={togglePlay}
-        >
-          <video
-            ref={videoRef}
-            src="/videos/2022-2025.mp4"
-            poster="/images/showreel-poster.jpg"
-            className="absolute inset-0 w-full h-full object-cover"
-            playsInline
-            preload="none"
-            onEnded={handleVideoEnd}
-          />
+      <div className="mx-auto max-w-[1400px]">
+        <div className="showreel-reveal">
+          <div className="flex flex-col gap-4 border-b pb-5 sm:flex-row sm:items-end sm:justify-between" style={{ borderColor: "var(--c-border)" }}>
+            <p className="font-mono text-xs uppercase tracking-[0.32em] md:text-sm" style={{ color: "var(--c-accent)" }}>
+              Motion Reel / 2022—2025
+            </p>
+            <div className="flex flex-wrap items-center gap-3 font-mono text-[9px] uppercase tracking-[0.2em] md:text-[10px]" style={{ color: "var(--c-muted)" }}>
+              <span>60 seconds</span>
+              <span className="h-1 w-1 rounded-full" style={{ background: "var(--c-accent)" }} />
+              <span>Edit · Motion · Compositing</span>
+            </div>
+          </div>
 
-          <div
-            className={`absolute inset-0 flex items-center justify-center z-10 transition-opacity duration-500 ${
-              isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"
-            }`}
-            style={{ background: "var(--c-bg-alpha30)" }}
-          >
-            <button className="play-btn" aria-label={isPlaying ? "Pause showreel" : "Play showreel"}>
-              {isPlaying ? (
-                <svg width="24" height="24" viewBox="0 0 24 24" style={{ fill: "var(--c-accent)" }}>
-                  <rect x="6" y="4" width="4" height="16" />
-                  <rect x="14" y="4" width="4" height="16" />
-                </svg>
-              ) : (
-                <svg width="24" height="24" viewBox="0 0 24 24" style={{ fill: "var(--c-accent)" }}>
-                  <polygon points="8,4 20,12 8,20" />
-                </svg>
-              )}
-            </button>
+          <div className="relative py-7 md:py-10">
+            <h2 className="display-title flex flex-col text-[clamp(2.75rem,7vw,8rem)] font-extrabold uppercase leading-[0.76] tracking-[-0.065em] sm:flex-row sm:items-baseline" aria-label="Showreel">
+              <span style={{ color: "var(--c-fg)" }}>Show</span>
+              <span className="gradient-text sm:ml-[0.035em]">reel</span>
+            </h2>
+          </div>
+
+          <div className="grid gap-5 border-t pt-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end" style={{ borderColor: "var(--c-border)" }}>
+            <p className="max-w-2xl text-sm leading-7 md:text-base md:leading-8" style={{ color: "var(--c-muted)" }}>
+              60 秒动态视觉与后期作品节选。先看作品，再了解我如何把 AIGC 与工具探索带进真实制作流程。
+            </p>
+            <div className="flex flex-wrap gap-2 md:justify-end">
+              {["SELECTED MOTION", "2022—2025", "01 / 01"].map((item) => (
+                <span key={item} className="rounded-full border px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.16em]" style={{ borderColor: "var(--c-border)", color: "var(--c-muted)" }}>
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 md:mt-20 max-w-5xl mx-auto">
-          {[
-            { value: "5+", label: "Years Exp." },
-            { value: "AE/PR", label: "Core Tools" },
-            { value: "AIGC", label: "Frontier" },
-            { value: "Blender", label: "3D Engine" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-2xl md:text-3xl font-extrabold gradient-text whitespace-nowrap">{stat.value}</div>
-              <div className="text-xs font-mono uppercase tracking-widest mt-2" style={{ color: "var(--c-muted)" }}>{stat.label}</div>
+        <div className="showreel-reveal mt-10 rounded-[1.6rem] p-px md:mt-14 md:rounded-[2rem]" style={{ background: "linear-gradient(135deg, var(--c-accent-40), var(--c-border) 38%, var(--c-gradient-tertiary))" }}>
+          <div className="relative aspect-video overflow-hidden rounded-[calc(1.6rem-1px)] bg-black md:rounded-[calc(2rem-1px)]">
+            <video
+              src="/videos/2022-2025.mp4"
+              poster="/images/showreel-poster.jpg"
+              className="absolute inset-0 h-full w-full object-cover"
+              controls
+              playsInline
+              preload="metadata"
+              aria-label="王玉 2022 至 2025 视频后期与动态视觉 Showreel"
+            />
+            <div className="pointer-events-none absolute left-4 top-4 z-10 rounded-full border bg-black/50 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.18em] text-white/75 backdrop-blur-md md:left-5 md:top-5" style={{ borderColor: "rgba(255,255,255,.16)" }}>
+              Wang Yu / Motion Reel
+            </div>
+          </div>
+        </div>
+
+        <div className="showreel-reveal mx-auto mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border md:mt-10 md:grid-cols-4" style={{ background: "var(--c-border)", borderColor: "var(--c-border)" }}>
+          {proofPoints.map((item) => (
+            <div key={item.value} className="min-h-28 p-5 md:min-h-32 md:p-6" style={{ background: "var(--c-surface)" }}>
+              <div className="text-base font-extrabold md:text-xl" style={{ color: "var(--c-fg)" }}>{item.value}</div>
+              <div className="mt-2 text-xs leading-5" style={{ color: "var(--c-muted)" }}>{item.label}</div>
             </div>
           ))}
         </div>

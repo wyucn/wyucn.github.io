@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 // 社媒分享卡片图（微信 / Twitter 等）。构建时静态生成。
 // 注：ImageResponse 默认字体不含中文，这里用拉丁字标 WANGYU + 英文副标，避免缺字。
 export const dynamic = "force-static";
-export const alt = "王玉 — Video Post-Production / Motion & AIGC";
+export const alt = "王玉 — Video Post-Production / Motion Design / AI Workflow";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -46,7 +46,7 @@ export default function Image() {
             color: "#888888",
           }}
         >
-          Video Post-Production · Motion · AIGC
+          Video Post-Production · Motion · AI Workflow
         </div>
       </div>
     ),

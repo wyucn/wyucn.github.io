@@ -44,16 +44,16 @@
   --c-bg-alpha40: rgba(245, 245, 240, 0.4);
   --c-fg: #1a1a1a;
   --c-fg-secondary: #333333;
-  --c-muted: #777777;
-  --c-accent: #5a8a00;
-  --c-accent-dark: #4a7200;
-  --c-accent-5: rgba(90, 138, 0, 0.06);
-  --c-accent-8: rgba(90, 138, 0, 0.08);
-  --c-accent-10: rgba(90, 138, 0, 0.1);
-  --c-accent-15: rgba(90, 138, 0, 0.12);
-  --c-accent-20: rgba(90, 138, 0, 0.15);
-  --c-accent-30: rgba(90, 138, 0, 0.2);
-  --c-accent-40: rgba(90, 138, 0, 0.3);
+  --c-muted: #5f5f5f;
+  --c-accent: #3f6800;
+  --c-accent-dark: #315200;
+  --c-accent-5: rgba(63, 104, 0, 0.06);
+  --c-accent-8: rgba(63, 104, 0, 0.08);
+  --c-accent-10: rgba(63, 104, 0, 0.1);
+  --c-accent-15: rgba(63, 104, 0, 0.12);
+  --c-accent-20: rgba(63, 104, 0, 0.15);
+  --c-accent-30: rgba(63, 104, 0, 0.22);
+  --c-accent-40: rgba(63, 104, 0, 0.32);
   --c-surface: #ffffff;
   --c-surface-light: #ebebeb;
   --c-border: #d8d8d0;
@@ -112,9 +112,17 @@
     background: var(--c-bg);
     color: var(--c-fg);
     font-family: var(--font-syne), sans-serif;
-    overflow-x: hidden;
-    cursor: none;
+    overflow-x: clip;
+    cursor: auto;
     transition: background 0.4s ease, color 0.4s ease;
+  }
+
+  h1, h2, h3 {
+    max-width: 100%;
+  }
+
+  video {
+    display: block;
   }
 
   ::selection {
@@ -297,7 +305,7 @@
 .tag-mono:hover { color: var(--c-accent); }
 
 .work-card { background: var(--c-surface); border: 1px solid var(--c-border); }
-.work-card:hover { border-color: var(--c-accent-30); }
+.work-card:hover { border-color: var(--c-accent-30); transform: translateY(-4px); }
 
 /* ===== 键盘可达性 =====
    因 body 隐藏了系统光标，需为键盘用户保留清晰的焦点指示。 */
@@ -341,10 +349,24 @@
 }
 
 @media (max-width: 768px) {
-  body {
-    cursor: auto;
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
   }
   .cursor-dot, .cursor-outline {
     display: none;
+  }
+}
+
+.display-title {
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (pointer: fine) and (min-width: 769px) {
+  body {
+    cursor: none;
   }
 }

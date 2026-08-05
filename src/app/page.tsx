@@ -6,6 +6,7 @@ import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import Works from "@/components/Works";
 import Showreel from "@/components/Showreel";
+import Experience from "@/components/Experience";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
 
@@ -25,10 +26,10 @@ export default function Home() {
 
       <Navbar />
       <Hero />
-      <Marquee text="Design · Motion · Create" className="py-8" border />
-      <Works />
-      <Marquee text="Selected Works" className="py-6 opacity-50" />
       <Showreel />
+      <Marquee text="Post · Motion · AIGC · AI Workflow" className="py-5 md:py-7" border />
+      <Works />
+      <Experience />
       <About />
       <Footer />
     </>
