@@ -23,14 +23,17 @@ export default function Home() {
       <CustomCursor />
       <SmoothScroll />
       <div className="noise-overlay" />
+      <a className="skip-link" href="#main-content">跳到主要内容</a>
 
       <Navbar />
-      <Hero />
-      <Showreel />
-      <Marquee text="Post · Motion · AIGC · AI Workflow" className="py-5 md:py-7" border />
-      <Works />
-      <Experience />
-      <About />
+      <main id="main-content">
+        <Hero />
+        <Showreel />
+        <Marquee text="Post · Motion · AIGC · AI Workflow" className="py-5 md:py-7" border />
+        <Works />
+        <Experience />
+        <About />
+      </main>
       <Footer />
     </>
   );

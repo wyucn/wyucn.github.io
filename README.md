@@ -2,7 +2,9 @@
 
 王玉的个人作品集网站 —— 视频后期 / Motion & AIGC。
 
-单页作品集，包含 Hero、精选作品、Showreel、关于我、联系方式等模块，支持深 / 浅色主题切换。
+单页作品集，包含 Hero、Showreel、精选作品、工作经历、能力、关于我和联系方式等模块，支持深 / 浅色主题切换。
+
+当前品牌视觉采用“墨海玉青 · 朱砂点火”：墨海蓝黑作为环境底色，玉青作为个人识别色，朱砂用于播放、主要 CTA 与少量关键状态。
 
 ## 技术栈
 
@@ -30,10 +32,15 @@ npm run build    # 静态导出，产物在 out/ 目录
 
 ## 上线前需要补充的内容
 
-- `src/lib/site.ts` 中的 `SITE_URL` 改为真实域名（影响 SEO / 分享卡片 / sitemap）。
-- `src/data/projects.ts` 中将占位作品替换为真实作品图与链接。
+- 为 `src/data/projects.ts` 中的六个真实项目补充可公开封面、截图、短视频与更多链接。
 - 放入简历 `public/resume.pdf` 后，可在「关于我」区开启「下载简历」按钮。
 - 在 `src/components/Footer.tsx` 中补全社媒真实链接（YouTube / Behance / Twitter 等）。
+
+## 设计与内容文档
+
+- `docs/个人网站配色规范-墨海玉青.md`
+- `docs/招聘向网站文案-审阅稿-v2.md`
+- `docs/重设计整合说明-2026-08-06.md`
 
 ## 目录结构
 
@@ -45,4 +52,5 @@ src/
 public/
   images/       头像、封面图
   videos/       Showreel 视频
+docs/           品牌配色、招聘文案与重设计整合记录
 ```

@@ -24,10 +24,15 @@ const tools = [
   "剪映",
   "Codex",
   "Claude",
+  "Cursor",
   "Seedance",
   "MiniMax",
+  "Wan",
+  "LTX",
   "即梦",
+  "GPT Image",
   "Qwen3-TTS",
+  "RVC",
   "Suno",
 ];
 

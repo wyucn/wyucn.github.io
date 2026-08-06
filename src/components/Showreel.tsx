@@ -6,13 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const proofPoints = [
-  { value: "2020—NOW", label: "视频内容经验" },
-  { value: "POST / MOTION", label: "剪辑与动态视觉" },
-  { value: "AIGC", label: "生成式内容实践" },
-  { value: "AI WORKFLOW", label: "工具与流程探索" },
-];
-
 export default function Showreel() {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -86,15 +79,6 @@ export default function Showreel() {
               Wang Yu / Motion Reel
             </div>
           </div>
-        </div>
-
-        <div className="showreel-reveal mx-auto mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border md:mt-10 md:grid-cols-4" style={{ background: "var(--c-border)", borderColor: "var(--c-border)" }}>
-          {proofPoints.map((item) => (
-            <div key={item.value} className="min-h-28 p-5 md:min-h-32 md:p-6" style={{ background: "var(--c-surface)" }}>
-              <div className="text-base font-extrabold md:text-xl" style={{ color: "var(--c-fg)" }}>{item.value}</div>
-              <div className="mt-2 text-xs leading-5" style={{ color: "var(--c-muted)" }}>{item.label}</div>
-            </div>
-          ))}
         </div>
       </div>
     </section>

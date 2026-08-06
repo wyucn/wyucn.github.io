@@ -11,6 +11,7 @@ export default function Marquee({ text, className = "", border }: MarqueeProps) 
 
   return (
     <div
+      aria-hidden="true"
       className={`overflow-hidden whitespace-nowrap ${className}`}
       style={border ? { borderTop: "1px solid var(--c-border)", borderBottom: "1px solid var(--c-border)" } : undefined}
     >

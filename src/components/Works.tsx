@@ -173,7 +173,7 @@ function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
         {project.href && (
-          <div className="mt-auto flex items-center justify-end gap-2 pt-7 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: project.color }}>
+          <div className="mt-auto flex items-center justify-end gap-2 pt-7 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: "var(--c-link)" }}>
             View live product
             <span aria-hidden="true">↗</span>
           </div>
@@ -182,17 +182,24 @@ function ProjectCard({ project }: { project: Project }) {
     </>
   );
 
-  const className = `work-card group flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-500 ${project.featured ? "md:col-span-2" : ""}`;
+  const className = "work-card group flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-500";
+  const wrapperClassName = `work-card-reveal ${project.featured ? "md:col-span-2" : ""}`;
 
   if (project.href) {
     return (
-      <a href={project.href} target="_blank" rel="noopener noreferrer" className={`${className} interactive`} aria-label={`打开 ${project.title}`}>
-        {content}
-      </a>
+      <div className={wrapperClassName}>
+        <a href={project.href} target="_blank" rel="noopener noreferrer" className={`${className} interactive`} aria-label={`打开 ${project.title}`}>
+          {content}
+        </a>
+      </div>
     );
   }
 
-  return <article className={className}>{content}</article>;
+  return (
+    <div className={wrapperClassName}>
+      <article className={className}>{content}</article>
+    </div>
+  );
 }
 
 export default function Works() {
@@ -202,7 +209,7 @@ export default function Works() {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const ctx = gsap.context(() => {
-        gsap.from(".work-card", {
+        gsap.from(".work-card-reveal", {
           scrollTrigger: { trigger: sectionRef.current, start: "top 72%" },
           y: 48,
           duration: 0.7,

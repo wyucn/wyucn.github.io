@@ -3,6 +3,7 @@ const responsibilities = [
   "承担制作任务分发、排期与跨岗位对接，梳理制作规范和交付标准。",
   "持续测试视频、图像、语音与音乐模型，判断不同方案在真实内容生产中的适用性。",
   "将测试经验沉淀为提示词、工作流工具、制作规范和团队可复用的知识资料。",
+  "发起并持续迭代 Haitun Post Studio，以及多项面向后期工作流的轻量工具。",
 ];
 
 const capabilities = [
@@ -47,7 +48,7 @@ export default function Experience() {
                 <h3 className="mt-3 text-2xl font-extrabold md:text-3xl" style={{ color: "var(--c-fg)" }}>头部教育科技集团</h3>
                 <p className="mt-2 text-sm" style={{ color: "var(--c-muted)" }}>内容视频团队</p>
               </div>
-              <span className="rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-wider" style={{ borderColor: "var(--c-accent-30)", color: "var(--c-accent)" }}>Currently Working</span>
+              <span className="rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-wider" style={{ borderColor: "var(--c-action-readable)", color: "var(--c-action-readable)" }}>Currently Working</span>
             </div>
 
             <div className="py-7">

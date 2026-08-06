@@ -3,71 +3,89 @@
 /* ===== Theme Variables ===== */
 :root,
 [data-theme="dark"] {
-  --c-bg: #0a0a0a;
-  --c-bg-alpha80: rgba(10, 10, 10, 0.8);
-  --c-bg-alpha95: rgba(10, 10, 10, 0.95);
-  --c-bg-alpha30: rgba(10, 10, 10, 0.3);
-  --c-bg-alpha40: rgba(10, 10, 10, 0.4);
-  --c-fg: #ededed;
-  --c-fg-secondary: #cccccc;
-  --c-muted: #888888;
-  --c-accent: #AAFF00;
-  --c-accent-dark: #88cc00;
-  --c-accent-5: rgba(170, 255, 0, 0.05);
-  --c-accent-8: rgba(170, 255, 0, 0.08);
-  --c-accent-10: rgba(170, 255, 0, 0.1);
-  --c-accent-15: rgba(170, 255, 0, 0.15);
-  --c-accent-20: rgba(170, 255, 0, 0.2);
-  --c-accent-30: rgba(170, 255, 0, 0.3);
-  --c-accent-40: rgba(170, 255, 0, 0.4);
-  --c-surface: #141414;
-  --c-surface-light: #1a1a1a;
-  --c-border: #2a2a2a;
-  --c-grid: #ededed;
+  color-scheme: dark;
+  --c-bg: #0c1721;
+  --c-bg-alpha80: rgba(12, 23, 33, 0.86);
+  --c-bg-alpha95: rgba(12, 23, 33, 0.96);
+  --c-bg-alpha30: rgba(12, 23, 33, 0.3);
+  --c-bg-alpha40: rgba(12, 23, 33, 0.52);
+  --c-fg: #f4f0e8;
+  --c-fg-secondary: #d9e0de;
+  --c-muted: #b8c5c8;
+  --c-text-placeholder: #7f8e92;
+  --c-accent: #3a9c8b;
+  --c-accent-dark: #49a895;
+  --c-link: #4fb7a2;
+  --c-accent-5: rgba(58, 156, 139, 0.05);
+  --c-accent-8: rgba(58, 156, 139, 0.08);
+  --c-accent-10: rgba(58, 156, 139, 0.1);
+  --c-accent-15: rgba(58, 156, 139, 0.15);
+  --c-accent-20: rgba(58, 156, 139, 0.2);
+  --c-accent-30: rgba(58, 156, 139, 0.3);
+  --c-accent-40: rgba(58, 156, 139, 0.4);
+  --c-action: #e25b3f;
+  --c-action-readable: #e86649;
+  --c-action-hover: #ec6b4d;
+  --c-action-soft: rgba(226, 91, 63, 0.12);
+  --c-surface: #142632;
+  --c-surface-light: #19313e;
+  --c-border: #29434f;
+  --c-border-control: #5a7580;
+  --c-grid: #b8c5c8;
   --c-grid-opacity: 0.03;
-  --c-stroke-outline: 1px #2a2a2a;
-  --c-stroke-footer: 1.5px #1a1a1a;
+  --c-stroke-outline: 1px #29434f;
+  --c-stroke-footer: 1.5px #29434f;
   --c-card-number-opacity: 0.06;
   --c-shape-border-opacity: 0.2;
   --c-noise-opacity: 0.03;
-  --c-gradient-secondary: #00ff88;
-  --c-gradient-tertiary: #00ccff;
-  --c-scrollbar-track: #0a0a0a;
-  --c-hamburger: #ededed;
+  --c-gradient-secondary: #49a895;
+  --c-gradient-tertiary: #e86649;
+  --c-scrollbar-track: #0c1721;
+  --c-hamburger: #f4f0e8;
+  --c-focus: #f4f0e8;
 }
 
 [data-theme="light"] {
-  --c-bg: #f5f5f0;
-  --c-bg-alpha80: rgba(245, 245, 240, 0.85);
-  --c-bg-alpha95: rgba(245, 245, 240, 0.95);
-  --c-bg-alpha30: rgba(245, 245, 240, 0.3);
-  --c-bg-alpha40: rgba(245, 245, 240, 0.4);
-  --c-fg: #1a1a1a;
-  --c-fg-secondary: #333333;
-  --c-muted: #5f5f5f;
-  --c-accent: #3f6800;
-  --c-accent-dark: #315200;
-  --c-accent-5: rgba(63, 104, 0, 0.06);
-  --c-accent-8: rgba(63, 104, 0, 0.08);
-  --c-accent-10: rgba(63, 104, 0, 0.1);
-  --c-accent-15: rgba(63, 104, 0, 0.12);
-  --c-accent-20: rgba(63, 104, 0, 0.15);
-  --c-accent-30: rgba(63, 104, 0, 0.22);
-  --c-accent-40: rgba(63, 104, 0, 0.32);
-  --c-surface: #ffffff;
-  --c-surface-light: #ebebeb;
-  --c-border: #d8d8d0;
-  --c-grid: #1a1a1a;
+  color-scheme: light;
+  --c-bg: #f5f1e8;
+  --c-bg-alpha80: rgba(245, 241, 232, 0.88);
+  --c-bg-alpha95: rgba(245, 241, 232, 0.97);
+  --c-bg-alpha30: rgba(245, 241, 232, 0.3);
+  --c-bg-alpha40: rgba(245, 241, 232, 0.56);
+  --c-fg: #182321;
+  --c-fg-secondary: #31413d;
+  --c-muted: #5e6966;
+  --c-text-placeholder: #687570;
+  --c-accent: #176b63;
+  --c-accent-dark: #0f5a53;
+  --c-link: #176b63;
+  --c-accent-5: rgba(23, 107, 99, 0.05);
+  --c-accent-8: rgba(23, 107, 99, 0.08);
+  --c-accent-10: rgba(23, 107, 99, 0.1);
+  --c-accent-15: rgba(23, 107, 99, 0.14);
+  --c-accent-20: rgba(23, 107, 99, 0.18);
+  --c-accent-30: rgba(23, 107, 99, 0.25);
+  --c-accent-40: rgba(23, 107, 99, 0.34);
+  --c-action: #ae4e34;
+  --c-action-readable: #9e432d;
+  --c-action-hover: #943d2a;
+  --c-action-soft: rgba(174, 78, 52, 0.1);
+  --c-surface: #fffdfc;
+  --c-surface-light: #e7e2d7;
+  --c-border: #d4cec2;
+  --c-border-control: #7a8580;
+  --c-grid: #182321;
   --c-grid-opacity: 0.04;
-  --c-stroke-outline: 1px #d8d8d0;
-  --c-stroke-footer: 1.5px #d8d8d0;
+  --c-stroke-outline: 1px #d4cec2;
+  --c-stroke-footer: 1.5px #d4cec2;
   --c-card-number-opacity: 0.08;
   --c-shape-border-opacity: 0.15;
   --c-noise-opacity: 0.015;
-  --c-gradient-secondary: #00994d;
-  --c-gradient-tertiary: #0088aa;
-  --c-scrollbar-track: #f5f5f0;
-  --c-hamburger: #1a1a1a;
+  --c-gradient-secondary: #2b8075;
+  --c-gradient-tertiary: #ae4e34;
+  --c-scrollbar-track: #f5f1e8;
+  --c-hamburger: #182321;
+  --c-focus: #182321;
 }
 
 @theme inline {
@@ -142,6 +160,25 @@
 ::-webkit-scrollbar-thumb {
   background: var(--c-accent);
   border-radius: 2px;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 10000;
+  transform: translateY(-160%);
+  border-radius: 999px;
+  background: var(--c-action);
+  color: var(--c-bg);
+  padding: 0.7rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 /* Custom cursor */
@@ -244,7 +281,7 @@
 .play-btn {
   width: 80px;
   height: 80px;
-  border: 2px solid var(--c-accent);
+  border: 2px solid var(--c-action);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -254,7 +291,7 @@
 }
 
 .play-btn:hover {
-  background: var(--c-accent);
+  background: var(--c-action);
   transform: scale(1.1);
 }
 
@@ -287,13 +324,13 @@
    统一在 CSS 里处理 hover，组件中不再写内联 onMouseEnter/onMouseLeave。
    各元素自带 Tailwind 的 transition-colors，故无需在此重复声明过渡。 */
 .link-accent { color: var(--c-muted); }
-.link-accent:hover { color: var(--c-accent); }
+.link-accent:hover { color: var(--c-link); }
 
 .link-strong { color: var(--c-fg); }
 .link-strong:hover { color: var(--c-accent); }
 
-.btn-accent { background: var(--c-accent); color: var(--c-bg); }
-.btn-accent:hover { background: var(--c-accent-dark); }
+.btn-accent { background: var(--c-action); color: var(--c-bg); }
+.btn-accent:hover { background: var(--c-action-hover); }
 
 .btn-outline { background: transparent; border: 1px solid var(--c-accent); color: var(--c-accent); }
 .btn-outline:hover { background: var(--c-accent); color: var(--c-bg); }
@@ -310,7 +347,7 @@
 /* ===== 键盘可达性 =====
    因 body 隐藏了系统光标，需为键盘用户保留清晰的焦点指示。 */
 :focus-visible {
-  outline: 2px solid var(--c-accent);
+  outline: 2px solid var(--c-focus);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -363,6 +400,22 @@
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.hero-accent-serif {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.hero-reel-card {
+  box-shadow: 0 28px 80px rgba(4, 11, 17, 0.28);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.hero-reel-card:hover {
+  border-color: var(--c-action-readable) !important;
+  box-shadow: 0 34px 96px rgba(4, 11, 17, 0.4), 0 0 0 1px var(--c-action-soft);
 }
 
 @media (pointer: fine) and (min-width: 769px) {

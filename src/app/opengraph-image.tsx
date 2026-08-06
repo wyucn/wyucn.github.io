@@ -18,9 +18,9 @@ export default function Image() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0a0a0a",
+          background: "#0c1721",
           backgroundImage:
-            "radial-gradient(circle at 30% 30%, rgba(170,255,0,0.18), transparent 55%), radial-gradient(circle at 75% 70%, rgba(0,204,255,0.12), transparent 55%)",
+            "radial-gradient(circle at 30% 30%, rgba(58,156,139,0.24), transparent 55%), radial-gradient(circle at 75% 70%, rgba(226,91,63,0.16), transparent 55%)",
           fontFamily: "sans-serif",
         }}
       >
@@ -30,23 +30,28 @@ export default function Image() {
             fontSize: 180,
             fontWeight: 800,
             letterSpacing: "-0.04em",
-            color: "#ededed",
+            color: "#f4f0e8",
             lineHeight: 1,
           }}
         >
           <span>WANG</span>
-          <span style={{ color: "#AAFF00" }}>YU</span>
+          <span style={{ color: "#3A9C8B" }}>YU</span>
         </div>
         <div
           style={{
             marginTop: 28,
-            fontSize: 34,
-            letterSpacing: "0.25em",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 18,
+            fontSize: 30,
+            letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "#888888",
+            color: "#b8c5c8",
           }}
         >
-          Video Post-Production · Motion · AI Workflow
+          <span>Video Post · Motion Design · AI Workflow</span>
+          <span style={{ width: 10, height: 10, borderRadius: 999, background: "#E25B3F" }} />
         </div>
       </div>
     ),
