@@ -50,7 +50,7 @@ function ProjectVisual({ type, color }: { type: ProjectVisualType; color: string
             </div>
             <div className="rounded-md border p-4" style={{ borderColor: `${color}55`, background: `${color}12` }}>
               <div className="text-2xl font-extrabold md:text-4xl" style={{ color }}>AI</div>
-              <div className="mt-1 text-[9px] tracking-[0.08em] text-white/45 md:text-[10px]">创作工作空间</div>
+              <div className="mt-1 text-[9px] tracking-[0.08em] text-white/45 md:text-[10px]">创作<span className="keep-phrase">工作空间</span></div>
             </div>
           </div>
         </div>
@@ -180,11 +180,18 @@ function ProjectCard({ project }: { project: Project }) {
           <span>{project.year}</span>
         </div>
         <h3 className="text-[clamp(1.7rem,3vw,2.8rem)] font-semibold leading-[1.15] tracking-[-0.025em]">{project.title}</h3>
-        <p className={`mt-3 text-sm leading-7 text-white/60 md:text-[15px] ${isLead ? "lg:col-start-2 lg:row-start-1 lg:mt-0" : ""}`}>{project.description}</p>
-        <p className={`mt-4 border-l-2 pl-3 text-xs font-medium leading-6 text-white/78 md:text-sm ${isLead ? "lg:col-start-1" : ""}`} style={{ borderColor: project.color }}>{project.role}</p>
+        <p className={`copy-pretty mt-3 text-sm leading-7 text-white/64 md:text-[15px] ${isLead ? "lg:col-start-2 lg:row-start-1 lg:mt-0" : ""}`}>{project.description}</p>
+        <div className={`mt-4 flex flex-wrap gap-x-2 gap-y-1 border-l-2 pl-3 text-xs font-medium leading-6 text-white/80 md:text-sm ${isLead ? "lg:col-start-1" : ""}`} style={{ borderColor: project.color }}>
+          {project.role.map((item, index) => (
+            <span key={item} className="inline-flex whitespace-nowrap">
+              {index > 0 ? <span className="mr-2 text-white/28" aria-hidden="true">·</span> : null}
+              {item}
+            </span>
+          ))}
+        </div>
         <div className={`mt-5 flex flex-wrap gap-x-3 gap-y-2 ${isLead ? "lg:col-start-2" : ""}`}>
           {project.tags.map((tag) => (
-            <span key={tag} className="border-r border-white/15 pr-3 text-[11px] text-white/48 last:border-r-0 last:pr-0">{tag}</span>
+            <span key={tag} className="whitespace-nowrap border-r border-white/15 pr-3 text-[11px] text-white/48 last:border-r-0 last:pr-0">{tag}</span>
           ))}
         </div>
         {project.href && (
@@ -246,15 +253,15 @@ export default function Works() {
       <div className="shell">
         <div className="mb-16 grid gap-10 md:mb-20 md:grid-cols-[1.05fr_.95fr] md:items-end md:gap-20">
           <div>
-            <p className="mb-5 text-[11px] tracking-[0.08em] text-[#83e2ca]">02 / 项目</p>
-            <h2 className="font-sans text-[clamp(3.3rem,7.5vw,7.5rem)] font-semibold leading-[1.02] tracking-[-0.025em]">
+            <p className="mb-5 font-mono text-[11px] tracking-[0.08em] text-[#83e2ca]">02 / 项目</p>
+            <h2 className="font-sans text-[clamp(3.3rem,7.5vw,7.5rem)] font-extrabold leading-[1.02] tracking-[-0.025em] max-[520px]:leading-[1.04]">
               <span className="block">项目与</span>
               <span className="mt-[0.08em] block text-white/45">工具实践</span>
             </h2>
           </div>
           <div className="max-w-xl md:justify-self-end">
-            <p className="text-[clamp(1rem,1.45vw,1.35rem)] leading-[1.7] text-white/62">
-              这些项目来自实际制作中的具体需求，涉及 AIGC 协作、提示词工具、本地声音方案与后期流程自动化。
+            <p className="copy-pretty text-[clamp(1rem,1.45vw,1.35rem)] leading-[1.7] text-white/62">
+              这些项目都从真实制作问题出发，把<span className="keep-phrase">AIGC 协作</span>、提示词、本地声音与后期自动化转化为可用的工具和流程。
             </p>
           </div>
         </div>

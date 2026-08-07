@@ -1,17 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Syne, Space_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION, BILIBILI_URL } from "@/lib/site";
 
-const syne = Syne({
-  variable: "--font-syne",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const spaceMono = Space_Mono({
-  variable: "--font-space-mono",
-  subsets: ["latin"],
-  weight: ["400", "700"],
 });
 
 const title = SITE_TITLE;
@@ -77,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" className={`${syne.variable} ${spaceMono.variable}`}>
+    <html lang="zh-CN" className={inter.variable}>
       <body>
         <script
           type="application/ld+json"

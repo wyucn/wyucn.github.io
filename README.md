@@ -2,9 +2,13 @@
 
 王玉的个人作品集网站 —— 视频后期 / Motion & AIGC。
 
-单页作品集，包含 Hero、Showreel、精选作品、工作经历、能力、关于我和联系方式等模块。
+线上地址：<https://wyucn.github.io>
 
-当前品牌视觉以深墨黑、暖纸白与玉青为骨架：全屏影像 Hero 建立职业识别，深色长页承载 Showreel、项目、经历与能力，斜体 `WANGYU` 字标保持稳定的个人识别，联系区以靠右、完整且清晰的邮箱信息收束页面。项目区采用 8/4 与 6/6 的非对称视觉网格。整体吸收赛车手官网的编辑感、超大排版、强影像入口和滚动节奏，但文案与媒体均使用王玉自己的内容，不复制参考站品牌素材。
+这是当前正式维护的单页作品集，页面依次包含 Hero、Showreel、六个项目、工作经历、能力、关于我和联系方式。
+
+生产版本采用固定深色电影感长页：墨黑承担环境与内容背景，暖纸白用于主要文字和 CTA，玉青 `#83E2CA` 用于品牌与交互状态。全屏影像 Hero 建立职业识别，标题从首屏中央随滚动缩放归位，王玉的手写签名以玉青路径在标题后方逐渐写出；左上保留斜体 `WANGYU` 字标，页尾不重复签名。项目区在超宽桌面采用 8/4 首组与后续 6/6 的非对称网格；联系区在桌面端以靠右、完整且清晰的邮箱收束页面。
+
+C 盘中的纯静态版本仅保留为历史视觉原型。当前功能、内容、SEO 和部署均以本仓库为准。
 
 ## 技术栈
 
@@ -12,7 +16,6 @@
 - React 19 + TypeScript
 - [Tailwind CSS 4](https://tailwindcss.com)
 - [GSAP](https://gsap.com) —— 滚动触发与入场动画
-- [Lenis](https://github.com/darkroomengineering/lenis) —— 平滑滚动
 
 ## 本地开发
 
@@ -20,6 +23,7 @@
 npm install      # 安装依赖
 npm run dev      # 启动开发服务器 http://localhost:3000
 npm run lint     # 代码检查
+npm run build    # 生产构建与静态导出
 ```
 
 ## 构建与部署
@@ -28,30 +32,35 @@ npm run lint     # 代码检查
 npm run build    # 静态导出，产物在 out/ 目录
 ```
 
-本项目使用 `output: "export"`，构建产物为纯静态文件（`out/`），可直接部署到任意静态托管（如对象存储 / Nginx / Vercel / GitHub Pages）。
+本项目使用 `output: "export"`，构建产物为纯静态文件（`out/`）。`out/` 与 `.next/` 都是忽略的生成目录，不提交到 Git。
 
-## 上线前需要补充的内容
+推送到 `main` 后，[GitHub Actions](.github/workflows/deploy.yml) 使用 Node.js 22 执行 `npm ci` 和 `npm run build`，再将 `out/` 自动部署到 GitHub Pages。其他静态托管也可直接使用同一构建产物。
 
-- 为 `src/data/projects.ts` 中的六个真实项目补充可公开封面、截图、短视频与更多链接。
-- 放入简历 `public/resume.pdf` 后，可在「关于我」区开启「下载简历」按钮。
-- 在 `src/components/Footer.tsx` 中补全社媒真实链接（YouTube / Behance / Twitter 等）。
+## 当前内容状态与后续完善
+
+- Hero 背景视频、Hero 海报、Showreel 视频、Showreel 海报和头像均已使用真实媒体。
+- 六个项目已有真实文案、职责和标签，但当前仍以 CSS 示意视觉为主；只有 Haitun Post Studio 提供公开访问链接。
+- 尚未加入可公开的 PDF 简历；补充后应在联系区增加下载入口。
+- 当前确认公开的社媒只有哔哩哔哩；其他平台应在本人确认真实主页后再添加。
+- 后续优先补充项目截图、制作过程、职责边界和可公开结果证据，而不是继续增加装饰性占位图。
 
 ## 设计与内容文档
 
-- `docs/个人网站配色规范-墨海玉青.md`
-- `docs/招聘向网站文案-审阅稿-v2.md`
-- `docs/重设计整合说明-2026-08-06.md`
-- `docs/视觉系统-车手官网启发-v3.md`
+- [`docs/视觉系统-当前生产基线-v4.md`](docs/视觉系统-当前生产基线-v4.md)：唯一现行视觉与交互规范。
+- [`docs/招聘向网站文案-长文案素材库-v2.md`](docs/招聘向网站文案-长文案素材库-v2.md)：长文案素材库，线上采用压缩版本，不保证逐字一致。
+- `docs/archive/`：已废止的配色方案、视觉研究与历史整合记录，不作为生产实现依据。
 
 ## 目录结构
 
 ```
 src/
   app/          页面、布局、全局样式、SEO 文件（sitemap / robots / OG 图）
-  components/   各区块组件（Hero / Works / Showreel / About / Footer ...）
+  components/   Hero、Showreel、Works、Experience、Capabilities、About、Footer 等区块
   data/         作品等内容数据（与组件分离，便于维护）
+  lib/          站点 URL、SEO 文案和公开社媒常量
 public/
-  images/       头像、封面图
-  videos/       Showreel 视频
-docs/           品牌配色、招聘文案与重设计整合记录
+  images/       头像、Hero 与 Showreel 海报
+  videos/       Hero 背景与 Showreel 视频
+docs/           当前视觉基线、文案素材与历史归档
+.github/        GitHub Pages 自动构建与部署工作流
 ```

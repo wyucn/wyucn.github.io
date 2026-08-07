@@ -18,6 +18,7 @@
   --line-light: rgba(255, 255, 255, 0.16);
   --shell: min(1500px, calc(100vw - 72px));
   --ease-brand: cubic-bezier(0.65, 0.05, 0, 1);
+  --font-ui: var(--font-inter), "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
 
   /* Compatibility tokens used by the visual project illustrations. */
   --c-bg: var(--ink);
@@ -40,8 +41,8 @@
 @theme inline {
   --color-background: var(--paper);
   --color-foreground: var(--ink);
-  --font-sans: var(--font-syne);
-  --font-mono: var(--font-space-mono);
+  --font-sans: var(--font-ui);
+  --font-mono: "Courier New", "Microsoft YaHei", monospace;
 }
 
 @layer base {
@@ -53,7 +54,7 @@
 
   html {
     background: var(--ink);
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
     scroll-padding-top: 88px;
     scrollbar-gutter: stable;
   }
@@ -75,7 +76,7 @@
     overflow-x: clip;
     background: var(--ink);
     color: var(--ink);
-    font-family: var(--font-syne), "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-family: var(--font-ui);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -190,11 +191,68 @@
 }
 
 .eyebrow {
-  font-family: var(--font-space-mono), monospace;
+  font-family: "Courier New", "Microsoft YaHei", monospace;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+.copy-pretty {
+  text-wrap: pretty;
+}
+
+@supports (word-break: auto-phrase) {
+  .copy-pretty {
+    word-break: auto-phrase;
+  }
+}
+
+.keep-phrase {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hero-track {
+  height: 155svh;
+}
+
+.hero-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) and (min-height: 681px) {
+  .hero-title-motion {
+    opacity: 0;
+  }
+
+  .hero-supporting {
+    visibility: hidden;
+    transform: translateY(18px);
+    opacity: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-track {
+    height: 180svh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (max-height: 680px) {
+  .hero-track {
+    min-height: 100svh;
+    height: auto;
+  }
+
+  .hero-stage {
+    position: relative;
+    min-height: 100svh;
+    height: auto;
+  }
 }
 
 .btn-lime,

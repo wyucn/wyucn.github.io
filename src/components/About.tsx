@@ -50,25 +50,25 @@ export default function About() {
           </div>
 
           <div className="about-reveal flex flex-col justify-center p-7 md:p-14 lg:p-[clamp(3.5rem,6vw,6.5rem)]">
-            <p className="text-[11px] tracking-[0.08em] text-[#83e2ca]">05 / 关于</p>
-            <h2 className="mt-5 font-sans text-[clamp(3.3rem,6.5vw,6.8rem)] font-semibold leading-[1.02] tracking-[-0.025em]">
+            <p className="font-mono text-[11px] tracking-[0.08em] text-[#83e2ca]">05 / 关于</p>
+            <h2 className="mt-5 font-sans text-[clamp(3.3rem,6.5vw,6.8rem)] font-extrabold leading-[1.02] tracking-[-0.025em] max-[520px]:leading-[1.04]">
               <span className="block">关于我</span>
               <span className="mt-[0.08em] block text-white/45">工作方式</span>
             </h2>
 
             <div className="mt-12 grid gap-7 text-sm leading-8 text-white/68 md:grid-cols-2 md:text-[15px]">
-              <p>
-                自 2020 年进入内容视频行业以来，我长期参与教育内容与动画项目，工作覆盖制作、协作与交付。近一年，我把更多精力投入生成式影像、AI 声音与轻量工具实践。
+              <p className="copy-pretty">
+                自 2020 年起，我长期参与教育视频与动画项目，工作从剪辑、动效和<span className="keep-phrase">声音处理</span>，延伸到协作对接与<span className="keep-phrase">最终交付</span>。近一年，我把更多精力投入生成式影像、AI 声音和轻量工具实践。
               </p>
-              <p>
-                在工具项目中，我主要负责发现问题、定义需求、设计流程、测试验收与持续迭代，具体实现通过 AI 协作完成。
+              <p className="copy-pretty">
+                在工具项目中，我负责发现问题、定义需求、设计流程、测试验收与持续迭代；具体实现则通过<span className="keep-phrase">AI 协作</span>完成。
               </p>
             </div>
 
             <div className="mt-12 grid gap-5 border-t border-white/15 pt-7 md:grid-cols-[180px_1fr]">
               <span className="text-[11px] font-semibold tracking-[0.08em] text-[#83e2ca]">与 AI 协作</span>
-              <p className="text-sm leading-7 text-white/68 md:text-[15px]">
-                我从内容生产现场出发，定义问题、梳理流程，并验证工具在具体制作中的可用性。
+              <p className="copy-pretty text-sm leading-7 text-white/68 md:text-[15px]">
+                我更关注工具能否真正进入制作：从内容生产现场发现问题、梳理流程，再回到实际项目中验证。
               </p>
             </div>
           </div>

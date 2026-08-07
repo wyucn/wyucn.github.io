@@ -43,19 +43,19 @@ export default function Footer() {
 
       <div className="shell relative z-10">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-6 text-[11px] tracking-[0.08em]">
-          <p className="text-[#83e2ca]">06 / 联系</p>
-          <span className="text-white/50">目前在职 / 欢迎邮件联系</span>
+          <p className="font-mono text-[#83e2ca]">06 / 联系</p>
+          <span className="text-white/52">目前在职 · 欢迎来信</span>
         </div>
 
-        <h2 className="mt-14 max-w-5xl font-sans text-[clamp(3.3rem,8vw,8rem)] font-semibold leading-[1.02] tracking-[-0.025em]">
+        <h2 className="mt-14 max-w-5xl font-sans text-[clamp(3.3rem,8vw,8rem)] font-extrabold leading-[1.02] tracking-[-0.025em] max-[520px]:leading-[1.04]">
           <span className="block">联系与</span>
           <span className="mt-[0.08em] block text-white/45">交流</span>
         </h2>
 
         <div className="mt-14 grid gap-10 border-t border-white/15 pt-9 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
           <div>
-            <p className="max-w-2xl text-[clamp(1rem,1.45vw,1.3rem)] leading-[1.75] text-white/62">
-              目前在职，也愿意了解合适的机会，并与团队和同行交流视频后期、Motion Design 与 AI 工作流。
+            <p className="copy-pretty max-w-2xl text-[clamp(1rem,1.45vw,1.3rem)] leading-[1.75] text-white/66">
+              目前在职，也对合适的机会与行业交流保持开放。如果你关注视频后期、<span className="keep-phrase">Motion Design</span> 或 <span className="keep-phrase">AI 工作流</span>，欢迎来信。
             </p>
             <p className="mt-6 text-[11px] tracking-[0.08em] text-white/45">中国 / GMT+8</p>
           </div>
@@ -80,9 +80,9 @@ export default function Footer() {
             </span>
             <a
               href={`mailto:${EMAIL}`}
-              className="inline-block max-w-full whitespace-nowrap border-b border-[rgba(131,226,202,.68)] pb-2 text-[clamp(1.3125rem,2.15vw,2.25rem)] font-semibold leading-[1.35] tracking-normal text-white transition-colors hover:border-[#83e2ca] hover:text-[#83e2ca] focus-visible:border-[#83e2ca] focus-visible:text-[#83e2ca]"
+              className="inline-block w-full max-w-full border-b border-[rgba(131,226,202,.68)] pb-2 text-[clamp(1.3125rem,2.15vw,2.25rem)] font-semibold leading-[1.35] tracking-normal text-white transition-colors [overflow-wrap:anywhere] hover:border-[#83e2ca] hover:text-[#83e2ca] focus-visible:border-[#83e2ca] focus-visible:text-[#83e2ca] sm:w-auto"
               style={{
-                fontFamily: 'Inter, "Segoe UI", Arial, sans-serif',
+                fontFamily: "var(--font-ui)",
                 fontVariantLigatures: "none",
                 fontFeatureSettings: '"liga" 0, "calt" 0',
               }}
@@ -94,7 +94,7 @@ export default function Footer() {
 
         <div className="mt-20 flex flex-col gap-3 border-t border-white/15 py-7 text-[10px] tracking-[0.05em] text-white/55 sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} 王玉</span>
-          <span>视频后期 · Motion Design · AI 创意工作流</span>
+          <span>视频后期 · <span className="keep-phrase">Motion Design</span> · <span className="keep-phrase">AI 创意工作流</span></span>
         </div>
       </div>
 

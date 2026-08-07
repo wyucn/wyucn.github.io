@@ -6,12 +6,10 @@ import Experience from "@/components/Experience";
 import Capabilities from "@/components/Capabilities";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
-import SmoothScroll from "@/components/SmoothScroll";
 
 export default function Home() {
   return (
     <>
-      <SmoothScroll />
       <a className="skip-link" href="#main-content">跳到主要内容</a>
 
       <Navbar />

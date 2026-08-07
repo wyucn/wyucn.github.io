@@ -44,13 +44,13 @@ export default function Showreel() {
             <p className="font-mono text-[9px] font-bold tracking-[0.14em] text-[#83e2ca]">
               01 / 视频作品
             </p>
-            <h2 className="mt-5 max-w-3xl text-[clamp(3.8rem,8.5vw,8rem)] font-extrabold leading-[.98] tracking-[-0.045em]">
+            <h2 className="mt-5 max-w-3xl text-[clamp(3.8rem,8.5vw,8rem)] font-extrabold leading-[.98] tracking-[-0.045em] max-[820px]:leading-[1.02] max-[520px]:leading-[1.04] max-[520px]:tracking-[-0.025em]">
               <span className="block">视频作品</span>
               <span className="mt-[.08em] block text-white/40">选集</span>
             </h2>
           </div>
-          <p className="max-w-xl text-[clamp(1rem,1.5vw,1.35rem)] leading-[1.7] text-white/62 md:justify-self-end">
-            2022—2025 年的视频后期、动态视觉与声音处理作品选集。
+          <p className="copy-pretty max-w-xl text-[clamp(1rem,1.5vw,1.35rem)] leading-[1.7] text-white/66 md:justify-self-end">
+            收录 2022—2025 年的剪辑、动态视觉、合成与<span className="keep-phrase">声音处理</span>作品。
           </p>
         </div>
 
@@ -81,8 +81,8 @@ export default function Showreel() {
               aria-label="王玉 2022 至 2025 视频后期与动态视觉作品选集"
             />
           </div>
-          <figcaption className="mt-4 text-xs leading-6 text-white/52 md:text-sm">
-            作品以动态画面、剪辑节奏、合成和声音处理为主；下方项目区提供对应的职责与工作流说明。
+          <figcaption className="copy-pretty mt-4 text-xs leading-6 text-white/56 md:text-sm">
+            聚焦剪辑节奏、动态设计、合成与<span className="keep-phrase">声音处理</span>；下方项目展示对应职责与<span className="keep-phrase">工作流程</span>。
           </figcaption>
         </figure>
       </div>
