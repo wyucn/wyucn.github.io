@@ -1,40 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const skills = [
-  "视频剪辑",
-  "Motion Design",
-  "动画后期",
-  "声音处理",
-  "质量审阅",
-  "模型评测",
-  "提示词设计",
-  "流程规范",
-];
-
-const tools = [
-  "After Effects",
-  "Premiere Pro",
-  "剪映",
-  "Codex",
-  "Claude",
-  "Cursor",
-  "Seedance",
-  "MiniMax",
-  "Wan",
-  "LTX",
-  "即梦",
-  "GPT Image",
-  "Qwen3-TTS",
-  "RVC",
-  "Suno",
-];
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -44,16 +15,12 @@ export default function About() {
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const ctx = gsap.context(() => {
         gsap.from(".about-reveal", {
-          scrollTrigger: { trigger: sectionRef.current, start: "top 76%" },
-          y: 42,
-          duration: 0.75,
-          stagger: 0.08,
+          scrollTrigger: { trigger: sectionRef.current, start: "top 78%" },
+          y: 46,
+          opacity: 0,
+          duration: 0.85,
+          stagger: 0.09,
           ease: "power3.out",
-        });
-        gsap.from(".about-portrait-inner", {
-          scrollTrigger: { trigger: ".about-portrait", start: "top bottom", end: "bottom top", scrub: true },
-          yPercent: -8,
-          ease: "none",
         });
       }, sectionRef);
       return () => ctx.revert();
@@ -62,73 +29,47 @@ export default function About() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="relative px-5 py-24 md:px-10 md:py-36">
-      <div className="mx-auto max-w-[1400px]">
-        <div className="about-reveal mb-12 md:mb-20">
-          <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] md:text-sm" style={{ color: "var(--c-accent)" }}>About / Wang Yu</p>
-          <h2 className="display-title text-[clamp(2.8rem,8vw,7rem)] font-extrabold uppercase leading-[0.88] tracking-tighter" style={{ color: "var(--c-fg)" }}>
-            Post to<br /><span className="gradient-text">Prompt</span>
-          </h2>
-        </div>
-
-        <div className="grid items-start gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
-          <div className="about-portrait about-reveal relative mx-auto w-full max-w-xl">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border" style={{ background: "var(--c-surface)", borderColor: "var(--c-border)" }}>
-              <div className="about-portrait-inner absolute -inset-y-[8%] inset-x-0">
-                <Image
-                  src="/images/avatar.png"
-                  alt="王玉"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-cover object-center"
-                />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--c-bg-alpha40), transparent 50%)" }} />
-              </div>
-              <div className="absolute bottom-5 left-5 right-5 rounded-xl border bg-black/45 p-4 backdrop-blur-md" style={{ borderColor: "rgba(255,255,255,.12)" }}>
-                <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-white/65">
-                  <span className="h-2 w-2 rounded-full" style={{ background: "var(--c-accent)" }} />
-                  Open to the right opportunity
-                </div>
-              </div>
+    <section ref={sectionRef} id="about" className="section-dark py-20 md:py-28">
+      <div className="shell">
+        <div className="relative grid min-h-[720px] overflow-hidden rounded-lg border border-white/15 bg-[#0e1113] lg:grid-cols-[.72fr_1.28fr]">
+          <div className="about-reveal relative min-h-[500px] overflow-hidden border-b border-white/15 bg-[radial-gradient(circle_at_50%_28%,rgba(131,226,202,.13),transparent_38%)] lg:min-h-[720px] lg:border-b-0 lg:border-r">
+            <div className="absolute left-1/2 top-[14%] aspect-square w-[76%] -translate-x-1/2 rounded-full border border-[rgba(131,226,202,.3)]" aria-hidden="true">
+              <span className="absolute inset-[12%] rounded-full border border-white/10" />
+              <span className="absolute inset-[28%] rounded-full border border-white/10" />
             </div>
+            <div className="absolute inset-x-0 bottom-0 top-[7%]">
+              <Image
+                src="/images/avatar.png"
+                alt="王玉的卡通头像"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-contain object-bottom contrast-[1.05] saturate-[1.02]"
+              />
+            </div>
+            <span className="absolute bottom-5 right-5 z-10 text-[10px] tracking-[0.08em] text-[#83e2ca]">视频 / 声音 / 工作流</span>
           </div>
 
-          <div className="flex flex-col gap-8">
-            <div className="about-reveal space-y-5">
-              <p className="text-xl font-light leading-9 md:text-2xl md:leading-10" style={{ color: "var(--c-fg-secondary)" }}>
-                我是一名视频后期与动态视觉创作者。自 2020 年进入内容视频行业以来，工作覆盖剪辑、动效、声音处理、质量审阅与最终交付。
+          <div className="about-reveal flex flex-col justify-center p-7 md:p-14 lg:p-[clamp(3.5rem,6vw,6.5rem)]">
+            <p className="text-[11px] tracking-[0.08em] text-[#83e2ca]">05 / 关于</p>
+            <h2 className="mt-5 font-sans text-[clamp(3.3rem,6.5vw,6.8rem)] font-semibold leading-[1.02] tracking-[-0.025em]">
+              <span className="block">关于我</span>
+              <span className="mt-[0.08em] block text-white/45">工作方式</span>
+            </h2>
+
+            <div className="mt-12 grid gap-7 text-sm leading-8 text-white/68 md:grid-cols-2 md:text-[15px]">
+              <p>
+                自 2020 年进入内容视频行业以来，我长期参与教育内容与动画项目，工作覆盖制作、协作与交付。近一年，我把更多精力投入生成式影像、AI 声音与轻量工具实践。
               </p>
-              <p className="text-sm leading-8 md:text-base" style={{ color: "var(--c-muted)" }}>
-                除具体制作外，我也承担任务分发、制作对接、交付标准梳理和知识沉淀，持续改善编导、美术与后期之间的协作方式。
-              </p>
-              <p className="text-sm leading-8 md:text-base" style={{ color: "var(--c-muted)" }}>
-                近一年，我将主要精力投入 AI 探索：一方面持续测试视频、图像、语音和音乐模型；另一方面与 Codex、Claude 协作，把后期团队的真实需求转化为可以使用的平台和工具。
+              <p>
+                在工具项目中，我主要负责发现问题、定义需求、设计流程、测试验收与持续迭代，具体实现通过 AI 协作完成。
               </p>
             </div>
 
-            <div className="about-reveal rounded-2xl border p-5 md:p-6" style={{ borderColor: "var(--c-accent-30)", background: "var(--c-accent-5)" }}>
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em]" style={{ color: "var(--c-accent)" }}>How I work with AI</p>
-              <p className="mt-3 text-sm leading-7" style={{ color: "var(--c-fg-secondary)" }}>
-                我不把自己定位成传统开发者。具体编码主要由 AI 协助完成；我的优势是发现制作问题、定义需求、实际测试并持续反馈，判断工具是否真正适合内容生产。
+            <div className="mt-12 grid gap-5 border-t border-white/15 pt-7 md:grid-cols-[180px_1fr]">
+              <span className="text-[11px] font-semibold tracking-[0.08em] text-[#83e2ca]">与 AI 协作</span>
+              <p className="text-sm leading-7 text-white/68 md:text-[15px]">
+                我从内容生产现场出发，定义问题、梳理流程，并验证工具在具体制作中的可用性。
               </p>
-            </div>
-
-            <div className="about-reveal skills-area">
-              <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.2em]" style={{ color: "var(--c-muted)" }}>Capabilities</h3>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <span key={skill} className="skill-tag tag interactive rounded-full px-4 py-2 text-sm transition-colors duration-300">{skill}</span>
-                ))}
-              </div>
-            </div>
-
-            <div className="about-reveal">
-              <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.2em]" style={{ color: "var(--c-muted)" }}>Tools I actually use</h3>
-              <div className="flex flex-wrap gap-2">
-                {tools.map((tool) => (
-                  <span key={tool} className="skill-tag tag-mono rounded-lg px-3 py-2 font-mono text-[11px] transition-colors duration-300">{tool}</span>
-                ))}
-              </div>
             </div>
           </div>
         </div>

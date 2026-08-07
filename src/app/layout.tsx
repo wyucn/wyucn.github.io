@@ -1,13 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Syne, Space_Mono } from "next/font/google";
 import "./globals.css";
-import ThemeProvider from "@/components/ThemeProvider";
 import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION, BILIBILI_URL } from "@/lib/site";
 
 const syne = Syne({
   variable: "--font-syne",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
 });
 
 const spaceMono = Space_Mono({
@@ -59,10 +57,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0c1721" },
-    { media: "(prefers-color-scheme: light)", color: "#f5f1e8" },
-  ],
+  themeColor: "#07090a",
 };
 
 // 结构化数据：帮助搜索引擎理解“这是谁”。sameAs 后续可补全各社媒主页。
@@ -70,7 +65,7 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "王玉",
-  jobTitle: "视频后期 / Motion Design / AI Creative Workflow",
+  jobTitle: "视频后期 / Motion Design / AI 工作流实践",
   description,
   url: SITE_URL,
   sameAs: [BILIBILI_URL],
@@ -82,13 +77,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" className={`${syne.variable} ${spaceMono.variable}`} data-theme="dark" suppressHydrationWarning>
+    <html lang="zh-CN" className={`${syne.variable} ${spaceMono.variable}`}>
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <ThemeProvider>{children}</ThemeProvider>
+        {children}
       </body>
     </html>
   );

@@ -14,10 +14,11 @@ export default function Showreel() {
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const ctx = gsap.context(() => {
         gsap.from(".showreel-reveal", {
-          scrollTrigger: { trigger: sectionRef.current, start: "top 92%" },
-          y: 34,
-          duration: 0.7,
-          stagger: 0.08,
+          scrollTrigger: { trigger: sectionRef.current, start: "top 82%" },
+          y: 48,
+          opacity: 0,
+          duration: 0.85,
+          stagger: 0.1,
           ease: "power3.out",
         });
       }, sectionRef);
@@ -27,59 +28,63 @@ export default function Showreel() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="showreel" className="relative overflow-hidden px-5 py-20 md:px-10 md:py-28">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, var(--c-accent-30), transparent)" }} />
+    <section
+      ref={sectionRef}
+      id="showreel"
+      className="section-dark relative overflow-hidden py-28 md:py-40"
+    >
+      <div
+        className="pointer-events-none absolute left-[-12%] top-[-28%] h-[44rem] w-[44rem] rounded-full bg-[rgba(131,226,202,.055)] blur-[150px]"
+        aria-hidden="true"
+      />
 
-      <div className="mx-auto max-w-[1400px]">
-        <div className="showreel-reveal">
-          <div className="flex flex-col gap-4 border-b pb-5 sm:flex-row sm:items-end sm:justify-between" style={{ borderColor: "var(--c-border)" }}>
-            <p className="font-mono text-xs uppercase tracking-[0.32em] md:text-sm" style={{ color: "var(--c-accent)" }}>
-              Motion Reel / 2022—2025
+      <div className="shell relative z-10">
+        <div className="showreel-reveal grid gap-10 md:grid-cols-[1.15fr_.85fr] md:items-end md:gap-16">
+          <div>
+            <p className="font-mono text-[9px] font-bold tracking-[0.14em] text-[#83e2ca]">
+              01 / 视频作品
             </p>
-            <div className="flex flex-wrap items-center gap-3 font-mono text-[9px] uppercase tracking-[0.2em] md:text-[10px]" style={{ color: "var(--c-muted)" }}>
-              <span>60 seconds</span>
-              <span className="h-1 w-1 rounded-full" style={{ background: "var(--c-accent)" }} />
-              <span>Edit · Motion · Compositing</span>
-            </div>
-          </div>
-
-          <div className="relative py-7 md:py-10">
-            <h2 className="display-title flex flex-col text-[clamp(2.75rem,7vw,8rem)] font-extrabold uppercase leading-[0.76] tracking-[-0.065em] sm:flex-row sm:items-baseline" aria-label="Showreel">
-              <span style={{ color: "var(--c-fg)" }}>Show</span>
-              <span className="gradient-text sm:ml-[0.035em]">reel</span>
+            <h2 className="mt-5 max-w-3xl text-[clamp(3.8rem,8.5vw,8rem)] font-extrabold leading-[.98] tracking-[-0.045em]">
+              <span className="block">视频作品</span>
+              <span className="mt-[.08em] block text-white/40">选集</span>
             </h2>
           </div>
-
-          <div className="grid gap-5 border-t pt-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end" style={{ borderColor: "var(--c-border)" }}>
-            <p className="max-w-2xl text-sm leading-7 md:text-base md:leading-8" style={{ color: "var(--c-muted)" }}>
-              60 秒动态视觉与后期作品节选。先看作品，再了解我如何把 AIGC 与工具探索带进真实制作流程。
-            </p>
-            <div className="flex flex-wrap gap-2 md:justify-end">
-              {["SELECTED MOTION", "2022—2025", "01 / 01"].map((item) => (
-                <span key={item} className="rounded-full border px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.16em]" style={{ borderColor: "var(--c-border)", color: "var(--c-muted)" }}>
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
+          <p className="max-w-xl text-[clamp(1rem,1.5vw,1.35rem)] leading-[1.7] text-white/62 md:justify-self-end">
+            2022—2025 年的视频后期、动态视觉与声音处理作品选集。
+          </p>
         </div>
 
-        <div className="showreel-reveal mt-10 rounded-[1.6rem] p-px md:mt-14 md:rounded-[2rem]" style={{ background: "linear-gradient(135deg, var(--c-accent-40), var(--c-border) 38%, var(--c-gradient-tertiary))" }}>
-          <div className="relative aspect-video overflow-hidden rounded-[calc(1.6rem-1px)] bg-black md:rounded-[calc(2rem-1px)]">
+        <figure className="showreel-reveal relative mt-16 rounded-[10px] border border-white/15 bg-[#0d1011] px-4 pb-4 pt-14 md:px-10 md:pb-10 md:pt-20">
+          <span className="absolute left-5 top-5 font-mono text-[9px] tracking-[0.13em] text-[#83e2ca]">
+            作品选集 · 2022—2025
+          </span>
+          <span className="absolute right-5 top-5 hidden font-mono text-[9px] tracking-[0.12em] text-white/55 sm:block">
+            60 秒 / 剪辑 · 动态视觉 · 合成
+          </span>
+          <span
+            className="absolute left-4 top-4 h-5 w-5 border-l border-t border-[#83e2ca]"
+            aria-hidden="true"
+          />
+          <span
+            className="absolute bottom-4 right-4 h-5 w-5 border-b border-r border-[#83e2ca]"
+            aria-hidden="true"
+          />
+
+          <div className="relative aspect-video overflow-hidden rounded-[4px] bg-black">
             <video
               src="/videos/2022-2025.mp4"
               poster="/images/showreel-poster.jpg"
               className="absolute inset-0 h-full w-full object-cover"
               controls
               playsInline
-              preload="metadata"
-              aria-label="王玉 2022 至 2025 视频后期与动态视觉 Showreel"
+              preload="none"
+              aria-label="王玉 2022 至 2025 视频后期与动态视觉作品选集"
             />
-            <div className="pointer-events-none absolute left-4 top-4 z-10 rounded-full border bg-black/50 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.18em] text-white/75 backdrop-blur-md md:left-5 md:top-5" style={{ borderColor: "rgba(255,255,255,.16)" }}>
-              Wang Yu / Motion Reel
-            </div>
           </div>
-        </div>
+          <figcaption className="mt-4 text-xs leading-6 text-white/52 md:text-sm">
+            作品以动态画面、剪辑节奏、合成和声音处理为主；下方项目区提供对应的职责与工作流说明。
+          </figcaption>
+        </figure>
       </div>
     </section>
   );
