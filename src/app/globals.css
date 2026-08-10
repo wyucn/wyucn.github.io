@@ -235,6 +235,19 @@
     inset 0 -1px 0 rgba(131, 226, 202, 0.1);
 }
 
+.selected-frames-stage {
+  min-height: 100svh;
+  overflow: visible;
+}
+
+@media (min-width: 1024px) and (min-height: 681px) and (prefers-reduced-motion: no-preference) {
+  .selected-frames-stage {
+    height: 100svh;
+    min-height: 681px;
+    overflow: hidden;
+  }
+}
+
 .hero-track {
   height: 155svh;
 }

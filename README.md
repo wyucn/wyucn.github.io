@@ -4,9 +4,9 @@
 
 线上地址：<https://wyucn.github.io>
 
-这是当前正式维护的单页作品集，页面依次包含 Hero、Showreel、六个项目、工作经历、能力、关于我和联系方式。
+这是当前正式维护的单页作品集，页面依次包含 Hero、Showreel、Selected Frames 横向画廊、六个项目、三幕工作经历、能力、关于我和联系方式。
 
-生产版本采用固定深色电影感长页：墨黑承担环境与内容背景，暖纸白用于主要文字和 CTA，玉青 `#83E2CA` 用于品牌与交互状态。全屏影像 Hero 建立职业识别，标题从首屏中央随滚动缩放归位，王玉的手写签名以玉青路径在标题后方逐渐写出；左上保留斜体 `WANGYU` 字标，页尾不重复签名。项目区在超宽桌面采用 8/4 首组与后续 6/6 的非对称网格；联系区在桌面端以靠右、完整且清晰的邮箱收束页面。
+生产版本采用固定深色电影感长页：墨黑承担环境与内容背景，暖纸白用于主要文字和 CTA，玉青 `#83E2CA` 用于品牌与交互状态。全屏影像 Hero 建立职业识别，标题从首屏中央随滚动缩放归位，王玉的手写签名以玉青路径在标题后方逐渐写出；Showreel 后使用八张代表帧组成滚动驱动的横向影集，工作经历则按影像制作、制作统筹、流程与 AI 工具三幕推进。左上保留斜体 `WANGYU` 字标，页尾不重复签名。
 
 C 盘中的纯静态版本仅保留为历史视觉原型。当前功能、内容、SEO 和部署均以本仓库为准。
 
@@ -38,7 +38,7 @@ npm run build    # 静态导出，产物在 out/ 目录
 
 ## 当前内容状态与后续完善
 
-- Hero 背景视频、Hero 海报、Showreel 视频、Showreel 海报和头像均已使用真实媒体。
+- Hero 背景视频、Hero 海报、Showreel 视频、Showreel 海报、Selected Frames 八张代表帧和头像均已使用真实媒体。
 - 六个项目已有真实文案、职责和标签，但当前仍以 CSS 示意视觉为主；只有 Haitun Post Studio 提供公开访问链接。
 - 尚未加入可公开的 PDF 简历；补充后应在联系区增加下载入口。
 - 当前确认公开的社媒只有哔哩哔哩；其他平台应在本人确认真实主页后再添加。
@@ -55,11 +55,11 @@ npm run build    # 静态导出，产物在 out/ 目录
 ```
 src/
   app/          页面、布局、全局样式、SEO 文件（sitemap / robots / OG 图）
-  components/   Hero、Showreel、Works、Experience、Capabilities、About、Footer 等区块
+  components/   Hero、Showreel、SelectedFrames、Works、Experience、Capabilities、About、Footer 等区块
   data/         作品等内容数据（与组件分离，便于维护）
   lib/          站点 URL、SEO 文案和公开社媒常量
 public/
-  images/       头像、Hero 与 Showreel 海报
+  images/       头像、Hero / Showreel 海报与 Selected Frames 代表帧
   videos/       Hero 背景与 Showreel 视频
 docs/           当前视觉基线、文案素材与历史归档
 .github/        GitHub Pages 自动构建与部署工作流

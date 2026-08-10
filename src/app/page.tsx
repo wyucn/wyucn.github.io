@@ -7,6 +7,7 @@ import Capabilities from "@/components/Capabilities";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
 import AsciiStrip from "@/components/AsciiStrip";
+import SelectedFrames from "@/components/SelectedFrames";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <Hero />
         <AsciiStrip />
         <Showreel />
+        <SelectedFrames />
         <Works />
         <Experience />
         <Capabilities />
