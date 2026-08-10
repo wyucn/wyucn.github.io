@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
 import ReactDOM from "react-dom";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -530,13 +531,13 @@ export default function Hero() {
                   href="#showreel"
                   className="inline-flex min-h-[52px] items-center gap-5 rounded-[2px] bg-[#f2f1ec] px-5 text-[11px] font-extrabold tracking-[0.06em] text-[#07090a] transition hover:bg-white hover:-translate-y-0.5"
                 >
-                  观看 Showreel <span aria-hidden="true">↘</span>
+                  观看 Showreel <ArrowUpRightIcon className="rotate-90 text-base" />
                 </a>
                 <a
                   href="#works"
                   className="inline-flex min-h-[52px] items-center gap-5 border-b border-white/40 px-1 text-[11px] font-extrabold tracking-[0.06em] transition hover:border-[#83e2ca] hover:text-[#83e2ca]"
                 >
-                  项目与实践 <span aria-hidden="true">↓</span>
+                  项目与实践 <ArrowUpRightIcon className="rotate-[135deg] text-sm" />
                 </a>
               </div>
             </div>
@@ -551,8 +552,15 @@ export default function Hero() {
                 className="ml-auto inline-flex min-h-11 items-center gap-2.5 transition hover:text-[#83e2ca]"
                 aria-label={videoPaused ? "播放背景视频" : "暂停背景视频"}
               >
-                <span className="w-3 text-center text-[10px]" aria-hidden="true">
-                  {videoPaused ? "▶" : "Ⅱ"}
+                <span className="flex h-3 w-3 items-center justify-center" aria-hidden="true">
+                  {videoPaused ? (
+                    <span className="ml-0.5 block h-0 w-0 border-y-[4px] border-y-transparent border-l-[7px] border-l-current" />
+                  ) : (
+                    <span className="flex h-2.5 items-center gap-[3px]">
+                      <span className="h-full w-px bg-current" />
+                      <span className="h-full w-px bg-current" />
+                    </span>
+                  )}
                 </span>
                 <span>{videoPaused ? "播放动态" : "暂停动态"}</span>
               </button>

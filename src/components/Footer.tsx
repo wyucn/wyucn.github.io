@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
 import { BILIBILI_URL } from "@/lib/site";
 
 const EMAIL = "wangyu.hd@qq.com";
@@ -66,10 +67,10 @@ export default function Footer() {
               className="btn-lime w-full sm:w-auto"
               style={{ borderRadius: 6, backgroundColor: "#83e2ca", borderColor: "#83e2ca", color: "#07090a" }}
             >
-              发送邮件 <span aria-hidden="true">↗</span>
+              发送邮件 <ArrowUpRightIcon className="text-base" />
             </a>
             <button type="button" onClick={copyEmail} className="btn-light-outline w-full sm:w-auto" style={{ borderRadius: 6 }}>复制邮箱 <span aria-hidden="true">＋</span></button>
-            <a href={BILIBILI_URL} target="_blank" rel="noopener noreferrer" className="btn-light-outline w-full sm:w-auto" style={{ borderRadius: 6 }}>哔哩哔哩 <span aria-hidden="true">↗</span></a>
+            <a href={BILIBILI_URL} target="_blank" rel="noopener noreferrer" className="btn-light-outline w-full sm:w-auto" style={{ borderRadius: 6 }}>哔哩哔哩 <ArrowUpRightIcon className="text-base" /></a>
           </div>
         </div>
 

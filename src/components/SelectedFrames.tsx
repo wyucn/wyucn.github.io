@@ -19,7 +19,7 @@ const frames = [
     alt: "聚光灯下的动画舞台与中央角色",
     description: "用聚光、景深与角色入场建立开篇节拍。",
     itemClassName:
-      "w-[88vw] sm:w-[76vw] lg:w-[min(68vw,1040px)] lg:self-start",
+      "w-[82vw] sm:w-[76vw] lg:w-[min(68vw,1040px)] lg:self-start",
     objectPosition: "center center",
   },
   {
@@ -30,7 +30,7 @@ const frames = [
     alt: "绿色数字空间中的数学题与白色动画角色",
     description: "把抽象知识转译为可跟随的空间与动作线索。",
     itemClassName:
-      "w-[78vw] sm:w-[60vw] lg:w-[min(43vw,660px)] lg:self-end",
+      "w-[76vw] sm:w-[60vw] lg:w-[min(43vw,660px)] lg:self-end",
     objectPosition: "center center",
   },
   {
@@ -41,7 +41,7 @@ const frames = [
     alt: "画笔掠过蓝绿色颜料与水面材质",
     description: "利用真实材质的方向性，为镜头切换制造触感。",
     itemClassName:
-      "w-[82vw] sm:w-[68vw] lg:w-[min(54vw,820px)] lg:self-start",
+      "w-[80vw] sm:w-[68vw] lg:w-[min(54vw,820px)] lg:self-start",
     objectPosition: "center center",
   },
   {
@@ -52,7 +52,7 @@ const frames = [
     alt: "甜点制作游戏中的任务卡片界面",
     description: "在叙事画面里组织任务、反馈与操作焦点。",
     itemClassName:
-      "w-[76vw] sm:w-[58vw] lg:w-[min(42vw,640px)] lg:self-end",
+      "w-[74vw] sm:w-[58vw] lg:w-[min(42vw,640px)] lg:self-end",
     objectPosition: "center center",
   },
   {
@@ -63,7 +63,7 @@ const frames = [
     alt: "被红色警报光笼罩的动画实验室场景",
     description: "通过单色警报与层次雾化快速改变叙事温度。",
     itemClassName:
-      "w-[86vw] sm:w-[72vw] lg:w-[min(62vw,940px)] lg:self-start",
+      "w-[82vw] sm:w-[72vw] lg:w-[min(62vw,940px)] lg:self-start",
     objectPosition: "center center",
   },
   {
@@ -74,7 +74,7 @@ const frames = [
     alt: "从拱门望向碎裂空间与中央亮光的动画镜头",
     description: "用纵深、碎片和高亮中心强化失重感。",
     itemClassName:
-      "w-[78vw] sm:w-[61vw] lg:w-[min(45vw,690px)] lg:self-end",
+      "w-[76vw] sm:w-[61vw] lg:w-[min(45vw,690px)] lg:self-end",
     objectPosition: "center center",
   },
   {
@@ -85,7 +85,7 @@ const frames = [
     alt: "紫黑色兜帽角色的发光面部特写",
     description: "压缩景别，让轮廓光和表情承担情绪转折。",
     itemClassName:
-      "w-[80vw] sm:w-[64vw] lg:w-[min(49vw,750px)] lg:self-start",
+      "w-[78vw] sm:w-[64vw] lg:w-[min(49vw,750px)] lg:self-start",
     objectPosition: "center center",
   },
   {
@@ -96,7 +96,7 @@ const frames = [
     alt: "三名动画角色在高速运动的场景中集结",
     description: "以速度线、角色站位与音乐重拍收束段落。",
     itemClassName:
-      "w-[88vw] sm:w-[76vw] lg:w-[min(68vw,1040px)] lg:self-end",
+      "w-[82vw] sm:w-[76vw] lg:w-[min(68vw,1040px)] lg:self-end",
     objectPosition: "center center",
   },
 ] as const;
@@ -113,6 +113,8 @@ export default function SelectedFrames() {
   const progressRef = useRef<HTMLDivElement>(null);
   const progressFillRef = useRef<HTMLDivElement>(null);
   const progressTextRef = useRef<HTMLSpanElement>(null);
+  const frameIndexTextRef = useRef<HTMLSpanElement>(null);
+  const mobileHintRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -122,6 +124,8 @@ export default function SelectedFrames() {
     const progress = progressRef.current;
     const progressFill = progressFillRef.current;
     const progressText = progressTextRef.current;
+    const frameIndexText = frameIndexTextRef.current;
+    const mobileHint = mobileHintRef.current;
 
     if (
       !section ||
@@ -130,26 +134,61 @@ export default function SelectedFrames() {
       !track ||
       !progress ||
       !progressFill ||
-      !progressText
+      !progressText ||
+      !frameIndexText ||
+      !mobileHint
     ) {
       return;
     }
 
-    const setProgress = (rawValue: number) => {
+    const frameItems = Array.from(
+      track.querySelectorAll<HTMLElement>("[data-selected-frame-item]"),
+    );
+    const totalFrames = frameItems.length;
+
+    const setProgress = (rawValue: number, itemIndex?: number) => {
       const value = clampProgress(rawValue);
       const percentage = Math.round(value * 100);
+      const activeIndex = Math.min(
+        totalFrames - 1,
+        Math.max(
+          0,
+          itemIndex ?? Math.round(value * Math.max(0, totalFrames - 1)),
+        ),
+      );
 
       progressFill.style.transform = `scaleX(${value})`;
       progressText.textContent = percentage.toString().padStart(3, "0");
+      frameIndexText.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(totalFrames).padStart(2, "0")}`;
       progress.setAttribute("aria-valuenow", percentage.toString());
-      progress.setAttribute("aria-valuetext", `${percentage}%`);
+      progress.setAttribute(
+        "aria-valuetext",
+        `第 ${activeIndex + 1} / ${totalFrames} 张，${percentage}%`,
+      );
     };
 
     const getNativeTravel = () =>
       Math.max(0, viewport.scrollWidth - viewport.clientWidth);
     const syncNativeProgress = () => {
       const travel = getNativeTravel();
-      setProgress(travel > 0 ? viewport.scrollLeft / travel : 0);
+      const value = travel > 0 ? viewport.scrollLeft / travel : 0;
+      const viewportCenter = viewport.scrollLeft + viewport.clientWidth / 2;
+      let activeIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      frameItems.forEach((item, index) => {
+        const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+        const distance = Math.abs(itemCenter - viewportCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          activeIndex = index;
+        }
+      });
+
+      setProgress(value, activeIndex);
+      mobileHint.dataset.state =
+        value > 0.985 ? "ended" : viewport.scrollLeft > 8 ? "engaged" : "idle";
     };
 
     viewport.addEventListener("scroll", syncNativeProgress, { passive: true });
@@ -292,7 +331,7 @@ export default function SelectedFrames() {
             </h2>
           </div>
 
-          <div className="hidden text-right font-mono text-[9px] leading-5 tracking-[0.12em] text-white/42 sm:block">
+          <div className="hidden text-right font-mono text-[9px] leading-5 tracking-[0.12em] text-white/42 lg:block">
             <span className="block text-[#83e2ca]">BUFFER::08</span>
             <span className="block">SCROLL_Y → TRACK_X</span>
           </div>
@@ -303,20 +342,38 @@ export default function SelectedFrames() {
         </p>
 
         <div
+          ref={mobileHintRef}
+          className="shell relative z-10 mt-6 flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.12em] text-white/48 transition-opacity duration-300 data-[state=ended]:opacity-0 data-[state=engaged]:opacity-55 lg:hidden"
+        >
+          <span className="inline-flex items-center gap-2.5 text-[#83e2ca]">
+            <svg
+              viewBox="0 0 32 12"
+              className="h-3 w-8"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path d="M1 6h30M6 1 1 6l5 5M26 1l5 5-5 5" stroke="currentColor" />
+            </svg>
+            左右滑动浏览
+          </span>
+          <span>08 FRAMES</span>
+        </div>
+
+        <div
           ref={viewportRef}
           tabIndex={0}
           role="region"
           aria-label="作品代表画面横向画廊"
           aria-describedby="selected-frames-instructions"
-          className="relative z-10 mt-9 w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden overscroll-x-contain outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[#83e2ca] md:mt-11"
+          className="relative z-10 mt-4 w-full snap-x snap-mandatory scroll-px-5 overflow-x-auto overflow-y-hidden overscroll-x-contain outline-none [scrollbar-width:none] focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[#83e2ca] [&::-webkit-scrollbar]:hidden md:mt-8 md:scroll-px-9 lg:mt-11"
         >
           <ol
             ref={trackRef}
-            className="flex w-max items-center gap-[clamp(1rem,2.6vw,2.75rem)] px-[clamp(1.5rem,4vw,4.5rem)] pb-6"
+            className="flex w-max items-center gap-3 px-5 pb-6 sm:gap-5 sm:px-9 lg:gap-[clamp(1rem,2.6vw,2.75rem)] lg:px-[clamp(1.5rem,4vw,4.5rem)]"
           >
             <li
               role="presentation"
-              className="flex w-[84vw] max-w-[980px] shrink-0 snap-center self-stretch lg:w-[48vw]"
+              className="flex w-[80vw] max-w-[980px] shrink-0 snap-start snap-always self-stretch sm:w-[76vw] lg:w-[48vw] lg:snap-center"
             >
               <div className="relative flex min-h-[calc(48svh+6.5rem)] w-full flex-col justify-between overflow-hidden rounded-[6px] border border-[rgba(131,226,202,.26)] bg-[rgba(13,17,18,.86)] p-6 sm:p-9 lg:p-[clamp(2rem,4vw,4.5rem)]">
                 <span
@@ -359,7 +416,8 @@ export default function SelectedFrames() {
             {frames.map((frame, index) => (
               <li
                 key={frame.src}
-                className={`shrink-0 snap-center ${frame.itemClassName}`}
+                data-selected-frame-item
+                className={`shrink-0 snap-start snap-always lg:snap-center ${frame.itemClassName}`}
               >
                 <figure className="group">
                   <div
@@ -424,8 +482,13 @@ export default function SelectedFrames() {
           </ol>
         </div>
 
-        <div className="shell relative z-10 mt-2 flex items-center gap-4 font-mono text-[9px] tracking-[0.12em] text-white/40">
-          <span className="shrink-0 text-[#83e2ca]">X.POS</span>
+        <div className="shell relative z-10 mt-2 flex items-center gap-3 font-mono text-[9px] tracking-[0.12em] text-white/40 sm:gap-4">
+          <span
+            ref={frameIndexTextRef}
+            className="min-w-[4.8rem] shrink-0 text-[#83e2ca]"
+          >
+            01 / 08
+          </span>
           <div
             ref={progressRef}
             role="progressbar"

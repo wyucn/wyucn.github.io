@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
+import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
 
 const navLinks = [
   { label: "作品", href: "#showreel", index: "01" },
@@ -260,7 +261,7 @@ export default function Navbar() {
                 : "border-white/35 hover:border-[#83e2ca] hover:text-[#83e2ca]"
             }`}
           >
-            联系 <span aria-hidden="true">↗</span>
+            联系 <ArrowUpRightIcon className="text-base" />
           </a>
 
           <button
@@ -304,11 +305,15 @@ export default function Navbar() {
         aria-modal="true"
         aria-label="移动导航"
         aria-hidden={!menuOpen}
-        className={`fixed inset-0 z-40 flex flex-col justify-start overflow-y-auto bg-[#07090a] px-7 pb-8 pt-28 text-[#f2f1ec] transition-all duration-500 md:hidden ${
+        className={`fixed inset-0 z-40 flex flex-col justify-start overflow-y-auto bg-[#07090a] px-7 pt-28 text-[#f2f1ec] transition-all duration-500 md:hidden ${
           menuOpen
             ? "pointer-events-auto visible opacity-100"
             : "pointer-events-none invisible opacity-0"
         }`}
+        style={{
+          paddingBottom:
+            "calc(2rem + env(safe-area-inset-bottom, 0px))",
+        }}
       >
         <div className="border-t border-white/15">
           {navLinks.map((link) => (
@@ -325,9 +330,7 @@ export default function Navbar() {
               <span className="min-w-0 text-[clamp(2.6rem,15vw,4.5rem)] font-extrabold leading-[1.06] tracking-[-0.04em]">
                 {link.label}
               </span>
-              <span aria-hidden="true" className="text-xl">
-                ↗
-              </span>
+              <ArrowUpRightIcon className="text-xl" />
             </a>
           ))}
         </div>
@@ -337,7 +340,7 @@ export default function Navbar() {
           onClick={navigateFromMenu}
           className="mt-7 inline-flex min-h-12 items-center gap-4 self-start border-b border-[#83e2ca] text-sm font-bold text-[#83e2ca]"
         >
-          联系 <span aria-hidden="true">↗</span>
+          联系 <ArrowUpRightIcon className="text-base" />
         </a>
       </div>
     </>

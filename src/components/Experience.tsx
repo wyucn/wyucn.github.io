@@ -46,22 +46,155 @@ const acts = [
 
 const desktopMotionQuery =
   "(min-width: 1024px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)";
+const mobileMotionQuery =
+  "(max-width: 1023px) and (min-height: 681px) and (prefers-reduced-motion: no-preference)";
 
 export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLOListElement>(null);
+  const mobileRailRef = useRef<HTMLDivElement>(null);
+  const mobileChapterNumberRef = useRef<HTMLSpanElement>(null);
+  const mobileChapterTitleRef = useRef<HTMLSpanElement>(null);
+  const mobileProgressRef = useRef<HTMLDivElement>(null);
+  const mobileProgressFillRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
     const pin = pinRef.current;
     const viewport = viewportRef.current;
     const track = trackRef.current;
+    const mobileRail = mobileRailRef.current;
+    const mobileChapterNumber = mobileChapterNumberRef.current;
+    const mobileChapterTitle = mobileChapterTitleRef.current;
+    const mobileProgress = mobileProgressRef.current;
+    const mobileProgressFill = mobileProgressFillRef.current;
 
-    if (!section || !pin || !viewport || !track) return;
+    if (
+      !section ||
+      !pin ||
+      !viewport ||
+      !track ||
+      !mobileRail ||
+      !mobileChapterNumber ||
+      !mobileChapterTitle ||
+      !mobileProgress ||
+      !mobileProgressFill
+    ) {
+      return;
+    }
 
     const mm = gsap.matchMedia();
+
+    mm.add(mobileMotionQuery, () => {
+      const panels = gsap.utils.toArray<HTMLElement>(
+        "[data-experience-panel]",
+        track,
+      );
+
+      if (panels.length !== acts.length) return;
+
+      mobileRail.hidden = false;
+      mobileRail.style.position = "sticky";
+      mobileRail.style.top =
+        "calc(env(safe-area-inset-top, 0px) + 4.75rem)";
+
+      let activeIndex = -1;
+
+      const setActiveChapter = (nextIndex: number, immediate = false) => {
+        if (nextIndex === activeIndex) return;
+
+        activeIndex = nextIndex;
+        const act = acts[nextIndex];
+        const progressValue = ((nextIndex + 1) / acts.length) * 100;
+
+        mobileChapterNumber.textContent = act.number;
+        mobileChapterTitle.textContent = act.title;
+        mobileProgressFill.style.transform = `scaleX(${progressValue / 100})`;
+        mobileProgress.setAttribute("aria-valuenow", String(nextIndex + 1));
+        mobileProgress.setAttribute(
+          "aria-valuetext",
+          `第 ${nextIndex + 1} / ${acts.length} 幕：${act.title}`,
+        );
+
+        panels.forEach((panel, panelIndex) => {
+          const isActive = panelIndex === nextIndex;
+
+          panel.dataset.experienceActive = String(isActive);
+          if (isActive) {
+            panel.setAttribute("aria-current", "step");
+          } else {
+            panel.removeAttribute("aria-current");
+          }
+
+          gsap.to(panel, {
+            opacity: isActive ? 1 : 0.72,
+            scale: isActive ? 1 : 0.985,
+            backgroundColor: isActive
+              ? "rgba(131, 226, 202, 0.045)"
+              : "rgba(14, 17, 19, 0)",
+            boxShadow: isActive
+              ? "inset 3px 0 0 rgba(131, 226, 202, 0.72)"
+              : "inset 0 0 0 rgba(131, 226, 202, 0)",
+            duration: immediate ? 0 : 0.38,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+        });
+      };
+
+      const getClosestPanelIndex = () => {
+        const focusLine = window.innerHeight * 0.44;
+
+        return panels.reduce(
+          (closest, panel, index) => {
+            const rect = panel.getBoundingClientRect();
+            const panelFocus = rect.top + Math.min(rect.height * 0.34, 150);
+            const distance = Math.abs(panelFocus - focusLine);
+
+            return distance < closest.distance
+              ? { index, distance }
+              : closest;
+          },
+          { index: 0, distance: Number.POSITIVE_INFINITY },
+        ).index;
+      };
+
+      setActiveChapter(getClosestPanelIndex(), true);
+
+      const chapterTriggers = panels.map((panel, index) =>
+        ScrollTrigger.create({
+          trigger: panel,
+          start: "top 44%",
+          end: "bottom 44%",
+          onEnter: () => setActiveChapter(index),
+          onEnterBack: () => setActiveChapter(index),
+          onRefresh: (self) => {
+            if (self.isActive) setActiveChapter(index, true);
+          },
+        }),
+      );
+      const refreshFrame = window.requestAnimationFrame(() =>
+        ScrollTrigger.refresh(),
+      );
+
+      return () => {
+        window.cancelAnimationFrame(refreshFrame);
+        chapterTriggers.forEach((trigger) => trigger.kill());
+        gsap.killTweensOf(panels);
+        gsap.set(panels, {
+          clearProps: "opacity,scale,backgroundColor,boxShadow,transform",
+        });
+        panels.forEach((panel) => {
+          delete panel.dataset.experienceActive;
+          panel.removeAttribute("aria-current");
+        });
+        mobileRail.hidden = true;
+        mobileRail.style.position = "";
+        mobileRail.style.top = "";
+      };
+    });
 
     mm.add(desktopMotionQuery, () => {
       const ctx = gsap.context(() => {
@@ -230,7 +363,7 @@ export default function Experience() {
 
         <div
           ref={pinRef}
-          className="grid overflow-hidden rounded-lg border border-white/15 bg-[#0e1113] lg:grid-cols-[minmax(280px,.38fr)_minmax(0,.62fr)]"
+          className="grid overflow-visible rounded-lg border border-white/15 bg-[#0e1113] lg:grid-cols-[minmax(280px,.38fr)_minmax(0,.62fr)] lg:overflow-hidden"
         >
           <div className="relative flex flex-col justify-between overflow-hidden border-b border-white/15 p-7 md:p-10 lg:min-h-[500px] lg:border-b-0 lg:border-r">
             <div
@@ -297,6 +430,50 @@ export default function Experience() {
           </div>
 
           <div ref={viewportRef} className="relative">
+            <div
+              ref={mobileRailRef}
+              hidden
+              className="z-20 border-b border-white/15 bg-[rgba(14,17,19,.94)] px-7 py-3.5 shadow-[0_14px_30px_rgba(9,11,13,.28)] backdrop-blur-xl md:px-10 lg:hidden"
+            >
+              <div className="flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.12em]">
+                <p className="text-[#83e2ca]">
+                  CHAPTER <span ref={mobileChapterNumberRef}>01</span> / 03
+                </p>
+                <span className="text-white/38">SCROLL_Y</span>
+              </div>
+              <div className="mt-2 flex items-center justify-between gap-4">
+                <span
+                  ref={mobileChapterTitleRef}
+                  aria-live="polite"
+                  className="truncate text-sm font-semibold tracking-[-0.01em]"
+                >
+                  影像制作
+                </span>
+                <svg
+                  viewBox="0 0 12 18"
+                  className="h-[18px] w-3 shrink-0 text-[#83e2ca]"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path d="M6 0v16m0 0 5-5m-5 5-5-5" stroke="currentColor" />
+                </svg>
+              </div>
+              <div
+                ref={mobileProgressRef}
+                role="progressbar"
+                aria-label="工作经历章节进度"
+                aria-valuemin={1}
+                aria-valuemax={acts.length}
+                aria-valuenow={1}
+                className="relative mt-3 h-px overflow-hidden bg-white/15"
+              >
+                <span
+                  ref={mobileProgressFillRef}
+                  className="absolute inset-0 origin-left scale-x-[0.3333] bg-[#83e2ca] shadow-[0_0_12px_rgba(131,226,202,.5)] transition-transform duration-300"
+                />
+              </div>
+            </div>
+
             <ol
               ref={trackRef}
               className="flex flex-col"
@@ -306,7 +483,7 @@ export default function Experience() {
                 <li
                   key={act.number}
                   data-experience-panel
-                  className="relative flex min-h-[360px] flex-col justify-between overflow-hidden border-b border-white/15 p-7 last:border-b-0 md:min-h-[400px] md:p-10 lg:p-12"
+                  className="relative flex min-h-[360px] scroll-mt-36 flex-col justify-between overflow-hidden border-b border-white/15 p-7 last:border-b-0 md:min-h-[400px] md:p-10 lg:p-12"
                 >
                   <span
                     className="pointer-events-none absolute -right-[0.04em] -top-[0.14em] font-mono text-[clamp(8rem,18vw,15rem)] leading-none tracking-[-0.08em] text-white/[.025]"

@@ -1,9 +1,18 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties } from "react";
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+  type UIEvent,
+} from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
 import {
   projects,
   type Project,
@@ -122,7 +131,9 @@ function ProjectVisual({ type, color }: { type: ProjectVisualType; color: string
           </div>
           <span className="absolute bottom-3 right-3 font-mono text-[10px] text-white/35">PPT</span>
         </div>
-        <div className="font-mono text-xl" style={{ color }}>→</div>
+        <span style={{ color }}>
+          <ArrowUpRightIcon className="rotate-45 text-xl" />
+        </span>
         <div className="relative aspect-[4/3] w-[38%] rotate-[5deg] rounded-md border bg-black/40 p-3 shadow-2xl md:p-5" style={{ borderColor: `${color}66` }}>
           <div className="absolute inset-3 rounded-sm border border-dashed border-white/15" />
           <div className="absolute left-[28%] top-[32%] h-[30%] w-[44%] rounded-sm" style={{ background: `${color}55` }} />
@@ -149,6 +160,126 @@ function ProjectVisual({ type, color }: { type: ProjectVisualType; color: string
   );
 }
 
+function SwipeableProjectMedia({ project, sizes }: { project: Project; sizes: string }) {
+  const mediaItems = project.media ?? [];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const swipeHintId = useId();
+
+  const scrollToSlide = (index: number) => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    const nextIndex = Math.min(Math.max(index, 0), mediaItems.length - 1);
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    scroller.scrollTo({
+      left: nextIndex * scroller.clientWidth,
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
+    setActiveIndex(nextIndex);
+  };
+
+  const handleScroll = (event: UIEvent<HTMLDivElement>) => {
+    const scroller = event.currentTarget;
+    if (!scroller.clientWidth) return;
+
+    const nextIndex = Math.min(
+      Math.max(Math.round(scroller.scrollLeft / scroller.clientWidth), 0),
+      mediaItems.length - 1,
+    );
+    setActiveIndex((currentIndex) =>
+      currentIndex === nextIndex ? currentIndex : nextIndex,
+    );
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    let nextIndex: number | null = null;
+
+    if (event.key === "ArrowLeft") nextIndex = activeIndex - 1;
+    if (event.key === "ArrowRight") nextIndex = activeIndex + 1;
+    if (event.key === "Home") nextIndex = 0;
+    if (event.key === "End") nextIndex = mediaItems.length - 1;
+    if (nextIndex === null) return;
+
+    event.preventDefault();
+    scrollToSlide(nextIndex);
+  };
+
+  return (
+    <figure className="absolute inset-3 overflow-hidden rounded-[5px] border border-white/15 shadow-[0_24px_70px_rgba(0,0,0,.28)] md:hidden">
+      <div
+        ref={scrollerRef}
+        role="region"
+        aria-roledescription="图片轮播"
+        aria-label={`${project.title}，共 ${mediaItems.length} 张界面`}
+        aria-describedby={swipeHintId}
+        tabIndex={project.href ? undefined : 0}
+        onScroll={handleScroll}
+        onKeyDown={handleKeyDown}
+        className="relative flex h-full w-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth outline-none [scrollbar-width:none] focus-visible:ring-2 focus-visible:ring-[var(--project-accent)] focus-visible:ring-inset motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden"
+      >
+        {mediaItems.map((media, index) => {
+          const imageAlt = media.alt || `${project.title} 的第 ${index + 1} 张界面`;
+
+          return (
+            <div
+              key={media.src}
+              role="group"
+              aria-roledescription="幻灯片"
+              aria-label={`第 ${index + 1} 张，共 ${mediaItems.length} 张`}
+              className="relative h-full w-full shrink-0 snap-center snap-always overflow-hidden"
+            >
+              <Image
+                src={media.src}
+                alt={imageAlt}
+                fill
+                sizes={sizes}
+                draggable={false}
+                className="pointer-events-none select-none"
+                style={{
+                  objectFit: media.fit ?? "cover",
+                  objectPosition: media.position ?? "center",
+                  background: media.background ?? "#0e1113",
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      <span id={swipeHintId} className="sr-only">
+        横向滑动，或使用左右方向键切换界面。
+      </span>
+      <div className="pointer-events-none absolute bottom-3 left-3 z-20 flex items-center gap-2 rounded-full border border-white/15 bg-black/70 px-2.5 py-1.5 text-white/78 shadow-lg backdrop-blur-md">
+        <span className="text-[9px] tracking-[0.08em]">
+          左右滑动
+        </span>
+        <span className="h-3 w-px bg-white/20" aria-hidden="true" />
+        <span
+          className="min-w-[2.5rem] text-center font-mono text-[9px] tabular-nums"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {activeIndex + 1} / {mediaItems.length}
+        </span>
+        <span className="flex items-center gap-1" aria-hidden="true">
+          {mediaItems.map((media, index) => (
+            <span
+              key={media.src}
+              className={`h-1 rounded-full transition-[width,background-color] motion-reduce:transition-none ${
+                index === activeIndex ? "w-3 bg-[#83e2ca]" : "w-1 bg-white/35"
+              }`}
+            />
+          ))}
+        </span>
+      </div>
+
+      <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10" aria-hidden="true" />
+    </figure>
+  );
+}
+
 function ProjectMedia({ project, sizes }: { project: Project; sizes: string }) {
   if (!project.media?.length) {
     return <ProjectVisual type={project.visual} color={project.color} />;
@@ -156,32 +287,57 @@ function ProjectMedia({ project, sizes }: { project: Project; sizes: string }) {
 
   const hasAlternate = project.media.length > 1;
 
+  if (hasAlternate) {
+    return (
+      <>
+        <SwipeableProjectMedia project={project} sizes={sizes} />
+        <figure className="absolute inset-5 hidden overflow-hidden rounded-[5px] border border-white/15 shadow-[0_24px_70px_rgba(0,0,0,.28)] md:block">
+          {project.media.map((media, index) => {
+            const isAlternate = index > 0;
+            const visibilityClass = isAlternate
+              ? "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
+              : "opacity-100 group-hover:opacity-0 group-focus-visible:opacity-0";
+
+            return (
+              <Image
+                key={media.src}
+                src={media.src}
+                alt={media.alt}
+                fill
+                sizes={sizes}
+                draggable={false}
+                className={`pointer-events-none select-none transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.012] motion-reduce:transition-none ${visibilityClass}`}
+                style={{
+                  objectFit: media.fit ?? "cover",
+                  objectPosition: media.position ?? "center",
+                  background: media.background ?? "#0e1113",
+                }}
+              />
+            );
+          })}
+          <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10" aria-hidden="true" />
+        </figure>
+      </>
+    );
+  }
+
+  const [media] = project.media;
+
   return (
     <figure className="absolute inset-3 overflow-hidden rounded-[5px] border border-white/15 shadow-[0_24px_70px_rgba(0,0,0,.28)] md:inset-5">
-      {project.media.map((media, index) => {
-        const isAlternate = index > 0;
-        const visibilityClass = isAlternate
-          ? "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
-          : hasAlternate
-            ? "opacity-100 group-hover:opacity-0 group-focus-visible:opacity-0"
-            : "opacity-100";
-
-        return (
-          <Image
-            key={media.src}
-            src={media.src}
-            alt={media.alt}
-            fill
-            sizes={sizes}
-            className={`transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.012] ${visibilityClass}`}
-            style={{
-              objectFit: media.fit ?? "cover",
-              objectPosition: media.position ?? "center",
-              background: media.background ?? "#0e1113",
-            }}
-          />
-        );
-      })}
+      <Image
+        src={media.src}
+        alt={media.alt}
+        fill
+        sizes={sizes}
+        draggable={false}
+        className="pointer-events-none select-none transition-transform duration-700 ease-out group-hover:scale-[1.012] motion-reduce:transition-none"
+        style={{
+          objectFit: media.fit ?? "cover",
+          objectPosition: media.position ?? "center",
+          background: media.background ?? "#0e1113",
+        }}
+      />
       <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10" aria-hidden="true" />
     </figure>
   );
@@ -220,7 +376,7 @@ function ProjectCard({ project }: { project: Project }) {
         {project.media ? (
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(9,11,13,.14),transparent_34%,rgba(9,11,13,.42))]" aria-hidden="true" />
         ) : null}
-        <div className="absolute inset-x-4 top-4 z-10 flex flex-wrap items-start justify-between gap-2 md:inset-x-5 md:top-5">
+        <div className="pointer-events-none absolute inset-x-4 top-4 z-10 flex flex-wrap items-start justify-between gap-2 md:inset-x-5 md:top-5">
           <span className="border-l bg-[rgba(9,11,13,.78)] px-2 py-1.5 text-[9px] tracking-[0.07em] backdrop-blur-md md:text-[10px]" style={{ borderColor: `${project.color}aa`, color: project.color }}>{project.category}</span>
           {project.mediaLabel ? (
             <span className="shrink-0 rounded-sm border border-white/15 bg-[rgba(9,11,13,.78)] px-2 py-1.5 text-[8px] tracking-[0.08em] text-white/68 backdrop-blur-md md:text-[9px]">
@@ -228,7 +384,7 @@ function ProjectCard({ project }: { project: Project }) {
             </span>
           ) : null}
         </div>
-        <span className="display-title absolute bottom-2 right-4 z-10 text-[clamp(4rem,8vw,8rem)] leading-none text-white/[0.12] md:right-6">{String(project.id).padStart(2, "0")}</span>
+        <span className="display-title pointer-events-none absolute bottom-2 right-4 z-10 text-[clamp(4rem,8vw,8rem)] leading-none text-white/[0.12] md:right-6">{String(project.id).padStart(2, "0")}</span>
       </div>
 
       <div className={`flex flex-1 flex-col p-5 text-white md:p-7 ${isLead ? "lg:grid lg:grid-cols-[1fr_1fr] lg:gap-x-16" : ""}`}>
@@ -253,7 +409,7 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
         {project.href && (
           <div className={`mt-auto flex items-center justify-end pt-6 text-xs font-semibold tracking-[0.08em] text-[#83e2ca] ${isLead ? "lg:col-start-2" : ""}`}>
-            访问项目 <span className="ml-2" aria-hidden="true">↗</span>
+            访问项目 <ArrowUpRightIcon className="ml-2 text-sm" />
           </div>
         )}
       </div>
