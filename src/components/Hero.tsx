@@ -69,106 +69,150 @@ export default function Hero() {
     const stage = stageRef.current;
     const titleSlot = titleSlotRef.current;
     const titleMotion = titleMotionRef.current;
+    const titleHeading = section?.querySelector<HTMLElement>(
+      ".hero-title-heading",
+    );
+    const titleSecondary = section?.querySelector<HTMLElement>(
+      ".hero-title-secondary",
+    );
     const signaturePath = section?.querySelector<SVGPathElement>(
       ".hero-signature-path",
     );
-    if (!section || !stage || !titleSlot || !titleMotion || !signaturePath) {
+    if (
+      !section ||
+      !stage ||
+      !titleSlot ||
+      !titleMotion ||
+      !titleHeading ||
+      !titleSecondary ||
+      !signaturePath
+    ) {
       return;
     }
 
     const mm = gsap.matchMedia();
 
-    mm.add(
-      "(prefers-reduced-motion: no-preference) and (min-height: 681px)",
-      () => {
-        const ctx = gsap.context(() => {
-          const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const setupScrollTimeline = (isMobile: boolean) => {
+      const ctx = gsap.context(() => {
+        const getStartMetrics = () => {
+          const slotRect = titleSlot.getBoundingClientRect();
+          const stageRect = stage.getBoundingClientRect();
+          const preferredScale = isMobile ? 1.14 : 1.28;
+          const availableWidth = stageRect.width - (isMobile ? 28 : 72);
+          const safeScale = Math.min(
+            preferredScale,
+            availableWidth / Math.max(slotRect.width, 1),
+          );
 
-          const getStartMetrics = () => {
-            const slotRect = titleSlot.getBoundingClientRect();
-            const stageRect = stage.getBoundingClientRect();
-            const preferredScale = isMobile ? 1.06 : 1.14;
-            const availableWidth = stageRect.width - (isMobile ? 28 : 72);
-            const safeScale = Math.min(
-              preferredScale,
-              availableWidth / Math.max(slotRect.width, 1),
-            );
-
-            return {
-              x:
-                stageRect.left +
-                stageRect.width * 0.5 -
-                (slotRect.left + slotRect.width * 0.5),
-              y:
-                stageRect.top +
-                stageRect.height * (isMobile ? 0.46 : 0.49) -
-                (slotRect.top + slotRect.height * 0.5),
-              scale: Math.max(1, safeScale),
-            };
+          return {
+            x:
+              stageRect.left +
+              stageRect.width * 0.5 -
+              (slotRect.left + slotRect.width * 0.5),
+            y:
+              stageRect.top +
+              stageRect.height * (isMobile ? 0.46 : 0.49) -
+              (slotRect.top + slotRect.height * 0.5),
+            scale: Math.max(1, safeScale),
           };
+        };
 
-          gsap.set(signaturePath, {
-            strokeDasharray: 1,
-            strokeDashoffset: 1,
-            opacity: 0,
-          });
-          gsap.set(".hero-supporting", { autoAlpha: 0, y: 18 });
+        gsap.set(signaturePath, {
+          strokeDasharray: 1,
+          strokeDashoffset: 1,
+          opacity: 0,
+        });
+        gsap.set(".hero-supporting", { autoAlpha: 0, y: 18 });
 
-          const timeline = gsap.timeline({
-            scrollTrigger: {
-              trigger: section,
-              start: "top top",
-              end: "bottom bottom",
-              scrub: isMobile ? 0.3 : 0.45,
-              invalidateOnRefresh: true,
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: isMobile ? 0.3 : 0.45,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        timeline
+          .fromTo(
+            titleMotion,
+            {
+              x: () => getStartMetrics().x,
+              y: () => getStartMetrics().y,
+              scale: () => getStartMetrics().scale,
+              opacity: 1,
+              transformOrigin: "50% 50%",
             },
-          });
+            {
+              x: 0,
+              y: 0,
+              scale: 1,
+              duration: 0.64,
+              ease: "none",
+              force3D: true,
+            },
+            0,
+          )
+          .fromTo(
+            titleHeading,
+            {
+              fontWeight: 900,
+              letterSpacing: isMobile ? "-0.005em" : "0.012em",
+              lineHeight: isMobile ? 1.14 : 1.12,
+            },
+            {
+              fontWeight: 800,
+              letterSpacing: isMobile ? "-0.035em" : "-0.045em",
+              lineHeight: isMobile ? 1.06 : 1.02,
+              duration: 0.64,
+              ease: "none",
+            },
+            0,
+          )
+          .fromTo(
+            titleSecondary,
+            { marginTop: isMobile ? "0.13em" : "0.18em" },
+            {
+              marginTop: "0.06em",
+              duration: 0.64,
+              ease: "none",
+            },
+            0,
+          )
+          .set(signaturePath, { opacity: 0.68 }, 0.16)
+          .to(
+            signaturePath,
+            {
+              strokeDashoffset: 0,
+              duration: 0.64,
+              ease: "none",
+            },
+            0.16,
+          )
+          .to(
+            ".hero-supporting",
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.32,
+              stagger: 0.05,
+              ease: "power2.out",
+            },
+            0.52,
+          );
+      }, section);
 
-          timeline
-            .fromTo(
-              titleMotion,
-              {
-                x: () => getStartMetrics().x,
-                y: () => getStartMetrics().y,
-                scale: () => getStartMetrics().scale,
-                opacity: 1,
-                transformOrigin: "50% 50%",
-              },
-              {
-                x: 0,
-                y: 0,
-                scale: 1,
-                duration: 0.64,
-                ease: "none",
-                force3D: true,
-              },
-              0,
-            )
-            .set(signaturePath, { opacity: 0.68 }, 0.16)
-            .to(
-              signaturePath,
-              {
-                strokeDashoffset: 0,
-                duration: 0.64,
-                ease: "none",
-              },
-              0.16,
-            )
-            .to(
-              ".hero-supporting",
-              {
-                autoAlpha: 1,
-                y: 0,
-                duration: 0.32,
-                stagger: 0.05,
-                ease: "power2.out",
-              },
-              0.52,
-            );
-        }, section);
+      return () => ctx.revert();
+    };
 
-        return () => ctx.revert();
-      },
+    mm.add(
+      "(prefers-reduced-motion: no-preference) and (min-height: 681px) and (max-width: 767px)",
+      () => setupScrollTimeline(true),
+    );
+    mm.add(
+      "(prefers-reduced-motion: no-preference) and (min-height: 681px) and (min-width: 768px)",
+      () => setupScrollTimeline(false),
     );
 
     mm.add(
@@ -422,6 +466,17 @@ export default function Hero() {
           />
           <div className="absolute inset-0 hidden bg-[linear-gradient(0deg,rgba(4,6,7,.42),rgba(4,6,7,.04))] max-[700px]:block" />
         </div>
+        <div className="ascii-scanlines pointer-events-none absolute inset-0 z-[1]" aria-hidden="true" />
+
+        <pre className="ascii-telemetry pointer-events-none absolute right-[3.2vw] top-[18%] z-[6] hidden text-[9px] font-bold leading-[1.55] tracking-[0.12em] text-[#83e2ca]/42 xl:block" aria-hidden="true">
+{`+------------------------+
+| WY_SYS :: CHANNEL_01  |
+| FRAME    024.00       |
+| SIGNAL   [||||||||..] |
+| MOTION   TIMELINE     |
+| AI_FLOW  LINKED       |
++------------------------+`}
+        </pre>
 
         <div className="shell relative z-10 flex min-h-[100svh] flex-col pb-6 pt-24 md:pb-8 md:pt-28">
           <div className="hero-reveal flex max-w-[34rem] items-start gap-2.5 font-mono text-[9px] font-bold leading-[1.55] tracking-[0.13em] text-white/65 uppercase">
@@ -437,13 +492,13 @@ export default function Hero() {
             </p>
             <div ref={titleSlotRef} className="relative w-fit max-w-[900px]">
               <div ref={titleMotionRef} className="hero-title-motion relative will-change-transform">
-                <h1 className="relative z-10 max-w-[900px] font-sans text-[clamp(3.25rem,6.8vw,7.25rem)] font-extrabold leading-[1.02] tracking-[-0.045em] max-[520px]:text-[clamp(2.65rem,13.5vw,3.6rem)] max-[520px]:leading-[1.06] max-[520px]:tracking-[-0.035em]">
+                <h1 className="hero-title-heading relative z-10 max-w-[900px] font-sans text-[clamp(3.25rem,6.8vw,7.25rem)] font-extrabold leading-[1.02] tracking-[-0.045em] max-[520px]:text-[clamp(2.65rem,13.5vw,3.6rem)] max-[520px]:leading-[1.06] max-[520px]:tracking-[-0.035em]">
                   <span className="block">做影像，</span>
-                  <span className="mt-[.06em] block text-white/70">也整理方法。</span>
+                  <span className="hero-title-secondary mt-[.06em] block text-white/70">也整理方法。</span>
                 </h1>
                 <svg
                   viewBox="-8 -8 1267.34 349.22"
-                  className="pointer-events-none absolute left-[12%] top-[56%] z-0 w-full max-w-none -rotate-[2deg] overflow-visible md:left-[24%] md:top-[49%] md:w-[82%]"
+                  className="pointer-events-none absolute left-[30%] top-[68%] z-0 w-[88%] max-w-none -rotate-[2deg] overflow-visible md:left-[58%] md:top-[61%] md:w-[88%]"
                   aria-hidden="true"
                 >
                   <path
