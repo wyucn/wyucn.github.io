@@ -82,7 +82,7 @@ export default function Showreel() {
             />
           </div>
           <figcaption className="copy-pretty mt-4 text-xs leading-6 text-white/56 md:text-sm">
-            聚焦剪辑节奏、动态设计、合成与<span className="keep-phrase">声音处理</span>；下方项目展示对应职责与<span className="keep-phrase">工作流程</span>。
+            聚焦剪辑节奏、动态设计、合成与<span className="keep-phrase">声音处理；</span>下方项目展示对应职责与<span className="keep-phrase">工作流程。</span>
           </figcaption>
         </figure>
       </div>

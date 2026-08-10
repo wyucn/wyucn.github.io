@@ -202,6 +202,12 @@
   text-wrap: pretty;
 }
 
+@supports (text-wrap: balance) {
+  .copy-pretty {
+    text-wrap: balance;
+  }
+}
+
 @supports (word-break: auto-phrase) {
   .copy-pretty {
     word-break: auto-phrase;

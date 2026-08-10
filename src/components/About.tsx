@@ -58,7 +58,7 @@ export default function About() {
 
             <div className="mt-12 grid gap-7 text-sm leading-8 text-white/68 md:grid-cols-2 md:text-[15px]">
               <p className="copy-pretty">
-                自 2020 年起，我长期参与教育视频与动画项目，工作从剪辑、动效和<span className="keep-phrase">声音处理</span>，延伸到协作对接与<span className="keep-phrase">最终交付</span>。近一年，我把更多精力投入生成式影像、AI 声音和轻量工具实践。
+                自 2020 年起，我长期参与教育视频与动画项目，工作从剪辑、动效和<span className="keep-phrase">声音处理，</span>延伸到协作对接与<span className="keep-phrase">最终交付。</span>近一年，我把更多精力投入生成式影像、AI 声音和轻量工具实践。
               </p>
               <p className="copy-pretty">
                 在工具项目中，我负责发现问题、定义需求、设计流程、测试验收与持续迭代；具体实现则通过<span className="keep-phrase">AI 协作</span>完成。

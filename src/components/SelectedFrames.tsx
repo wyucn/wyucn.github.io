@@ -338,7 +338,7 @@ export default function SelectedFrames() {
                   <p className="font-mono text-[10px] tracking-[0.14em] text-[#83e2ca]">
                     [ 08 SIGNALS SELECTED ]
                   </p>
-                  <h3 className="mt-5 text-[clamp(3.3rem,7vw,7.8rem)] font-black leading-[0.86] tracking-[-0.055em]">
+                  <h3 className="mt-5 text-[clamp(3.3rem,7vw,7.8rem)] font-black leading-[0.86] tracking-[-0.055em] max-[360px]:text-[2.85rem]">
                     SELECTED
                     <span className="block text-white/36">FRAMES</span>
                   </h3>

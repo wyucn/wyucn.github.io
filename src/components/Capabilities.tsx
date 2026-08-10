@@ -2,7 +2,7 @@ const capabilities = [
   {
     index: "01",
     title: "视频后期与动态视觉",
-    body: "覆盖剪辑、Motion Design、合成、声音处理、质量审阅与最终交付。",
+    body: "覆盖剪辑、Motion\u00a0Design、合成、声音处理、质量审阅与最终交付。",
   },
   {
     index: "02",
@@ -12,7 +12,7 @@ const capabilities = [
   {
     index: "03",
     title: "需求驱动的 AI 工具实现",
-    body: "从需求定义和流程设计出发，通过 AI 协作推动实现、验收与持续迭代。",
+    body: "从需求定义和流程设计出发，通过 AI\u00a0协作推动实现、验收与持续迭代。",
   },
   {
     index: "04",

@@ -523,7 +523,7 @@ export default function Hero() {
 
             <div className="hero-supporting mt-7 grid items-end gap-7 lg:grid-cols-[minmax(320px,580px)_auto] lg:justify-between lg:gap-12">
               <p className="copy-pretty max-w-[580px] text-[clamp(1.05rem,1.45vw,1.38rem)] font-medium leading-[1.62] tracking-[-0.02em] text-white/78">
-                以<span className="keep-phrase">视频后期与 Motion Design</span>为专业基础，我持续测试、筛选<span className="keep-phrase">AI 工具</span>，并把真正可用的能力带进制作流程。
+                以视频后期与 <span className="keep-phrase">Motion Design</span> 为专业基础，我持续测试、筛选<span className="keep-phrase">AI 工具，</span>并把真正可用的能力带进制作流程。
               </p>
               <div className="flex flex-wrap items-center gap-5 max-[520px]:flex-col max-[520px]:items-start">
                 <a

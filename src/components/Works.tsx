@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type CSSProperties } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -95,7 +96,7 @@ function ProjectVisual({ type, color }: { type: ProjectVisualType; color: string
   if (type === "formula") {
     return (
       <div className="absolute inset-0 flex flex-col items-center justify-center px-6" aria-hidden="true">
-        <div className="font-serif text-3xl text-white/85 md:text-5xl">∫ f(x) dx = F(x) + C</div>
+        <div className="whitespace-nowrap font-serif text-[clamp(1.35rem,7vw,1.875rem)] text-white/85 md:text-5xl">∫ f(x) dx = F(x) + C</div>
         <div className="mt-7 flex w-full max-w-sm items-center gap-3">
           <span className="font-mono text-[9px] tracking-widest text-white/35">LaTeX</span>
           <div className="h-px flex-1" style={{ background: `${color}88` }} />
@@ -148,6 +149,44 @@ function ProjectVisual({ type, color }: { type: ProjectVisualType; color: string
   );
 }
 
+function ProjectMedia({ project, sizes }: { project: Project; sizes: string }) {
+  if (!project.media?.length) {
+    return <ProjectVisual type={project.visual} color={project.color} />;
+  }
+
+  const hasAlternate = project.media.length > 1;
+
+  return (
+    <figure className="absolute inset-3 overflow-hidden rounded-[5px] border border-white/15 shadow-[0_24px_70px_rgba(0,0,0,.28)] md:inset-5">
+      {project.media.map((media, index) => {
+        const isAlternate = index > 0;
+        const visibilityClass = isAlternate
+          ? "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
+          : hasAlternate
+            ? "opacity-100 group-hover:opacity-0 group-focus-visible:opacity-0"
+            : "opacity-100";
+
+        return (
+          <Image
+            key={media.src}
+            src={media.src}
+            alt={media.alt}
+            fill
+            sizes={sizes}
+            className={`transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.012] ${visibilityClass}`}
+            style={{
+              objectFit: media.fit ?? "cover",
+              objectPosition: media.position ?? "center",
+              background: media.background ?? "#0e1113",
+            }}
+          />
+        );
+      })}
+      <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10" aria-hidden="true" />
+    </figure>
+  );
+}
+
 function ProjectCard({ project }: { project: Project }) {
   const isLead = project.id === 1;
   const isCompact = project.id >= 4;
@@ -156,22 +195,40 @@ function ProjectCard({ project }: { project: Project }) {
     : project.id === 2
       ? "lg:col-span-6 xl:col-span-4"
       : "lg:col-span-6";
+  const hasMedia = Boolean(project.media?.length);
   const visualHeight = isLead
-    ? "h-[330px] md:h-[500px]"
+    ? hasMedia
+      ? "h-[190px] md:h-[500px]"
+      : "h-[330px] md:h-[500px]"
     : project.id === 2
       ? "h-[270px] md:h-[500px]"
     : isCompact
-      ? "h-[220px] md:h-[310px]"
-      : "h-[270px] md:h-[370px]";
+      ? hasMedia
+        ? "h-[190px] md:h-[340px]"
+        : "h-[220px] md:h-[310px]"
+      : hasMedia
+        ? "h-[190px] md:h-[370px]"
+        : "h-[270px] md:h-[370px]";
+  const imageSizes = isLead
+    ? "(min-width: 1280px) 64vw, (min-width: 1024px) 50vw, 100vw"
+    : "(min-width: 1024px) 50vw, 100vw";
 
   const content = (
     <>
       <div className={`relative overflow-hidden ${visualHeight}`} style={{ background: `radial-gradient(circle at 22% 20%, ${project.color}28, transparent 38%), linear-gradient(145deg, #151915, #090b0d)` }}>
-        <ProjectVisual type={project.visual} color={project.color} />
-        <div className="absolute left-4 top-4 flex items-center gap-2 md:left-5 md:top-5">
-          <span className="border-l pl-3 text-[10px] tracking-[0.08em] backdrop-blur-md md:text-[11px]" style={{ borderColor: `${project.color}aa`, color: project.color }}>{project.category}</span>
+        <ProjectMedia project={project} sizes={imageSizes} />
+        {project.media ? (
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(9,11,13,.14),transparent_34%,rgba(9,11,13,.42))]" aria-hidden="true" />
+        ) : null}
+        <div className="absolute inset-x-4 top-4 z-10 flex flex-wrap items-start justify-between gap-2 md:inset-x-5 md:top-5">
+          <span className="border-l bg-[rgba(9,11,13,.78)] px-2 py-1.5 text-[9px] tracking-[0.07em] backdrop-blur-md md:text-[10px]" style={{ borderColor: `${project.color}aa`, color: project.color }}>{project.category}</span>
+          {project.mediaLabel ? (
+            <span className="shrink-0 rounded-sm border border-white/15 bg-[rgba(9,11,13,.78)] px-2 py-1.5 text-[8px] tracking-[0.08em] text-white/68 backdrop-blur-md md:text-[9px]">
+              {project.mediaLabel}
+            </span>
+          ) : null}
         </div>
-        <span className="display-title absolute bottom-2 right-4 text-[clamp(4rem,8vw,8rem)] leading-none text-white/[0.08] md:right-6">{String(project.id).padStart(2, "0")}</span>
+        <span className="display-title absolute bottom-2 right-4 z-10 text-[clamp(4rem,8vw,8rem)] leading-none text-white/[0.12] md:right-6">{String(project.id).padStart(2, "0")}</span>
       </div>
 
       <div className={`flex flex-1 flex-col p-5 text-white md:p-7 ${isLead ? "lg:grid lg:grid-cols-[1fr_1fr] lg:gap-x-16" : ""}`}>
@@ -179,7 +236,7 @@ function ProjectCard({ project }: { project: Project }) {
           <span>{project.status}</span>
           <span>{project.year}</span>
         </div>
-        <h3 className="text-[clamp(1.7rem,3vw,2.8rem)] font-semibold leading-[1.15] tracking-[-0.025em]">{project.title}</h3>
+        <h3 className="text-balance text-[clamp(1.7rem,3vw,2.8rem)] font-semibold leading-[1.15] tracking-[-0.025em] max-[520px]:text-[min(1.7rem,8.5vw)]">{project.title}</h3>
         <p className={`copy-pretty mt-3 text-sm leading-7 text-white/64 md:text-[15px] ${isLead ? "lg:col-start-2 lg:row-start-1 lg:mt-0" : ""}`}>{project.description}</p>
         <div className={`mt-4 flex flex-wrap gap-x-2 gap-y-1 border-l-2 pl-3 text-xs font-medium leading-6 text-white/80 md:text-sm ${isLead ? "lg:col-start-1" : ""}`} style={{ borderColor: project.color }}>
           {project.role.map((item, index) => (
@@ -261,7 +318,7 @@ export default function Works() {
           </div>
           <div className="max-w-xl md:justify-self-end">
             <p className="copy-pretty text-[clamp(1rem,1.45vw,1.35rem)] leading-[1.7] text-white/62">
-              这些项目都从真实制作问题出发，把<span className="keep-phrase">AIGC 协作</span>、提示词、本地声音与后期自动化转化为可用的工具和流程。
+              这些项目都从真实制作问题出发，把<span className="keep-phrase">AIGC 协作、</span>提示词、本地声音与后期自动化转化为可用的工具和流程。
             </p>
           </div>
         </div>

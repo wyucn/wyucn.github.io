@@ -55,7 +55,7 @@ export default function Footer() {
         <div className="mt-14 grid gap-10 border-t border-white/15 pt-9 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
           <div>
             <p className="copy-pretty max-w-2xl text-[clamp(1rem,1.45vw,1.3rem)] leading-[1.75] text-white/66">
-              目前在职，也对合适的机会与行业交流保持开放。如果你关注视频后期、<span className="keep-phrase">Motion Design</span> 或 <span className="keep-phrase">AI 工作流</span>，欢迎来信。
+              目前在职，也对合适的机会与行业交流保持开放。如果你关注视频后期、<span className="keep-phrase">Motion Design</span> 或 <span className="keep-phrase">AI 工作流，</span>欢迎来信。
             </p>
             <p className="mt-6 text-[11px] tracking-[0.08em] text-white/45">中国 / GMT+8</p>
           </div>

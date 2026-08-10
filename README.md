@@ -39,10 +39,11 @@ npm run build    # 静态导出，产物在 out/ 目录
 ## 当前内容状态与后续完善
 
 - Hero 背景视频、Hero 海报、Showreel 视频、Showreel 海报、Selected Frames 八张代表帧和头像均已使用真实媒体。
-- 六个项目已有真实文案、职责和标签，但当前仍以 CSS 示意视觉为主；只有 Haitun Post Studio 提供公开访问链接。
+- Haitun Post Studio、即梦提示词助手、海豚后期公式生成、PPT2AE 与 Local AI Voice Lab 已接入隔离或脱敏后的真实界面；“新光办事处”因尚未确认可公开画面，继续保留抽象视觉。
+- 当前不提供项目外链：Haitun 生产地址会进入公司登录，其他工具也尚无独立公开发布页。
 - 尚未加入可公开的 PDF 简历；补充后应在联系区增加下载入口。
 - 当前确认公开的社媒只有哔哩哔哩；其他平台应在本人确认真实主页后再添加。
-- 后续优先补充项目截图、制作过程、职责边界和可公开结果证据，而不是继续增加装饰性占位图。
+- 后续优先补充“新光办事处”的已授权画面、Selected Frames 的原始高清截图，以及更清楚的制作过程和职责证据。
 
 ## 设计与内容文档
 
@@ -59,7 +60,7 @@ src/
   data/         作品等内容数据（与组件分离，便于维护）
   lib/          站点 URL、SEO 文案和公开社媒常量
 public/
-  images/       头像、Hero / Showreel 海报与 Selected Frames 代表帧
+  images/       头像、Hero / Showreel 海报、Selected Frames 与脱敏项目界面
   videos/       Hero 背景与 Showreel 视频
 docs/           当前视觉基线、文案素材与历史归档
 .github/        GitHub Pages 自动构建与部署工作流

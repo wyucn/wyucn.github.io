@@ -27,7 +27,7 @@ const acts = [
   },
   {
     number: "03",
-    title: "流程与 AI 工具",
+    title: "流程与 AI\u00a0工具",
     label: "评测 / 沉淀 / 迭代",
     details: [
       "持续评测生成式视频、图像、语音与音乐模型，判断不同方案在实际制作中的适用性，并沉淀可复用资料。",
@@ -253,17 +253,17 @@ export default function Experience() {
             </div>
 
             <p
-              className="relative my-12 flex items-end justify-between gap-5 font-sans font-semibold tracking-[-0.045em] lg:my-6 lg:block"
+              className="relative my-12 flex items-end justify-between gap-5 font-sans font-semibold tracking-[-0.045em] max-[360px]:gap-3 lg:my-6 lg:block"
               aria-label="2020 年至今"
             >
               <span
-                className="block text-[clamp(3.8rem,6vw,6.2rem)] leading-[0.86]"
+                className="block text-[clamp(3.8rem,6vw,6.2rem)] leading-[0.86] max-[360px]:text-[3.2rem]"
                 aria-hidden="true"
               >
                 2020
               </span>
               <span
-                className="block text-[clamp(3.1rem,5.2vw,5.2rem)] leading-[0.86] text-white/42 lg:mt-4 lg:text-right"
+                className="block whitespace-nowrap text-[clamp(3.1rem,5.2vw,5.2rem)] leading-[0.86] text-white/42 max-[360px]:text-[2.45rem] lg:mt-4 lg:text-right"
                 aria-hidden="true"
               >
                 至今
