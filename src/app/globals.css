@@ -265,6 +265,16 @@
   overflow: hidden;
 }
 
+.hero-mobile-primer {
+  display: none;
+}
+
+@media (scripting: enabled) and (max-width: 767px) and (min-height: 681px) and (prefers-reduced-motion: no-preference) {
+  .hero-mobile-primer {
+    display: flex;
+  }
+}
+
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) and (min-height: 681px) {
   .hero-title-motion {
     opacity: 0;

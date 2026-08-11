@@ -1,68 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION, BILIBILI_URL } from "@/lib/site";
+import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const title = SITE_TITLE;
-const description = SITE_DESCRIPTION;
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title,
-  description,
-  keywords: [
-    "王玉",
-    "视频后期",
-    "Motion Design",
-    "视频剪辑",
-    "动态视觉",
-    "AIGC",
-    "AI Creative Workflow",
-    "AI 工具",
-    "作品集",
-  ],
-  authors: [{ name: "王玉" }],
-  creator: "王玉",
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    type: "website",
-    locale: "zh_CN",
-    url: SITE_URL,
-    siteName: title,
-    title,
-    description,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title,
-    description,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
 };
 
 export const viewport: Viewport = {
   themeColor: "#07090a",
-};
-
-// 结构化数据：帮助搜索引擎理解“这是谁”。sameAs 后续可补全各社媒主页。
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "王玉",
-  jobTitle: "视频后期 / Motion Design / AI 工作流实践",
-  description,
-  url: SITE_URL,
-  sameAs: [BILIBILI_URL],
 };
 
 export default function RootLayout({
@@ -72,13 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" className={inter.variable}>
-      <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

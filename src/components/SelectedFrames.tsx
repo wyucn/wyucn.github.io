@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -235,8 +236,8 @@ export default function SelectedFrames() {
             start: "top top",
             end: () =>
               `+=${Math.max(
-                getHorizontalTravel() / 1.45,
-                window.innerHeight * 1.5,
+                getHorizontalTravel() / 2,
+                window.innerHeight * 1.1,
               )}`,
             pin: stage,
             pinSpacing: true,
@@ -318,9 +319,9 @@ export default function SelectedFrames() {
           aria-hidden="true"
         />
 
-        <header className="shell relative z-10 flex items-end justify-between gap-8">
+        <header className="shell relative z-10 flex items-end justify-between gap-4 sm:gap-8">
           <div>
-            <p className="font-mono text-[9px] font-bold tracking-[0.16em] text-[#83e2ca]">
+            <p className="font-mono text-[11px] font-bold tracking-[0.12em] text-[#83e2ca]">
               01.B / SELECTED_FRAMES
             </p>
             <h2
@@ -331,9 +332,19 @@ export default function SelectedFrames() {
             </h2>
           </div>
 
-          <div className="hidden text-right font-mono text-[9px] leading-5 tracking-[0.12em] text-white/42 lg:block">
-            <span className="block text-[#83e2ca]">BUFFER::08</span>
-            <span className="block">SCROLL_Y → TRACK_X</span>
+          <div className="flex shrink-0 flex-col items-end gap-3">
+            <div className="hidden text-right font-mono text-[11px] leading-5 tracking-[0.1em] text-white/60 lg:block">
+              <span className="block text-[#83e2ca]">BUFFER::08</span>
+              <span className="block">SCROLL_Y → TRACK_X</span>
+            </div>
+            <a
+              href="#works"
+              aria-label="跳过画面档案，前往项目案例"
+              className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-black/20 px-4 font-mono text-[11px] font-semibold tracking-[0.08em] text-white/80 backdrop-blur-sm transition-colors hover:border-[#83e2ca]/70 hover:text-[#83e2ca] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#83e2ca] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090b0d]"
+            >
+              跳到项目
+              <ArrowUpRightIcon className="rotate-[135deg] text-[#83e2ca] transition-transform group-hover:translate-y-0.5" />
+            </a>
           </div>
         </header>
 
@@ -343,7 +354,7 @@ export default function SelectedFrames() {
 
         <div
           ref={mobileHintRef}
-          className="shell relative z-10 mt-6 flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.12em] text-white/48 transition-opacity duration-300 data-[state=ended]:opacity-0 data-[state=engaged]:opacity-55 lg:hidden"
+          className="shell relative z-10 mt-6 flex items-center justify-between gap-4 font-mono text-[11px] tracking-[0.1em] text-white/68 transition-opacity duration-300 data-[state=ended]:opacity-0 data-[state=engaged]:opacity-80 lg:hidden"
         >
           <span className="inline-flex items-center gap-2.5 text-[#83e2ca]">
             <svg
@@ -385,14 +396,14 @@ export default function SelectedFrames() {
                   aria-hidden="true"
                 />
 
-                <div className="font-mono text-[9px] leading-5 tracking-[0.14em] text-white/42">
+                <div className="font-mono text-[11px] leading-5 tracking-[0.1em] text-white/60">
                   <span className="block text-[#83e2ca]">ARCHIVE_NODE::WY_22—25</span>
                   <span className="block">SOURCE::SHOWREEL_60S</span>
                   <span className="block">STATUS::FRAME_LOCKED</span>
                 </div>
 
                 <div className="max-w-3xl py-10">
-                  <p className="font-mono text-[10px] tracking-[0.14em] text-[#83e2ca]">
+                  <p className="font-mono text-[11px] tracking-[0.12em] text-[#83e2ca]">
                     [ 08 SIGNALS SELECTED ]
                   </p>
                   <h3 className="mt-5 text-[clamp(3.3rem,7vw,7.8rem)] font-black leading-[0.86] tracking-[-0.055em] max-[360px]:text-[2.85rem]">
@@ -404,7 +415,7 @@ export default function SelectedFrames() {
                   </p>
                 </div>
 
-                <div className="flex items-end justify-between gap-6 border-t border-white/12 pt-5 font-mono text-[9px] tracking-[0.12em] text-white/38">
+                <div className="flex items-end justify-between gap-6 border-t border-white/12 pt-5 font-mono text-[11px] tracking-[0.1em] text-white/65">
                   <span>DRAG_X / SCROLL_Y</span>
                   <span aria-hidden="true" className="text-[#83e2ca]">
                     ├──────────→
@@ -442,10 +453,10 @@ export default function SelectedFrames() {
                       aria-hidden="true"
                     />
 
-                    <span className="absolute left-4 top-4 border border-[rgba(131,226,202,.36)] bg-[rgba(9,11,13,.72)] px-2.5 py-1.5 font-mono text-[9px] tracking-[0.13em] text-[#83e2ca] backdrop-blur-sm">
+                    <span className="absolute left-4 top-4 border border-[rgba(131,226,202,.36)] bg-[rgba(9,11,13,.78)] px-2.5 py-1.5 font-mono text-[11px] tracking-[0.1em] text-[#83e2ca] backdrop-blur-sm">
                       FRM_{String(index + 1).padStart(2, "0")}
                     </span>
-                    <span className="absolute right-4 top-4 bg-[rgba(9,11,13,.72)] px-2.5 py-1.5 font-mono text-[9px] tracking-[0.12em] text-white/68 backdrop-blur-sm">
+                    <span className="absolute right-4 top-4 bg-[rgba(9,11,13,.78)] px-2.5 py-1.5 font-mono text-[11px] tracking-[0.1em] text-white/82 backdrop-blur-sm">
                       {frame.timecode}
                     </span>
                     <span
@@ -460,14 +471,14 @@ export default function SelectedFrames() {
 
                   <figcaption className="grid gap-3 border-t border-white/14 pt-4 sm:grid-cols-[minmax(0,1fr)_minmax(12rem,.7fr)] sm:gap-8">
                     <div>
-                      <p className="font-mono text-[9px] tracking-[0.13em] text-[#83e2ca]">
+                      <p className="font-mono text-[11px] tracking-[0.1em] text-[#83e2ca]">
                         {frame.discipline}
                       </p>
                       <h3 className="mt-1.5 text-xl font-bold tracking-[-0.025em] sm:text-2xl">
                         {frame.title}
                       </h3>
                     </div>
-                    <p className="copy-pretty text-xs leading-6 text-white/50 sm:text-sm sm:leading-6">
+                    <p className="copy-pretty text-sm leading-6 text-white/65">
                       {frame.description}
                     </p>
                   </figcaption>
@@ -482,10 +493,10 @@ export default function SelectedFrames() {
           </ol>
         </div>
 
-        <div className="shell relative z-10 mt-2 flex items-center gap-3 font-mono text-[9px] tracking-[0.12em] text-white/40 sm:gap-4">
+        <div className="shell relative z-10 mt-2 flex items-center gap-3 font-mono text-[11px] tracking-[0.1em] text-white/60 sm:gap-4">
           <span
             ref={frameIndexTextRef}
-            className="min-w-[4.8rem] shrink-0 text-[#83e2ca]"
+            className="min-w-[5.2rem] shrink-0 text-[#83e2ca]"
           >
             01 / 08
           </span>

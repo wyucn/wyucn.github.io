@@ -79,6 +79,9 @@ export default function Hero() {
     const signaturePath = section?.querySelector<SVGPathElement>(
       ".hero-signature-path",
     );
+    const mobilePrimer = section?.querySelector<HTMLElement>(
+      ".hero-mobile-primer",
+    );
     if (
       !section ||
       !stage ||
@@ -190,18 +193,38 @@ export default function Hero() {
               ease: "none",
             },
             0.16,
-          )
-          .to(
-            ".hero-supporting",
+          );
+
+        if (isMobile && mobilePrimer) {
+          timeline.fromTo(
+            mobilePrimer,
             {
               autoAlpha: 1,
               y: 0,
-              duration: 0.32,
-              stagger: 0.05,
-              ease: "power2.out",
+              pointerEvents: "auto",
             },
-            0.52,
+            {
+              autoAlpha: 0,
+              y: 12,
+              pointerEvents: "none",
+              duration: 0.2,
+              ease: "power2.in",
+            },
+            0.24,
           );
+        }
+
+        timeline.to(
+          ".hero-supporting",
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.32,
+            stagger: 0.05,
+            ease: "power2.out",
+          },
+          0.52,
+        );
       }, section);
 
       return () => ctx.revert();
@@ -485,6 +508,23 @@ export default function Hero() {
             <span className="copy-pretty">
               王玉 / 视频后期 · <span className="keep-phrase">Motion Design</span> · <span className="keep-phrase">AI 工作流</span>
             </span>
+          </div>
+
+          <div className="hero-mobile-primer absolute inset-x-0 bottom-[max(1.25rem,env(safe-area-inset-bottom))] z-20 flex-col gap-4 border-t border-white/20 pt-4">
+            <div>
+              <p className="text-[1.05rem] font-extrabold leading-[1.35] tracking-[-0.02em] text-white">
+                视频后期与动态视觉创作者
+              </p>
+              <p className="mt-1.5 font-mono text-[11px] font-bold tracking-[0.09em] text-[#83e2ca] uppercase">
+                Motion Design · AI 工作流
+              </p>
+            </div>
+            <a
+              href="#showreel"
+              className="inline-flex min-h-[50px] w-fit items-center gap-5 rounded-[2px] bg-[#f2f1ec] px-5 text-[11px] font-extrabold tracking-[0.06em] text-[#07090a] transition active:translate-y-px"
+            >
+              观看 Showreel <ArrowUpRightIcon className="rotate-90 text-base" />
+            </a>
           </div>
 
           <div className="mt-auto">

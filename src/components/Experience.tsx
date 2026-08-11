@@ -373,14 +373,14 @@ export default function Experience() {
 
             <div className="relative flex flex-wrap items-start justify-between gap-5 lg:block">
               <div>
-                <p className="text-[10px] tracking-[0.1em] text-[#83e2ca]">
+                <p className="text-[11px] tracking-[0.08em] text-[#83e2ca]">
                   教育科技集团 · 内容视频团队
                 </p>
                 <p className="mt-3 text-sm leading-6 text-white/60">
                   视频后期 · 制作统筹 · 流程建设
                 </p>
               </div>
-              <span className="inline-flex border-l border-[#83e2ca] py-1 pl-3 text-[10px] tracking-[0.1em] text-white/70 lg:mt-6">
+              <span className="inline-flex border-l border-[#83e2ca] py-1 pl-3 text-[11px] tracking-[0.08em] text-white/78 lg:mt-6">
                 在职
               </span>
             </div>
@@ -417,7 +417,7 @@ export default function Experience() {
                     data-experience-label
                     className="flex items-baseline gap-3"
                   >
-                    <span className="font-mono text-[9px] tracking-[0.1em] text-[#83e2ca]">
+                    <span className="font-mono text-[11px] tracking-[0.08em] text-[#83e2ca]">
                       {act.number}
                     </span>
                     <span className="text-sm font-semibold tracking-[-0.01em]">
@@ -435,11 +435,11 @@ export default function Experience() {
               hidden
               className="z-20 border-b border-white/15 bg-[rgba(14,17,19,.94)] px-7 py-3.5 shadow-[0_14px_30px_rgba(9,11,13,.28)] backdrop-blur-xl md:px-10 lg:hidden"
             >
-              <div className="flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.12em]">
+              <div className="flex items-center justify-between gap-4 font-mono text-[11px] tracking-[0.1em]">
                 <p className="text-[#83e2ca]">
                   CHAPTER <span ref={mobileChapterNumberRef}>01</span> / 03
                 </p>
-                <span className="text-white/38">SCROLL_Y</span>
+                <span className="text-white/65">SCROLL_Y</span>
               </div>
               <div className="mt-2 flex items-center justify-between gap-4">
                 <span
@@ -494,10 +494,10 @@ export default function Experience() {
 
                   <div data-experience-body className="relative flex h-full flex-col">
                     <div className="flex items-center justify-between gap-5 border-b border-white/15 pb-5">
-                      <p className="font-mono text-[10px] tracking-[0.1em] text-[#83e2ca]">
+                      <p className="font-mono text-[11px] tracking-[0.08em] text-[#83e2ca]">
                         ACT {act.number}
                       </p>
-                      <p className="text-right text-[10px] tracking-[0.1em] text-white/40">
+                      <p className="text-right text-[11px] tracking-[0.08em] text-white/62">
                         {act.label}
                       </p>
                     </div>
@@ -522,7 +522,7 @@ export default function Experience() {
                       {act.keywords.map((keyword) => (
                         <li
                           key={keyword}
-                          className="flex items-center gap-2 text-[10px] tracking-[0.08em] text-white/50"
+                          className="flex items-center gap-2 text-[11px] tracking-[0.06em] text-white/62"
                         >
                           <span
                             className="h-1 w-1 rotate-45 bg-[#83e2ca]"
