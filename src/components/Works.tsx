@@ -347,17 +347,17 @@ function ProjectCard({ project }: { project: Project }) {
   const isLead = Boolean(project.featured);
   const isCompact = project.id >= 4;
   const gridClass = isLead
-    ? "lg:col-span-6 xl:col-span-8"
+    ? "lg:col-span-8"
     : project.id === 2
-      ? "lg:col-span-6 xl:col-span-4"
+      ? "lg:col-span-4"
       : "lg:col-span-6";
   const hasMedia = Boolean(project.media?.length);
   const visualHeight = isLead
     ? hasMedia
-      ? "h-[190px] md:h-[500px]"
+      ? "h-[280px] sm:h-[360px] md:h-[500px]"
       : "h-[330px] md:h-[500px]"
     : project.id === 2
-      ? "h-[270px] md:h-[500px]"
+      ? "h-[240px] sm:h-[300px] md:h-[420px] lg:h-[500px]"
     : isCompact
       ? hasMedia
         ? "h-[190px] md:h-[340px]"
@@ -392,7 +392,7 @@ function ProjectCard({ project }: { project: Project }) {
           {isLead ? (
             <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(131,226,202,.42)] bg-[rgba(131,226,202,.1)] px-3 py-1.5 text-[11px] font-semibold tracking-[0.06em] text-[#a7f0dd] md:text-xs">
               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#83e2ca] shadow-[0_0_12px_rgba(131,226,202,.72)]" aria-hidden="true" />
-              {project.status}
+              核心项目 · {project.status}
             </span>
           ) : (
             <span>{project.status}</span>
@@ -475,13 +475,13 @@ export default function Works() {
           <div>
             <p className="mb-5 font-mono text-[11px] tracking-[0.08em] text-[#83e2ca]">02 / 项目</p>
             <h2 className="font-sans text-[clamp(3.3rem,7.5vw,7.5rem)] font-extrabold leading-[1.02] tracking-[-0.025em] max-[520px]:leading-[1.04]">
-              <span className="block">项目与</span>
-              <span className="mt-[0.08em] block text-white/45">工具实践</span>
+              <span className="block">项目</span>
+              <span className="mt-[0.08em] block text-white/45">工作流实践</span>
             </h2>
           </div>
           <div className="max-w-xl md:justify-self-end">
             <p className="copy-pretty text-[clamp(1rem,1.45vw,1.35rem)] leading-[1.7] text-white/62">
-              这些项目都从真实制作问题出发，把<span className="keep-phrase">AIGC 协作、</span>提示词、本地声音与后期自动化转化为可用的工具和流程。
+              <span className="keep-phrase">Haitun Post Studio</span> 已投入团队使用并持续迭代。围绕提示词、本地声音与后期自动化的其他实践，也都来自真实制作中的具体问题。
             </p>
           </div>
         </div>
