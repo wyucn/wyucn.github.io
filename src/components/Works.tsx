@@ -344,7 +344,7 @@ function ProjectMedia({ project, sizes }: { project: Project; sizes: string }) {
 }
 
 function ProjectCard({ project }: { project: Project }) {
-  const isLead = project.id === 1;
+  const isLead = Boolean(project.featured);
   const isCompact = project.id >= 4;
   const gridClass = isLead
     ? "lg:col-span-6 xl:col-span-8"
@@ -388,9 +388,16 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <div className={`flex flex-1 flex-col p-5 text-white md:p-7 ${isLead ? "lg:grid lg:grid-cols-[1fr_1fr] lg:gap-x-16" : ""}`}>
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-[10px] tracking-[0.06em] text-white/45 md:text-[11px]">
-          <span>{project.status}</span>
-          <span>{project.year}</span>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 text-[10px] tracking-[0.06em] text-white/45 md:text-[11px]">
+          {isLead ? (
+            <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(131,226,202,.42)] bg-[rgba(131,226,202,.1)] px-3 py-1.5 text-[11px] font-semibold tracking-[0.06em] text-[#a7f0dd] md:text-xs">
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#83e2ca] shadow-[0_0_12px_rgba(131,226,202,.72)]" aria-hidden="true" />
+              {project.status}
+            </span>
+          ) : (
+            <span>{project.status}</span>
+          )}
+          <span className={isLead ? "font-mono text-white/52" : undefined}>{project.year}</span>
         </div>
         <h3 className="text-balance text-[clamp(1.7rem,3vw,2.8rem)] font-semibold leading-[1.15] tracking-[-0.025em] max-[520px]:text-[min(1.7rem,8.5vw)]">{project.title}</h3>
         <p className={`copy-pretty mt-3 text-sm leading-7 text-white/64 md:text-[15px] ${isLead ? "lg:col-start-2 lg:row-start-1 lg:mt-0" : ""}`}>{project.description}</p>
