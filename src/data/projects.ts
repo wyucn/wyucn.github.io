@@ -54,7 +54,7 @@ export const projects: Project[] = [
       },
       {
         src: "/images/projects/haitun-studio-current-assets.webp",
-        alt: "",
+        alt: "Haitun Post Studio 的项目素材与资源管理界面",
         background: "#f6f6f0",
       },
     ],
@@ -93,7 +93,7 @@ export const projects: Project[] = [
       },
       {
         src: "/images/projects/prompt-assistant-timeline.webp",
-        alt: "",
+        alt: "即梦提示词助手的分镜时间轴与片段编辑界面",
         background: "#15181f",
       },
     ],
@@ -119,7 +119,7 @@ export const projects: Project[] = [
       },
       {
         src: "/images/projects/formula-tool-quickref.webp",
-        alt: "",
+        alt: "海豚后期公式生成的公式速查与 LaTeX 示例界面",
         background: "#07120b",
       },
     ],
@@ -166,7 +166,7 @@ export const projects: Project[] = [
       },
       {
         src: "/images/projects/voice-lab-clone-empty.webp",
-        alt: "",
+        alt: "本地 AI 语音工作台的音色克隆配置界面",
         background: "#f7f7f7",
       },
     ],

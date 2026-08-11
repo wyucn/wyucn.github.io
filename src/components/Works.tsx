@@ -280,6 +280,76 @@ function SwipeableProjectMedia({ project, sizes }: { project: Project; sizes: st
   );
 }
 
+function DesktopProjectMedia({ project, sizes }: { project: Project; sizes: string }) {
+  const mediaItems = project.media ?? [];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const hasCardLink = Boolean(project.href);
+
+  return (
+    <figure className="absolute inset-5 hidden overflow-hidden rounded-[5px] border border-white/15 shadow-[0_24px_70px_rgba(0,0,0,.28)] md:block">
+      {mediaItems.map((media, index) => {
+        const isActive = index === activeIndex;
+        const imageAlt = media.alt || `${project.title} 的第 ${index + 1} 张界面`;
+
+        return (
+          <Image
+            key={media.src}
+            src={media.src}
+            alt={isActive ? imageAlt : ""}
+            aria-hidden={!isActive}
+            fill
+            sizes={sizes}
+            draggable={false}
+            className={`pointer-events-none select-none transition-opacity duration-500 motion-reduce:transition-none ${isActive ? "opacity-100" : "opacity-0"}`}
+            style={{
+              objectFit: media.fit ?? "cover",
+              objectPosition: media.position ?? "center",
+              background: media.background ?? "#0e1113",
+            }}
+          />
+        );
+      })}
+
+      {!hasCardLink ? (
+        <>
+          <div
+            role="group"
+            aria-label={`${project.title} 界面切换`}
+            className="absolute bottom-3 left-3 z-20 flex items-center gap-1 rounded-full border border-white/15 bg-black/80 p-1 shadow-lg backdrop-blur-md"
+          >
+            <span className="px-1.5 text-[11px] tracking-[0.06em] text-white/65">界面</span>
+            {mediaItems.map((media, index) => {
+              const isActive = index === activeIndex;
+
+              return (
+                <button
+                  key={media.src}
+                  type="button"
+                  aria-label={`显示 ${project.title} 的第 ${index + 1} 张界面`}
+                  aria-pressed={isActive}
+                  onClick={() => setActiveIndex(index)}
+                  className={`inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold tabular-nums transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#83e2ca] focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
+                    isActive
+                      ? "border-[#83e2ca] bg-[#83e2ca] text-[#07090a]"
+                      : "border-white/20 text-white/72 hover:border-white/45 hover:text-white"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              );
+            })}
+          </div>
+          <span className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+            当前显示第 {activeIndex + 1} 张，共 {mediaItems.length} 张
+          </span>
+        </>
+      ) : null}
+
+      <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10" aria-hidden="true" />
+    </figure>
+  );
+}
+
 function ProjectMedia({ project, sizes }: { project: Project; sizes: string }) {
   if (!project.media?.length) {
     return <ProjectVisual type={project.visual} color={project.color} />;
@@ -291,32 +361,7 @@ function ProjectMedia({ project, sizes }: { project: Project; sizes: string }) {
     return (
       <>
         <SwipeableProjectMedia project={project} sizes={sizes} />
-        <figure className="absolute inset-5 hidden overflow-hidden rounded-[5px] border border-white/15 shadow-[0_24px_70px_rgba(0,0,0,.28)] md:block">
-          {project.media.map((media, index) => {
-            const isAlternate = index > 0;
-            const visibilityClass = isAlternate
-              ? "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
-              : "opacity-100 group-hover:opacity-0 group-focus-visible:opacity-0";
-
-            return (
-              <Image
-                key={media.src}
-                src={media.src}
-                alt={media.alt}
-                fill
-                sizes={sizes}
-                draggable={false}
-                className={`pointer-events-none select-none transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.012] motion-reduce:transition-none ${visibilityClass}`}
-                style={{
-                  objectFit: media.fit ?? "cover",
-                  objectPosition: media.position ?? "center",
-                  background: media.background ?? "#0e1113",
-                }}
-              />
-            );
-          })}
-          <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10" aria-hidden="true" />
-        </figure>
+        <DesktopProjectMedia project={project} sizes={sizes} />
       </>
     );
   }
@@ -331,7 +376,7 @@ function ProjectMedia({ project, sizes }: { project: Project; sizes: string }) {
         fill
         sizes={sizes}
         draggable={false}
-        className="pointer-events-none select-none transition-transform duration-700 ease-out group-hover:scale-[1.012] motion-reduce:transition-none"
+        className={`pointer-events-none select-none transition-transform duration-700 ease-out motion-reduce:transition-none ${project.href ? "group-hover:scale-[1.012]" : ""}`}
         style={{
           objectFit: media.fit ?? "cover",
           objectPosition: media.position ?? "center",
@@ -423,7 +468,11 @@ function ProjectCard({ project }: { project: Project }) {
     </>
   );
 
-  const className = "group relative flex h-full min-w-0 flex-col overflow-hidden border border-white/12 transition-[transform,border-color] duration-300 hover:-translate-y-0.5 hover:border-[var(--project-accent)]";
+  const className = `group relative flex h-full min-w-0 flex-col overflow-hidden border border-white/12 ${
+    project.href
+      ? "transition-[transform,border-color] duration-300 hover:-translate-y-0.5 hover:border-[var(--project-accent)]"
+      : ""
+  }`;
   const wrapperClassName = `work-card-reveal ${gridClass}`;
   const cardStyle = {
     background: "#0e1113",
