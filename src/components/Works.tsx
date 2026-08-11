@@ -251,13 +251,13 @@ function SwipeableProjectMedia({ project, sizes }: { project: Project; sizes: st
       <span id={swipeHintId} className="sr-only">
         横向滑动，或使用左右方向键切换界面。
       </span>
-      <div className="pointer-events-none absolute bottom-3 left-3 z-20 flex items-center gap-2 rounded-full border border-white/15 bg-black/70 px-2.5 py-1.5 text-white/78 shadow-lg backdrop-blur-md">
-        <span className="text-[9px] tracking-[0.08em]">
+      <div className="pointer-events-none absolute bottom-3 left-3 z-20 flex items-center gap-2 rounded-full border border-white/20 bg-black/78 px-3 py-2 text-white/88 shadow-lg backdrop-blur-md">
+        <span className="text-[11px] tracking-[0.06em]">
           左右滑动
         </span>
         <span className="h-3 w-px bg-white/20" aria-hidden="true" />
         <span
-          className="min-w-[2.5rem] text-center font-mono text-[9px] tabular-nums"
+          className="min-w-[2.75rem] text-center font-mono text-[11px] tabular-nums"
           aria-live="polite"
           aria-atomic="true"
         >
@@ -422,9 +422,9 @@ function ProjectCard({ project }: { project: Project }) {
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(9,11,13,.14),transparent_34%,rgba(9,11,13,.42))]" aria-hidden="true" />
         ) : null}
         <div className="pointer-events-none absolute inset-x-4 top-4 z-10 flex flex-wrap items-start justify-between gap-2 md:inset-x-5 md:top-5">
-          <span className="border-l bg-[rgba(9,11,13,.78)] px-2 py-1.5 text-[9px] tracking-[0.07em] backdrop-blur-md md:text-[10px]" style={{ borderColor: `${project.color}aa`, color: project.color }}>{project.category}</span>
+          <span className="border-l bg-[rgba(9,11,13,.82)] px-2.5 py-1.5 text-[11px] font-medium tracking-[0.06em] backdrop-blur-md" style={{ borderColor: `${project.color}aa`, color: project.color }}>{project.category}</span>
           {project.mediaLabel ? (
-            <span className="shrink-0 rounded-sm border border-white/15 bg-[rgba(9,11,13,.78)] px-2 py-1.5 text-[8px] tracking-[0.08em] text-white/68 backdrop-blur-md md:text-[9px]">
+            <span className="shrink-0 rounded-sm border border-white/20 bg-[rgba(9,11,13,.82)] px-2.5 py-1.5 text-[11px] tracking-[0.06em] text-white/78 backdrop-blur-md">
               {project.mediaLabel}
             </span>
           ) : null}
@@ -433,7 +433,7 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <div className={`flex flex-1 flex-col p-5 text-white md:p-7 ${isLead ? "lg:grid lg:grid-cols-[1fr_1fr] lg:gap-x-16" : ""}`}>
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 text-[10px] tracking-[0.06em] text-white/45 md:text-[11px]">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 text-[11px] tracking-[0.06em] text-white/60 md:text-xs">
           {isLead ? (
             <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(131,226,202,.42)] bg-[rgba(131,226,202,.1)] px-3 py-1.5 text-[11px] font-semibold tracking-[0.06em] text-[#a7f0dd] md:text-xs">
               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#83e2ca] shadow-[0_0_12px_rgba(131,226,202,.72)]" aria-hidden="true" />
@@ -442,7 +442,7 @@ function ProjectCard({ project }: { project: Project }) {
           ) : (
             <span>{project.status}</span>
           )}
-          <span className={isLead ? "font-mono text-white/52" : undefined}>{project.year}</span>
+          <span className={isLead ? "font-mono text-white/62" : undefined}>{project.year}</span>
         </div>
         <h3 className="text-balance text-[clamp(1.7rem,3vw,2.8rem)] font-semibold leading-[1.15] tracking-[-0.025em] max-[520px]:text-[min(1.7rem,8.5vw)]">{project.title}</h3>
         <p className={`copy-pretty mt-3 text-sm leading-7 text-white/64 md:text-[15px] ${isLead ? "lg:col-start-2 lg:row-start-1 lg:mt-0" : ""}`}>{project.description}</p>
@@ -456,7 +456,7 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
         <div className={`mt-5 flex flex-wrap gap-x-3 gap-y-2 ${isLead ? "lg:col-start-2" : ""}`}>
           {project.tags.map((tag) => (
-            <span key={tag} className="whitespace-nowrap border-r border-white/15 pr-3 text-[11px] text-white/48 last:border-r-0 last:pr-0">{tag}</span>
+            <span key={tag} className="whitespace-nowrap border-r border-white/18 pr-3 text-xs text-white/62 last:border-r-0 last:pr-0">{tag}</span>
           ))}
         </div>
         {project.href && (
