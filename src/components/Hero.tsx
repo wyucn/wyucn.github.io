@@ -509,6 +509,7 @@ export default function Hero() {
             shockStrength={3.8}
             resistance={820}
             returnDuration={1.45}
+            autoDemo
           />
         </ViewportEffect>
         <ViewportEffect interactive className="hero-liquid-layer">

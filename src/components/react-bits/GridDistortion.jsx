@@ -48,7 +48,7 @@ const GridDistortion = ({ grid = 15, mouse = 0.1, strength = 0.15, relaxation = 
       alpha: true,
       powerPreference: 'high-performance'
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 768 ? 1.25 : 2));
     renderer.setClearColor(0x000000, 0);
     rendererRef.current = renderer;
 
@@ -147,17 +147,20 @@ const GridDistortion = ({ grid = 15, mouse = 0.1, strength = 0.15, relaxation = 
       vX: 0,
       vY: 0
     };
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    let lastPointerAt = 0;
 
-    const handleMouseMove = e => {
+    const handlePointerMove = e => {
       const rect = container.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = 1 - (e.clientY - rect.top) / rect.height;
       mouseState.vX = x - mouseState.prevX;
       mouseState.vY = y - mouseState.prevY;
       Object.assign(mouseState, { x, y, prevX: x, prevY: y });
+      lastPointerAt = performance.now();
     };
 
-    const handleMouseLeave = () => {
+    const handlePointerLeave = () => {
       if (dataTexture) {
         dataTexture.needsUpdate = true;
       }
@@ -171,17 +174,25 @@ const GridDistortion = ({ grid = 15, mouse = 0.1, strength = 0.15, relaxation = 
       });
     };
 
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
+    container.addEventListener('pointermove', handlePointerMove, { passive: true });
+    container.addEventListener('pointerleave', handlePointerLeave);
 
     handleResize();
 
-    const animate = () => {
+    const animate = (timestamp = 0) => {
       animationIdRef.current = requestAnimationFrame(animate);
 
       if (!renderer || !scene || !camera) return;
 
       uniforms.time.value += 0.05;
+
+      if (coarsePointer && timestamp - lastPointerAt > 900) {
+        const x = 0.5 + Math.sin(timestamp * 0.00058) * 0.3;
+        const y = 0.5 + Math.cos(timestamp * 0.00043) * 0.24;
+        mouseState.vX = x - mouseState.prevX;
+        mouseState.vY = y - mouseState.prevY;
+        Object.assign(mouseState, { x, y, prevX: x, prevY: y });
+      }
 
       const data = dataTexture.image.data;
       for (let i = 0; i < size * size; i++) {
@@ -222,8 +233,8 @@ const GridDistortion = ({ grid = 15, mouse = 0.1, strength = 0.15, relaxation = 
         window.removeEventListener('resize', handleResize);
       }
 
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
+      container.removeEventListener('pointermove', handlePointerMove);
+      container.removeEventListener('pointerleave', handlePointerLeave);
 
       if (renderer) {
         renderer.dispose();

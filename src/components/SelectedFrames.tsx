@@ -449,7 +449,7 @@ export default function SelectedFrames() {
                     {frame.title === "材质切换" ? (
                       <ViewportEffect
                         interactive
-                        className="absolute inset-0 z-[1] hidden md:block"
+                        className="mobile-grid-distortion absolute inset-0 z-[1]"
                       >
                         <GridDistortion
                           imageSrc={frame.src}

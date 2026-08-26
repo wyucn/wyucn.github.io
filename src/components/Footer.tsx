@@ -43,7 +43,7 @@ export default function Footer() {
   return (
     <footer id="contact" className="section-dark relative overflow-hidden pt-28 md:pt-44">
       <div className="pointer-events-none absolute right-[-18%] top-[5%] h-[42rem] w-[42rem] rounded-full bg-[rgba(131,226,202,.05)] blur-[170px]" aria-hidden="true" />
-      <ViewportEffect className="absolute -right-[18vw] top-0 h-[44rem] w-[70rem] max-w-[110vw] opacity-70 [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]">
+      <ViewportEffect className="mobile-prism absolute -right-[18vw] top-0 h-[44rem] w-[70rem] max-w-[110vw] opacity-70 [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]">
         <Prism
           animationType="3drotate"
           glow={1.2}

@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 type NetworkInformationLike = {
-  effectiveType?: string;
   saveData?: boolean;
 };
 
@@ -31,14 +30,8 @@ export default function ViewportEffect({
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const connection = (navigator as NavigatorWithConnection).connection;
-    const isConstrained = () => {
-      const type = connection?.effectiveType;
-      return Boolean(
-        reducedMotion.matches ||
-          connection?.saveData ||
-          (type && ["slow-2g", "2g"].includes(type)),
-      );
-    };
+    const isConstrained = () =>
+      Boolean(reducedMotion.matches || connection?.saveData);
 
     const observer = new IntersectionObserver(
       ([entry]) => setActive(entry.isIntersecting && !isConstrained()),

@@ -346,6 +346,37 @@
 .waves-canvas { display: block; width: 100%; height: 100%; }
 .dot-grid__canvas { position: absolute; inset: 0; pointer-events: none; }
 
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  .liquid-ether-container { touch-action: pan-y; }
+
+  .hero-liquid-layer {
+    opacity: 0.82;
+    mix-blend-mode: screen;
+  }
+
+  .hero-dot-grid-layer {
+    opacity: 0.68;
+    mask-image: linear-gradient(to bottom, black 4%, black 82%, transparent 100%);
+  }
+
+  .mobile-letter-glitch { opacity: 0.48 !important; }
+  .mobile-aurora { opacity: 0.72 !important; }
+  .mobile-terminal { opacity: 0.24 !important; }
+  .mobile-waves { opacity: 0.58 !important; }
+  .mobile-dot-grid { opacity: 0.68 !important; }
+  .mobile-prism {
+    right: -58vw !important;
+    width: 145vw !important;
+    max-width: none !important;
+    opacity: 0.78 !important;
+  }
+
+  .mobile-grid-distortion {
+    opacity: 0.92;
+    touch-action: pan-y;
+  }
+}
+
 .btn-lime,
 .btn-dark,
 .btn-ghost,

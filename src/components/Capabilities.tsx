@@ -36,7 +36,7 @@ const toolGroups = [
 export default function Capabilities() {
   return (
     <section id="capabilities" className="section-dark relative overflow-hidden py-28 md:py-44">
-      <ViewportEffect interactive className="absolute inset-0 opacity-55 [mask-image:radial-gradient(circle_at_72%_38%,black,transparent_66%)]">
+      <ViewportEffect interactive className="mobile-dot-grid absolute inset-0 opacity-55 [mask-image:radial-gradient(circle_at_72%_38%,black,transparent_66%)]">
         <DotGrid
           style={{}}
           dotSize={3}
@@ -49,6 +49,7 @@ export default function Capabilities() {
           shockStrength={4}
           resistance={780}
           returnDuration={1.35}
+          autoDemo
         />
       </ViewportEffect>
       <div className="shell relative z-10">

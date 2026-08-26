@@ -42,6 +42,7 @@ const DotGrid = ({
   maxSpeed = 5000,
   resistance = 750,
   returnDuration = 1.5,
+  autoDemo = false,
   className = '',
   style
 }) => {
@@ -56,7 +57,8 @@ const DotGrid = ({
     speed: 0,
     lastTime: 0,
     lastX: 0,
-    lastY: 0
+    lastY: 0,
+    lastInteraction: 0
   });
 
   const baseRgb = useMemo(() => hexToRgb(baseColor), [baseColor]);
@@ -76,7 +78,7 @@ const DotGrid = ({
     if (!wrap || !canvas) return;
 
     const { width, height } = wrap.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
+    const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1.5 : 2);
 
     canvas.width = width * dpr;
     canvas.height = height * dpr;
@@ -115,14 +117,19 @@ const DotGrid = ({
     let rafId;
     const proxSq = proximity * proximity;
 
-    const draw = () => {
+    const draw = timestamp => {
       const canvas = canvasRef.current;
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const { x: px, y: py } = pointerRef.current;
+      const pointer = pointerRef.current;
+      if (autoDemo && timestamp - pointer.lastInteraction > 1200) {
+        pointer.x = canvas.clientWidth * (0.5 + Math.sin(timestamp * 0.00042) * 0.34);
+        pointer.y = canvas.clientHeight * (0.48 + Math.cos(timestamp * 0.00031) * 0.27);
+      }
+      const { x: px, y: py } = pointer;
 
       for (const dot of dotsRef.current) {
         const ox = dot.cx + dot.xOffset;
@@ -153,7 +160,7 @@ const DotGrid = ({
 
     draw();
     return () => cancelAnimationFrame(rafId);
-  }, [proximity, baseColor, activeRgb, baseRgb, circlePath]);
+  }, [proximity, baseColor, activeRgb, baseRgb, circlePath, autoDemo]);
 
   useEffect(() => {
     buildGrid();
@@ -192,6 +199,7 @@ const DotGrid = ({
       pr.vx = vx;
       pr.vy = vy;
       pr.speed = speed;
+      pr.lastInteraction = now;
 
       const rect = canvasRef.current.getBoundingClientRect();
       pr.x = e.clientX - rect.left;
@@ -221,6 +229,7 @@ const DotGrid = ({
     };
 
     const onClick = e => {
+      pointerRef.current.lastInteraction = performance.now();
       const rect = canvasRef.current.getBoundingClientRect();
       const cx = e.clientX - rect.left;
       const cy = e.clientY - rect.top;
@@ -249,12 +258,12 @@ const DotGrid = ({
     };
 
     const throttledMove = throttle(onMove, 50);
-    window.addEventListener('mousemove', throttledMove, { passive: true });
-    window.addEventListener('click', onClick);
+    window.addEventListener('pointermove', throttledMove, { passive: true });
+    window.addEventListener('pointerdown', onClick, { passive: true });
 
     return () => {
-      window.removeEventListener('mousemove', throttledMove);
-      window.removeEventListener('click', onClick);
+      window.removeEventListener('pointermove', throttledMove);
+      window.removeEventListener('pointerdown', onClick);
     };
   }, [maxSpeed, speedTrigger, proximity, resistance, returnDuration, shockRadius, shockStrength]);
 

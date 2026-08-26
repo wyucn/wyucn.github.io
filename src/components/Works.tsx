@@ -521,7 +521,7 @@ export default function Works() {
 
   return (
     <section ref={sectionRef} id="works" className="section-dark relative overflow-hidden py-28 md:py-44">
-      <ViewportEffect className="absolute inset-x-0 top-0 h-[38rem] opacity-[.16] [mask-image:linear-gradient(to_bottom,black,transparent)]">
+      <ViewportEffect className="mobile-terminal absolute inset-x-0 top-0 h-[38rem] opacity-[.16] [mask-image:linear-gradient(to_bottom,black,transparent)]">
         <FaultyTerminal
           className=""
           style={{}}

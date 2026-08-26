@@ -9,7 +9,7 @@ export default function AsciiStrip() {
       className="ascii-strip relative z-20 overflow-hidden border-y border-[rgba(131,226,202,.28)] bg-[#0b0e0f] text-[#83e2ca]"
       aria-hidden="true"
     >
-      <ViewportEffect className="absolute inset-0 opacity-30 [mask-image:linear-gradient(90deg,transparent,black_20%,black_80%,transparent)]">
+      <ViewportEffect className="mobile-letter-glitch absolute inset-0 opacity-30 [mask-image:linear-gradient(90deg,transparent,black_20%,black_80%,transparent)]">
         <LetterGlitch
           className="h-full w-full"
           glitchColors={["#24453e", "#83e2ca", "#a7d8ff"]}
