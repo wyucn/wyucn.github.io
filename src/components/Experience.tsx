@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ViewportEffect from "@/components/ViewportEffect";
+import Waves from "@/components/react-bits/Waves";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -366,6 +368,19 @@ export default function Experience() {
           className="grid overflow-visible rounded-lg border border-white/15 bg-[#0e1113] lg:grid-cols-[minmax(280px,.38fr)_minmax(0,.62fr)] lg:overflow-hidden"
         >
           <div className="relative flex flex-col justify-between overflow-hidden border-b border-white/15 p-7 md:p-10 lg:min-h-[500px] lg:border-b-0 lg:border-r">
+            <ViewportEffect interactive className="absolute inset-0 opacity-45 [mask-image:linear-gradient(to_bottom,black,transparent_82%)]">
+              <Waves
+                lineColor="rgba(131,226,202,.42)"
+                backgroundColor="transparent"
+                waveSpeedX={0.014}
+                waveSpeedY={0.006}
+                waveAmpX={26}
+                waveAmpY={14}
+                xGap={14}
+                yGap={32}
+                maxCursorMove={58}
+              />
+            </ViewportEffect>
             <div
               className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_28%_18%,rgba(131,226,202,.14),transparent_43%)]"
               aria-hidden="true"

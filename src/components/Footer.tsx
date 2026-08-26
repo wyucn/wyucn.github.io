@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
 import { BILIBILI_URL } from "@/lib/site";
+import ViewportEffect from "@/components/ViewportEffect";
+import Prism from "@/components/react-bits/Prism";
 
 const EMAIL = "wangyu.hd@qq.com";
 
@@ -41,6 +43,20 @@ export default function Footer() {
   return (
     <footer id="contact" className="section-dark relative overflow-hidden pt-28 md:pt-44">
       <div className="pointer-events-none absolute right-[-18%] top-[5%] h-[42rem] w-[42rem] rounded-full bg-[rgba(131,226,202,.05)] blur-[170px]" aria-hidden="true" />
+      <ViewportEffect className="absolute -right-[18vw] top-0 h-[44rem] w-[70rem] max-w-[110vw] opacity-70 [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]">
+        <Prism
+          animationType="3drotate"
+          glow={1.2}
+          bloom={1.15}
+          noise={0.18}
+          scale={3.9}
+          hueShift={-0.42}
+          colorFrequency={0.8}
+          timeScale={0.28}
+          transparent
+          suspendWhenOffscreen
+        />
+      </ViewportEffect>
 
       <div className="shell relative z-10">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-6 text-[11px] tracking-[0.08em]">

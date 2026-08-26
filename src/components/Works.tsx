@@ -13,6 +13,8 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
+import ViewportEffect from "@/components/ViewportEffect";
+import FaultyTerminal from "@/components/react-bits/FaultyTerminal";
 import {
   projects,
   type Project,
@@ -518,8 +520,26 @@ export default function Works() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="works" className="section-dark relative py-28 md:py-44">
-      <div className="shell">
+    <section ref={sectionRef} id="works" className="section-dark relative overflow-hidden py-28 md:py-44">
+      <ViewportEffect className="absolute inset-x-0 top-0 h-[38rem] opacity-[.16] [mask-image:linear-gradient(to_bottom,black,transparent)]">
+        <FaultyTerminal
+          className=""
+          style={{}}
+          tint="#83e2ca"
+          scale={1.7}
+          gridMul={[2, 1]}
+          digitSize={1.1}
+          timeScale={0.36}
+          scanlineIntensity={0.45}
+          glitchAmount={0.72}
+          flickerAmount={0.5}
+          noiseAmp={0.25}
+          curvature={0.04}
+          mouseReact={false}
+          brightness={0.72}
+        />
+      </ViewportEffect>
+      <div className="shell relative z-10">
         <div className="mb-16 grid gap-10 md:mb-20 md:grid-cols-[1.05fr_.95fr] md:items-end md:gap-20">
           <div>
             <p className="mb-5 font-mono text-[11px] tracking-[0.08em] text-[#83e2ca]">02 / 项目</p>

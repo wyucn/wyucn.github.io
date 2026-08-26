@@ -5,6 +5,8 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
+import ViewportEffect from "@/components/ViewportEffect";
+import GridDistortion from "@/components/react-bits/GridDistortion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -444,27 +446,42 @@ export default function SelectedFrames() {
                       className="select-none object-cover transition-[filter] duration-500 group-hover:brightness-110"
                       style={{ objectPosition: frame.objectPosition }}
                     />
+                    {frame.title === "材质切换" ? (
+                      <ViewportEffect
+                        interactive
+                        className="absolute inset-0 z-[1] hidden md:block"
+                      >
+                        <GridDistortion
+                          imageSrc={frame.src}
+                          grid={18}
+                          mouse={0.16}
+                          strength={0.11}
+                          relaxation={0.93}
+                          className="h-full w-full"
+                        />
+                      </ViewportEffect>
+                    ) : null}
                     <div
-                      className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(9,11,13,.04)_45%,rgba(9,11,13,.74)_100%)]"
+                      className="pointer-events-none absolute inset-0 z-[2] bg-[linear-gradient(180deg,rgba(9,11,13,.04)_45%,rgba(9,11,13,.74)_100%)]"
                       aria-hidden="true"
                     />
                     <div
-                      className="pointer-events-none absolute inset-0 opacity-45 [background-image:repeating-linear-gradient(to_bottom,transparent_0,transparent_4px,rgba(131,226,202,.045)_4px,rgba(131,226,202,.045)_5px)]"
+                      className="pointer-events-none absolute inset-0 z-[2] opacity-45 [background-image:repeating-linear-gradient(to_bottom,transparent_0,transparent_4px,rgba(131,226,202,.045)_4px,rgba(131,226,202,.045)_5px)]"
                       aria-hidden="true"
                     />
 
-                    <span className="absolute left-4 top-4 border border-[rgba(131,226,202,.36)] bg-[rgba(9,11,13,.78)] px-2.5 py-1.5 font-mono text-[11px] tracking-[0.1em] text-[#83e2ca] backdrop-blur-sm">
+                    <span className="absolute left-4 top-4 z-[3] border border-[rgba(131,226,202,.36)] bg-[rgba(9,11,13,.78)] px-2.5 py-1.5 font-mono text-[11px] tracking-[0.1em] text-[#83e2ca] backdrop-blur-sm">
                       FRM_{String(index + 1).padStart(2, "0")}
                     </span>
-                    <span className="absolute right-4 top-4 bg-[rgba(9,11,13,.78)] px-2.5 py-1.5 font-mono text-[11px] tracking-[0.1em] text-white/82 backdrop-blur-sm">
+                    <span className="absolute right-4 top-4 z-[3] bg-[rgba(9,11,13,.78)] px-2.5 py-1.5 font-mono text-[11px] tracking-[0.1em] text-white/82 backdrop-blur-sm">
                       {frame.timecode}
                     </span>
                     <span
-                      className="absolute bottom-4 left-4 h-5 w-5 border-b border-l border-[#83e2ca]"
+                      className="absolute bottom-4 left-4 z-[3] h-5 w-5 border-b border-l border-[#83e2ca]"
                       aria-hidden="true"
                     />
                     <span
-                      className="absolute bottom-4 right-4 h-5 w-5 border-b border-r border-white/42"
+                      className="absolute bottom-4 right-4 z-[3] h-5 w-5 border-b border-r border-white/42"
                       aria-hidden="true"
                     />
                   </div>

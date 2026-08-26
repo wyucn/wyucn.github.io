@@ -4,8 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
-import PointerSignalField from "@/components/PointerSignalField";
 import ReactDOM from "react-dom";
+import LiquidEther from "@/components/react-bits/LiquidEther";
+import DotGrid from "@/components/react-bits/DotGrid";
+import ViewportEffect from "@/components/ViewportEffect";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -491,7 +493,38 @@ export default function Hero() {
           />
           <div className="absolute inset-0 hidden bg-[linear-gradient(0deg,rgba(4,6,7,.42),rgba(4,6,7,.04))] max-[700px]:block" />
         </div>
-        <PointerSignalField className="z-[1]" />
+        <ViewportEffect
+          interactive
+          className="hero-dot-grid-layer motion-reduce:hidden"
+        >
+          <DotGrid
+            style={{}}
+            dotSize={3}
+            gap={29}
+            baseColor="#24453e"
+            activeColor="#83e2ca"
+            proximity={165}
+            speedTrigger={110}
+            shockRadius={270}
+            shockStrength={3.8}
+            resistance={820}
+            returnDuration={1.45}
+          />
+        </ViewportEffect>
+        <ViewportEffect interactive className="hero-liquid-layer">
+          <LiquidEther
+            colors={["#83e2ca", "#a7d8ff", "#9f83ff"]}
+            resolution={0.3}
+            iterationsPoisson={18}
+            BFECC={false}
+            mouseForce={15}
+            cursorSize={120}
+            autoDemo
+            autoSpeed={0.34}
+            autoIntensity={1.35}
+            autoResumeDelay={2200}
+          />
+        </ViewportEffect>
         <div className="ascii-scanlines pointer-events-none absolute inset-0 z-[2]" aria-hidden="true" />
 
         <pre className="ascii-telemetry pointer-events-none absolute right-[3.2vw] top-[18%] z-[6] hidden text-[9px] font-bold leading-[1.55] tracking-[0.12em] text-[#83e2ca]/42 xl:block" aria-hidden="true">

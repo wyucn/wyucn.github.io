@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ViewportEffect from "@/components/ViewportEffect";
+import Aurora from "@/components/react-bits/Aurora";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,6 +39,14 @@ export default function Showreel() {
         className="pointer-events-none absolute left-[-12%] top-[-28%] h-[44rem] w-[44rem] rounded-full bg-[rgba(131,226,202,.055)] blur-[150px]"
         aria-hidden="true"
       />
+      <ViewportEffect className="absolute inset-x-0 top-0 h-[68%] opacity-55 [mask-image:linear-gradient(to_bottom,black,transparent)]">
+        <Aurora
+          colorStops={["#173d36", "#83e2ca", "#dcfff6"]}
+          amplitude={1.18}
+          blend={0.68}
+          speed={0.48}
+        />
+      </ViewportEffect>
 
       <div className="shell relative z-10">
         <div className="showreel-reveal grid gap-10 md:grid-cols-[1.15fr_.85fr] md:items-end md:gap-16">

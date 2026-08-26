@@ -1,3 +1,8 @@
+"use client";
+
+import ViewportEffect from "@/components/ViewportEffect";
+import DotGrid from "@/components/react-bits/DotGrid";
+
 const capabilities = [
   {
     index: "01",
@@ -30,8 +35,23 @@ const toolGroups = [
 
 export default function Capabilities() {
   return (
-    <section id="capabilities" className="section-dark py-28 md:py-44">
-      <div className="shell">
+    <section id="capabilities" className="section-dark relative overflow-hidden py-28 md:py-44">
+      <ViewportEffect interactive className="absolute inset-0 opacity-55 [mask-image:radial-gradient(circle_at_72%_38%,black,transparent_66%)]">
+        <DotGrid
+          style={{}}
+          dotSize={3}
+          gap={30}
+          baseColor="#203c36"
+          activeColor="#83e2ca"
+          proximity={170}
+          speedTrigger={90}
+          shockRadius={280}
+          shockStrength={4}
+          resistance={780}
+          returnDuration={1.35}
+        />
+      </ViewportEffect>
+      <div className="shell relative z-10">
         <div className="max-w-5xl">
           <p className="font-mono text-[11px] tracking-[0.08em] text-[#83e2ca]">04 / 能力</p>
           <h2 className="mt-5 font-sans text-[clamp(3.3rem,7.5vw,7.5rem)] font-extrabold leading-[1.02] tracking-[-0.025em] max-[520px]:leading-[1.04]">
@@ -42,7 +62,7 @@ export default function Capabilities() {
 
         <div className="mt-16 grid border-l border-t border-white/15 sm:grid-cols-2">
           {capabilities.map((item) => (
-            <article key={item.index} className="min-h-60 border-b border-r border-white/15 p-6 transition-colors duration-300 hover:bg-white/[0.025] md:min-h-72 md:p-9">
+            <article key={item.index} className="min-h-60 border-b border-r border-white/15 bg-[#090b0d]/72 p-6 backdrop-blur-[2px] transition-colors duration-300 hover:bg-[#111815]/85 md:min-h-72 md:p-9">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] tracking-[0.08em] text-white/50">{item.index}</span>
                 <span className="h-2 w-2 rotate-45 bg-[#83e2ca]" />
