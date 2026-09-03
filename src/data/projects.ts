@@ -26,6 +26,7 @@ export interface Project {
   description: string;
   role: string[];
   tags: string[];
+  proof?: Array<{ label: string; value: string }>;
   media?: ProjectMedia[];
   mediaLabel?: string;
   href?: string;
@@ -45,6 +46,11 @@ export const projects: Project[] = [
       "将图像、视频、音乐、配音与生成任务整合进同一项目空间，让团队协作、素材管理与生成溯源在一处完成。",
     role: ["产品发起", "需求定义", "流程设计", "AI 协作实现", "持续迭代"],
     tags: ["项目协作", "生成溯源", "任务与素材管理"],
+    proof: [
+      { label: "落地状态", value: "团队实际使用" },
+      { label: "覆盖流程", value: "图像 · 视频 · 音乐 · 配音" },
+      { label: "我的职责", value: "发起 · 定义 · 验收 · 迭代" },
+    ],
     mediaLabel: "隔离演示界面",
     media: [
       {

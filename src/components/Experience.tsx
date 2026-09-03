@@ -225,7 +225,7 @@ export default function Experience() {
           return;
         }
 
-        const panelHeight = "clamp(500px, 68vh, 620px)";
+        const panelHeight = "clamp(480px, 64vh, 580px)";
 
         gsap.set(viewport, {
           height: panelHeight,
@@ -259,7 +259,7 @@ export default function Experience() {
           scrollTrigger: {
             trigger: pin,
             start: "top 12%",
-            end: () => `+=${window.innerHeight * 2}`,
+            end: () => `+=${window.innerHeight * 1.35}`,
             pin: true,
             scrub: 0.55,
             anticipatePin: 1,
@@ -334,7 +334,7 @@ export default function Experience() {
       ref={sectionRef}
       id="experience"
       aria-labelledby="experience-heading"
-      className="section-dark relative py-28 md:py-44"
+      className="section-dark relative py-24 md:py-36"
     >
       <div
         className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -345,7 +345,7 @@ export default function Experience() {
       </div>
 
       <div className="shell relative z-10">
-        <header className="mb-14 grid gap-9 md:mb-20 md:grid-cols-[1.1fr_.9fr] md:items-end md:gap-16">
+        <header className="mb-12 grid gap-8 md:mb-16 md:grid-cols-[1.1fr_.9fr] md:items-end md:gap-16">
           <div>
             <p className="font-mono text-[11px] tracking-[0.08em] text-[#83e2ca]">
               03 / 工作经历
@@ -448,19 +448,16 @@ export default function Experience() {
             <div
               ref={mobileRailRef}
               hidden
-              className="z-20 border-b border-white/15 bg-[rgba(14,17,19,.94)] px-7 py-3.5 shadow-[0_14px_30px_rgba(9,11,13,.28)] backdrop-blur-xl md:px-10 lg:hidden"
+              className="z-20 border-b border-white/15 bg-[rgba(14,17,19,.94)] px-5 py-2.5 shadow-[0_14px_30px_rgba(9,11,13,.28)] backdrop-blur-xl md:px-10 lg:hidden"
             >
-              <div className="flex items-center justify-between gap-4 font-mono text-[11px] tracking-[0.1em]">
-                <p className="text-[#83e2ca]">
-                  CHAPTER <span ref={mobileChapterNumberRef}>01</span> / 03
+              <div className="flex items-center gap-3">
+                <p className="shrink-0 font-mono text-[10px] tracking-[0.1em] text-[#83e2ca]">
+                  <span ref={mobileChapterNumberRef}>01</span> / 03
                 </p>
-                <span className="text-white/65">SCROLL_Y</span>
-              </div>
-              <div className="mt-2 flex items-center justify-between gap-4">
                 <span
                   ref={mobileChapterTitleRef}
                   aria-live="polite"
-                  className="truncate text-sm font-semibold tracking-[-0.01em]"
+                  className="min-w-0 flex-1 truncate text-[13px] font-semibold tracking-[-0.01em]"
                 >
                   影像制作
                 </span>
@@ -480,7 +477,7 @@ export default function Experience() {
                 aria-valuemin={1}
                 aria-valuemax={acts.length}
                 aria-valuenow={1}
-                className="relative mt-3 h-px overflow-hidden bg-white/15"
+                className="relative mt-2 h-px overflow-hidden bg-white/15"
               >
                 <span
                   ref={mobileProgressFillRef}
@@ -498,7 +495,7 @@ export default function Experience() {
                 <li
                   key={act.number}
                   data-experience-panel
-                  className="relative flex min-h-[360px] scroll-mt-36 flex-col justify-between overflow-hidden border-b border-white/15 p-7 last:border-b-0 md:min-h-[400px] md:p-10 lg:p-12"
+                  className="relative flex min-h-[330px] scroll-mt-28 flex-col justify-between overflow-hidden border-b border-white/15 px-7 pb-7 pt-16 last:border-b-0 md:min-h-[360px] md:px-10 md:pb-10 md:pt-16 lg:p-11"
                 >
                   <span
                     className="pointer-events-none absolute -right-[0.04em] -top-[0.14em] font-mono text-[clamp(8rem,18vw,15rem)] leading-none tracking-[-0.08em] text-white/[.025]"

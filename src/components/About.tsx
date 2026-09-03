@@ -29,10 +29,15 @@ export default function About() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="section-dark py-20 md:py-28">
+    <section ref={sectionRef} id="about" className="section-dark relative overflow-hidden py-20 md:py-28">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_50%,rgba(131,226,202,.07),transparent_34%),linear-gradient(180deg,#090b0d_0%,#0b0f0f_100%)]" aria-hidden="true" />
       <div className="shell">
-        <div className="relative grid min-h-[720px] overflow-hidden rounded-lg border border-white/15 bg-[#0e1113] lg:grid-cols-[.72fr_1.28fr]">
-          <div className="about-reveal relative min-h-[420px] overflow-hidden border-b border-white/15 bg-[#0a0e0f] sm:min-h-[460px] lg:min-h-[720px] lg:border-b-0 lg:border-r">
+        <div className="relative mb-10 flex items-end justify-between gap-6 border-b border-white/15 pb-5 font-mono text-[11px] tracking-[0.1em]">
+          <p className="text-[#83e2ca]">05 / ABOUT &amp; METHOD</p>
+          <p className="hidden text-white/38 sm:block">VIDEO · MOTION · CREATIVE TECHNOLOGY</p>
+        </div>
+        <div className="relative grid overflow-hidden border border-white/15 bg-[#0e1113] shadow-[0_28px_90px_rgba(0,0,0,.24)] lg:grid-cols-[.78fr_1.22fr]">
+          <div className="about-reveal relative min-h-[420px] overflow-hidden border-b border-white/15 bg-[#0a0e0f] sm:min-h-[500px] lg:min-h-[660px] lg:border-b-0 lg:border-r">
             <div
               className="pointer-events-none absolute inset-0 opacity-90 [background-image:radial-gradient(circle_at_50%_38%,rgba(131,226,202,.19),transparent_40%),linear-gradient(180deg,rgba(20,29,29,.52)_0%,rgba(10,14,15,.08)_72%)]"
               aria-hidden="true"
@@ -73,14 +78,17 @@ export default function About() {
             </span>
           </div>
 
-          <div className="about-reveal flex flex-col justify-center p-7 md:p-14 lg:p-[clamp(3.5rem,6vw,6.5rem)]">
-            <p className="font-mono text-[11px] tracking-[0.08em] text-[#83e2ca]">05 / 关于</p>
-            <h2 className="mt-5 font-sans text-[clamp(3.3rem,6.5vw,6.8rem)] font-extrabold leading-[1.02] tracking-[-0.025em] max-[520px]:leading-[1.04]">
+          <div className="about-reveal flex flex-col justify-center p-7 md:p-14 lg:p-[clamp(3rem,5.2vw,5.8rem)]">
+            <p className="font-mono text-[11px] tracking-[0.1em] text-[#83e2ca]">王玉 / WANGYU</p>
+            <h2 className="mt-5 font-sans text-[clamp(3.3rem,6.5vw,6.8rem)] font-extrabold leading-[1.02] tracking-[-0.035em] max-[520px]:leading-[1.04]">
               <span className="block">关于我</span>
-              <span className="mt-[0.08em] block text-white/45">工作方式</span>
+              <span className="mt-[0.08em] block text-white/38">工作方式</span>
             </h2>
 
-            <div className="mt-12 grid gap-7 text-sm leading-8 text-white/68 md:grid-cols-2 md:text-[15px]">
+            <p className="editorial-serif mt-9 max-w-2xl text-[clamp(1.35rem,2.3vw,2rem)] leading-[1.45] text-white/82">
+              先把画面做对，再把方法留下。
+            </p>
+            <div className="mt-9 grid gap-7 text-sm leading-8 text-white/68 md:grid-cols-2 md:text-[15px]">
               <p className="copy-pretty">
                 自 2020 年起，我长期参与教育视频与动画项目，工作从剪辑、动效和<span className="keep-phrase">声音处理，</span>延伸到协作对接与<span className="keep-phrase">最终交付。</span>近一年，我把更多精力投入生成式影像、AI 声音和轻量工具实践。
               </p>
@@ -89,8 +97,8 @@ export default function About() {
               </p>
             </div>
 
-            <div className="mt-12 grid gap-5 border-t border-white/15 pt-7 md:grid-cols-[180px_1fr]">
-              <span className="text-[11px] font-semibold tracking-[0.08em] text-[#83e2ca]">与 AI 协作</span>
+            <div className="mt-10 grid gap-5 border-t border-white/15 pt-7 md:grid-cols-[180px_1fr]">
+              <span className="text-[11px] font-bold tracking-[0.1em] text-[#83e2ca]">与 AI 协作</span>
               <p className="copy-pretty text-sm leading-7 text-white/68 md:text-[15px]">
                 我更关注工具能否真正进入制作：从内容生产现场发现问题、梳理流程，再回到实际项目中验证。
               </p>

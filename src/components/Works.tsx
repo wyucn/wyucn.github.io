@@ -394,14 +394,14 @@ function ProjectCard({ project }: { project: Project }) {
   const isLead = Boolean(project.featured);
   const isCompact = project.id >= 4;
   const gridClass = isLead
-    ? "lg:col-span-8"
+    ? "lg:col-span-12"
     : project.id === 2
-      ? "lg:col-span-4"
+      ? "lg:col-span-6"
       : "lg:col-span-6";
   const hasMedia = Boolean(project.media?.length);
   const visualHeight = isLead
     ? hasMedia
-      ? "h-[280px] sm:h-[360px] md:h-[500px]"
+      ? "h-[300px] sm:h-[420px] md:h-[min(62vw,690px)] lg:h-[650px]"
       : "h-[330px] md:h-[500px]"
     : project.id === 2
       ? "h-[240px] sm:h-[300px] md:h-[420px] lg:h-[500px]"
@@ -434,7 +434,7 @@ function ProjectCard({ project }: { project: Project }) {
         <span className="display-title pointer-events-none absolute bottom-2 right-4 z-10 text-[clamp(4rem,8vw,8rem)] leading-none text-white/[0.12] md:right-6">{String(project.id).padStart(2, "0")}</span>
       </div>
 
-      <div className={`flex flex-1 flex-col p-5 text-white md:p-7 ${isLead ? "lg:grid lg:grid-cols-[1fr_1fr] lg:gap-x-16" : ""}`}>
+      <div className={`flex flex-1 flex-col p-5 text-white md:p-7 ${isLead ? "lg:grid lg:grid-cols-[minmax(0,.82fr)_minmax(0,1.18fr)] lg:gap-x-20 lg:p-10" : ""}`}>
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3 text-[11px] tracking-[0.06em] text-white/60 md:text-xs">
           {isLead ? (
             <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(131,226,202,.42)] bg-[rgba(131,226,202,.1)] px-3 py-1.5 text-[11px] font-semibold tracking-[0.06em] text-[#a7f0dd] md:text-xs">
@@ -461,6 +461,16 @@ function ProjectCard({ project }: { project: Project }) {
             <span key={tag} className="whitespace-nowrap border-r border-white/18 pr-3 text-xs text-white/62 last:border-r-0 last:pr-0">{tag}</span>
           ))}
         </div>
+        {isLead && project.proof ? (
+          <dl className="mt-8 grid border-l border-t border-white/15 sm:grid-cols-3 lg:col-span-2">
+            {project.proof.map((item) => (
+              <div key={item.label} className="min-w-0 border-b border-r border-white/15 p-4 md:p-5">
+                <dt className="font-mono text-[10px] tracking-[0.12em] text-[#83e2ca]">{item.label}</dt>
+                <dd className="mt-2 text-sm font-semibold leading-6 text-white/88 md:text-[15px]">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : null}
         {project.href && (
           <div className={`mt-auto flex items-center justify-end pt-6 text-xs font-semibold tracking-[0.08em] text-[#83e2ca] ${isLead ? "lg:col-start-2" : ""}`}>
             访问项目 <ArrowUpRightIcon className="ml-2 text-sm" />
@@ -520,7 +530,7 @@ export default function Works() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="works" className="section-dark relative overflow-hidden py-28 md:py-44">
+    <section ref={sectionRef} id="works" className="section-dark relative overflow-hidden py-24 md:py-36">
       <ViewportEffect className="mobile-terminal absolute inset-x-0 top-0 h-[38rem] opacity-[.16] [mask-image:linear-gradient(to_bottom,black,transparent)]">
         <FaultyTerminal
           className=""
@@ -540,7 +550,7 @@ export default function Works() {
         />
       </ViewportEffect>
       <div className="shell relative z-10">
-        <div className="mb-16 grid gap-10 md:mb-20 md:grid-cols-[1.05fr_.95fr] md:items-end md:gap-20">
+        <div className="mb-14 grid gap-9 md:mb-16 md:grid-cols-[1.05fr_.95fr] md:items-end md:gap-20">
           <div>
             <p className="mb-5 font-mono text-[11px] tracking-[0.08em] text-[#83e2ca]">02 / 项目</p>
             <h2 className="font-sans text-[clamp(3.3rem,7.5vw,7.5rem)] font-extrabold leading-[1.02] tracking-[-0.025em] max-[520px]:leading-[1.04]">
@@ -555,8 +565,13 @@ export default function Works() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-          {projects.map((project) => (
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6">
+          <ProjectCard project={projects[0]} />
+          <div className="work-card-reveal flex items-center justify-between gap-5 border-y border-white/15 py-5 lg:col-span-12">
+            <span className="font-mono text-[11px] tracking-[0.12em] text-[#83e2ca]">SELECTED PRACTICES</span>
+            <span className="text-[11px] tracking-[0.08em] text-white/45">05 个制作现场中的工具实践</span>
+          </div>
+          {projects.slice(1).map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </div>

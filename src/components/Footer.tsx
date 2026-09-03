@@ -41,7 +41,7 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="section-dark relative overflow-hidden pt-28 md:pt-44">
+    <footer id="contact" className="section-dark relative overflow-hidden pt-24 md:pt-36">
       <div className="pointer-events-none absolute right-[-18%] top-[5%] h-[42rem] w-[42rem] rounded-full bg-[rgba(131,226,202,.05)] blur-[170px]" aria-hidden="true" />
       <ViewportEffect className="mobile-prism absolute -right-[18vw] top-0 h-[44rem] w-[70rem] max-w-[110vw] opacity-70 [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]">
         <Prism
@@ -61,18 +61,18 @@ export default function Footer() {
       <div className="shell relative z-10">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-6 text-[11px] tracking-[0.08em]">
           <p className="font-mono text-[#83e2ca]">06 / 联系</p>
-          <span className="text-white/52">目前在职 · 欢迎来信</span>
+          <span className="text-white/52">关注新的工作机会 · 欢迎来信</span>
         </div>
 
         <h2 className="mt-14 max-w-5xl font-sans text-[clamp(3.3rem,8vw,8rem)] font-extrabold leading-[1.02] tracking-[-0.025em] max-[520px]:leading-[1.04]">
           <span className="block">联系与</span>
-          <span className="mt-[0.08em] block text-white/45">交流</span>
+          <span className="mt-[0.08em] block text-white/45">新的可能</span>
         </h2>
 
         <div className="mt-14 grid gap-10 border-t border-white/15 pt-9 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
           <div>
             <p className="copy-pretty max-w-2xl text-[clamp(1rem,1.45vw,1.3rem)] leading-[1.75] text-white/66">
-              目前在职，也对合适的机会与行业交流保持开放。如果你关注视频后期、<span className="keep-phrase">Motion Design</span> 或 <span className="keep-phrase">AI 工作流，</span>欢迎来信。
+              我正在关注合适的全职机会与创作合作。如果你需要兼具视频后期、<span className="keep-phrase">Motion Design</span> 与 <span className="keep-phrase">AI 工作流</span>经验的创作者，欢迎来信。
             </p>
             <p className="mt-6 text-[11px] tracking-[0.08em] text-white/45">中国 / GMT+8</p>
           </div>
@@ -90,7 +90,11 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-20 flex justify-start md:justify-end">
+        <div className="mt-16 grid gap-8 border-t border-white/15 pt-8 md:grid-cols-[.7fr_1.3fr] md:items-end">
+          <div className="grid grid-cols-2 gap-5 text-[11px] leading-6 tracking-[0.08em] text-white/55">
+            <div><span className="block text-[#83e2ca]">期望方向</span><span>视频后期 / 动态视觉</span></div>
+            <div><span className="block text-[#83e2ca]">协作方式</span><span>全职 / 项目合作</span></div>
+          </div>
           <div className="max-w-full md:text-right">
             <span className="mb-3 block text-[11px] font-semibold tracking-[0.12em] text-[#83e2ca]">
               邮箱

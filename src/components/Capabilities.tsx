@@ -35,7 +35,7 @@ const toolGroups = [
 
 export default function Capabilities() {
   return (
-    <section id="capabilities" className="section-dark relative overflow-hidden py-28 md:py-44">
+    <section id="capabilities" className="section-dark relative overflow-hidden py-24 md:py-36">
       <ViewportEffect interactive className="mobile-dot-grid absolute inset-0 opacity-55 [mask-image:radial-gradient(circle_at_72%_38%,black,transparent_66%)]">
         <DotGrid
           style={{}}
@@ -61,20 +61,20 @@ export default function Capabilities() {
           </h2>
         </div>
 
-        <div className="mt-16 grid border-l border-t border-white/15 sm:grid-cols-2">
+        <div className="mt-14 grid border-l border-t border-white/15 sm:grid-cols-2">
           {capabilities.map((item) => (
-            <article key={item.index} className="min-h-60 border-b border-r border-white/15 bg-[#090b0d]/72 p-6 backdrop-blur-[2px] transition-colors duration-300 hover:bg-[#111815]/85 md:min-h-72 md:p-9">
+            <article key={item.index} className="min-h-52 border-b border-r border-white/15 bg-[#090b0d]/72 p-6 backdrop-blur-[2px] transition-colors duration-300 hover:bg-[#111815]/85 md:min-h-64 md:p-9">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] tracking-[0.08em] text-white/50">{item.index}</span>
                 <span className="h-2 w-2 rotate-45 bg-[#83e2ca]" />
               </div>
-              <h3 className="mt-16 text-[clamp(1.4rem,2.5vw,2.2rem)] font-semibold leading-[1.2] tracking-[-0.02em]">{item.title}</h3>
+              <h3 className="mt-12 text-[clamp(1.4rem,2.5vw,2.2rem)] font-semibold leading-[1.2] tracking-[-0.02em] md:mt-14">{item.title}</h3>
               <p className="copy-pretty mt-4 max-w-md text-sm leading-7 text-white/60 md:text-[15px]">{item.body}</p>
             </article>
           ))}
         </div>
 
-        <div className="mt-14 border-y border-white/20">
+        <div className="mt-12 border-y border-white/20">
           {toolGroups.map(([label, tools]) => (
             <div key={label} className="grid gap-4 border-b border-white/12 py-5 last:border-b-0 md:grid-cols-[260px_1fr] md:items-center">
               <span className="text-[11px] font-semibold tracking-[0.08em] text-[#83e2ca]">{label}</span>

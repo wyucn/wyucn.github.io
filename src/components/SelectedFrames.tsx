@@ -147,9 +147,14 @@ export default function SelectedFrames() {
     const frameItems = Array.from(
       track.querySelectorAll<HTMLElement>("[data-selected-frame-item]"),
     );
+    const introItem = track.querySelector<HTMLElement>("[data-selected-intro]");
     const totalFrames = frameItems.length;
 
-    const setProgress = (rawValue: number, itemIndex?: number) => {
+    const setProgress = (
+      rawValue: number,
+      itemIndex?: number,
+      isIntro = false,
+    ) => {
       const value = clampProgress(rawValue);
       const percentage = Math.round(value * 100);
       const activeIndex = Math.min(
@@ -162,22 +167,29 @@ export default function SelectedFrames() {
 
       progressFill.style.transform = `scaleX(${value})`;
       progressText.textContent = percentage.toString().padStart(3, "0");
-      frameIndexText.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(totalFrames).padStart(2, "0")}`;
+      frameIndexText.textContent = isIntro
+        ? `INTRO / ${String(totalFrames).padStart(2, "0")}`
+        : `${String(activeIndex + 1).padStart(2, "0")} / ${String(totalFrames).padStart(2, "0")}`;
       progress.setAttribute("aria-valuenow", percentage.toString());
       progress.setAttribute(
         "aria-valuetext",
-        `第 ${activeIndex + 1} / ${totalFrames} 张，${percentage}%`,
+        isIntro
+          ? `画廊导览，${percentage}%`
+          : `第 ${activeIndex + 1} / ${totalFrames} 张，${percentage}%`,
       );
     };
 
-    const getNativeTravel = () =>
-      Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-    const syncNativeProgress = () => {
-      const travel = getNativeTravel();
-      const value = travel > 0 ? viewport.scrollLeft / travel : 0;
-      const viewportCenter = viewport.scrollLeft + viewport.clientWidth / 2;
+    const resolveActiveItem = (viewportCenter: number) => {
       let activeIndex = 0;
       let closestDistance = Number.POSITIVE_INFINITY;
+      let isIntro = false;
+
+      if (introItem) {
+        closestDistance = Math.abs(
+          introItem.offsetLeft + introItem.offsetWidth / 2 - viewportCenter,
+        );
+        isIntro = true;
+      }
 
       frameItems.forEach((item, index) => {
         const itemCenter = item.offsetLeft + item.offsetWidth / 2;
@@ -186,10 +198,22 @@ export default function SelectedFrames() {
         if (distance < closestDistance) {
           closestDistance = distance;
           activeIndex = index;
+          isIntro = false;
         }
       });
 
-      setProgress(value, activeIndex);
+      return { activeIndex, isIntro };
+    };
+
+    const getNativeTravel = () =>
+      Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    const syncNativeProgress = () => {
+      const travel = getNativeTravel();
+      const value = travel > 0 ? viewport.scrollLeft / travel : 0;
+      const viewportCenter = viewport.scrollLeft + viewport.clientWidth / 2;
+      const { activeIndex, isIntro } = resolveActiveItem(viewportCenter);
+
+      setProgress(value, activeIndex, isIntro);
       mobileHint.dataset.state =
         value > 0.985 ? "ended" : viewport.scrollLeft > 8 ? "engaged" : "idle";
     };
@@ -238,16 +262,26 @@ export default function SelectedFrames() {
             start: "top top",
             end: () =>
               `+=${Math.max(
-                getHorizontalTravel() / 2,
-                window.innerHeight * 1.1,
+                getHorizontalTravel() / 2.85,
+                window.innerHeight * 0.9,
               )}`,
             pin: stage,
             pinSpacing: true,
             scrub: 0.65,
             anticipatePin: 1,
             invalidateOnRefresh: true,
-            onRefresh: (self) => setProgress(self.progress),
-            onUpdate: (self) => setProgress(self.progress),
+            onRefresh: (self) => {
+              const active = resolveActiveItem(
+                self.progress * getHorizontalTravel() + viewport.clientWidth / 2,
+              );
+              setProgress(self.progress, active.activeIndex, active.isIntro);
+            },
+            onUpdate: (self) => {
+              const active = resolveActiveItem(
+                self.progress * getHorizontalTravel() + viewport.clientWidth / 2,
+              );
+              setProgress(self.progress, active.activeIndex, active.isIntro);
+            },
           },
         });
 
@@ -386,6 +420,7 @@ export default function SelectedFrames() {
           >
             <li
               role="presentation"
+              data-selected-intro
               className="flex w-[80vw] max-w-[980px] shrink-0 snap-start snap-always self-stretch sm:w-[76vw] lg:w-[48vw] lg:snap-center"
             >
               <div className="relative flex min-h-[calc(48svh+6.5rem)] w-full flex-col justify-between overflow-hidden rounded-[6px] border border-[rgba(131,226,202,.26)] bg-[rgba(13,17,18,.86)] p-6 sm:p-9 lg:p-[clamp(2rem,4vw,4.5rem)]">
@@ -515,7 +550,7 @@ export default function SelectedFrames() {
             ref={frameIndexTextRef}
             className="min-w-[5.2rem] shrink-0 text-[#83e2ca]"
           >
-            01 / 08
+            INTRO / 08
           </span>
           <div
             ref={progressRef}
