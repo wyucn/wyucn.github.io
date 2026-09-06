@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
-import { BILIBILI_URL } from "@/lib/site";
+import { BILIBILI_URL, GITHUB_URL } from "@/lib/site";
 import ViewportEffect from "@/components/ViewportEffect";
 import Prism from "@/components/react-bits/Prism";
 
@@ -72,7 +72,7 @@ export default function Footer() {
         <div className="mt-14 grid gap-10 border-t border-white/15 pt-9 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
           <div>
             <p className="copy-pretty max-w-2xl text-[clamp(1rem,1.45vw,1.3rem)] leading-[1.75] text-white/66">
-              我正在关注合适的全职机会与创作合作。如果你需要兼具视频后期、<span className="keep-phrase">Motion Design</span> 与 <span className="keep-phrase">AI 工作流</span>经验的创作者，欢迎来信。
+              我正在关注北京的视频后期制作与 AI 视频工具方向机会。如果你需要兼具重点项目制作、团队统筹、<span className="keep-phrase">Motion Design</span> 与 <span className="keep-phrase">AI 工作流落地</span>经验的创作者，欢迎来信。
             </p>
             <p className="mt-6 text-[11px] tracking-[0.08em] text-white/45">中国 / GMT+8</p>
           </div>
@@ -87,12 +87,13 @@ export default function Footer() {
             </a>
             <button type="button" onClick={copyEmail} className="btn-light-outline w-full sm:w-auto" style={{ borderRadius: 6 }}>复制邮箱 <span aria-hidden="true">＋</span></button>
             <a href={BILIBILI_URL} target="_blank" rel="noopener noreferrer" className="btn-light-outline w-full sm:w-auto" style={{ borderRadius: 6 }}>哔哩哔哩 <ArrowUpRightIcon className="text-base" /></a>
+            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="btn-light-outline w-full sm:w-auto" style={{ borderRadius: 6 }}>GitHub <ArrowUpRightIcon className="text-base" /></a>
           </div>
         </div>
 
         <div className="mt-16 grid gap-8 border-t border-white/15 pt-8 md:grid-cols-[.7fr_1.3fr] md:items-end">
           <div className="grid grid-cols-2 gap-5 text-[11px] leading-6 tracking-[0.08em] text-white/55">
-            <div><span className="block text-[#83e2ca]">期望方向</span><span>视频后期 / 动态视觉</span></div>
+            <div><span className="block text-[#83e2ca]">期望方向</span><span>后期制作 / AI 视频工具</span></div>
             <div><span className="block text-[#83e2ca]">协作方式</span><span>全职 / 项目合作</span></div>
           </div>
           <div className="max-w-full md:text-right">

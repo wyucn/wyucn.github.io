@@ -7,7 +7,7 @@ const capabilities = [
   {
     index: "01",
     title: "视频后期与动态视觉",
-    body: "覆盖剪辑、Motion\u00a0Design、合成、声音处理、质量审阅与最终交付。",
+    body: "覆盖剪辑、Motion\u00a0Design、动画合成、声音处理、质量审阅与最终交付。",
   },
   {
     index: "02",
@@ -21,8 +21,8 @@ const capabilities = [
   },
   {
     index: "04",
-    title: "流程规范与知识沉淀",
-    body: "梳理制作对接、交付标准与工具规则，并沉淀团队可复用的知识资料。",
+    title: "团队统筹与标准化",
+    body: "负责需求拆解、排期分工、跨部门对接与成片验收，并沉淀可复用的制作规范。",
   },
 ];
 

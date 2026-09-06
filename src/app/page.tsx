@@ -11,6 +11,7 @@ import AsciiStrip from "@/components/AsciiStrip";
 import SelectedFrames from "@/components/SelectedFrames";
 import {
   BILIBILI_URL,
+  GITHUB_URL,
   SITE_DESCRIPTION,
   SITE_TITLE,
   SITE_URL,
@@ -30,7 +31,8 @@ export const metadata: Metadata = {
     "动态视觉",
     "AIGC",
     "AI Creative Workflow",
-    "AI 工具",
+    "AI 视频工具",
+    "后期组长",
     "作品集",
   ],
   authors: [{ name: "王玉" }],
@@ -77,10 +79,10 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "王玉",
-  jobTitle: "视频后期 / Motion Design / AI 工作流实践",
+  jobTitle: "视频后期组长 / Motion Design / AI 视频工具",
   description: SITE_DESCRIPTION,
   url: SITE_URL,
-  sameAs: [BILIBILI_URL],
+  sameAs: [BILIBILI_URL, GITHUB_URL],
 };
 
 export default function Home() {

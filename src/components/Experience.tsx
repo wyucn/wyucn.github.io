@@ -11,38 +11,55 @@ gsap.registerPlugin(ScrollTrigger);
 const acts = [
   {
     number: "01",
-    title: "影像制作",
-    label: "画面 / 声音 / 交付",
+    title: "重点内容制作",
+    label: "剪辑 / 动效 / 合成",
     details: [
-      "负责教育视频与动画项目的剪辑、动效、声音处理、质量审阅与最终交付。",
+      "负责教育视频、动画内容、宣传物料及周边产品视频的后期制作，并承担重点、复杂项目的剪辑、AE 动效、动画合成与成片交付。",
+      "与教研、编导、设计及运营协作，把课程与宣传需求转化为可执行的后期方案。",
     ],
-    keywords: ["剪辑", "动效", "声音处理", "质量审阅", "最终交付"],
+    keywords: ["教育视频", "动画合成", "AE 动效", "跨部门协作", "最终交付"],
   },
   {
     number: "02",
-    title: "制作统筹",
+    title: "后期组长",
     label: "排期 / 协作 / 标准",
     details: [
-      "统筹任务分发与排期，协调跨岗位对接，并梳理制作规范和交付标准。",
+      "自 2024 年 6 月起担任后期组长，负责需求拆解、团队排期、任务分配与进度跟进，协调剪辑、动效、合成及音视频处理环节。",
+      "负责成片验收与修改闭环，把控画面风格、剪辑节奏、动效表现、声音质量和输出规范。",
     ],
     keywords: ["任务分发", "制作排期", "跨岗位对接", "制作规范", "交付标准"],
   },
   {
     number: "03",
-    title: "流程与 AI\u00a0工具",
+    title: "AI 流程提效",
     label: "评测 / 沉淀 / 迭代",
     details: [
-      "持续评测生成式视频、图像、语音与音乐模型，判断不同方案在实际制作中的适用性，并沉淀可复用资料。",
-      "发起 Haitun Post Studio，并持续迭代多项后期工作流工具。",
+      "收集团队制作需求，推动海豚后期工作台、AI 创意画布与 TTS Studio 等工具进入后期生产流程。",
+      "通过工程模板、素材管理、验收规范与工具文档，推动优质内容复用和跨角色高效协作。",
     ],
     keywords: [
       "生成式视频",
       "图像与声音",
       "模型评测",
       "可复用资料",
-      "Haitun Post Studio",
+      "海豚后期工作台",
       "后期工作流工具",
     ],
+  },
+];
+
+const earlierExperience = [
+  {
+    period: "2020.02—2020.11",
+    company: "古美清扬文化传媒（北京）有限公司",
+    role: "视频编辑",
+    summary: "文物、历史与悬疑题材科普视频的配音、剪辑、包装与动效制作；参与封面、文案、审核及平台分发，相关 B 站作品累计播放量超过 30 万。",
+  },
+  {
+    period: "2019.01—2019.06",
+    company: "万达院线游戏",
+    role: "新媒体运营（实习）",
+    summary: "负责版权漫画动态漫画、动态壁纸、创意剪辑与动画特效，并参与平台内容发布和用户互动。",
   },
 ];
 
@@ -355,11 +372,11 @@ export default function Experience() {
               className="mt-5 font-sans text-[clamp(3.3rem,7.5vw,7.5rem)] font-extrabold leading-[1.02] tracking-[-0.025em] max-[520px]:leading-[1.04]"
             >
               <span className="block">工作经历</span>
-              <span className="mt-[0.08em] block text-white/45">三幕推进</span>
+              <span className="mt-[0.08em] block text-white/45">制作到提效</span>
             </h2>
           </div>
           <p className="copy-pretty max-w-xl text-[clamp(1rem,1.45vw,1.35rem)] leading-[1.72] text-white/65 md:justify-self-end">
-            从一帧画面的完成，到一套流程的建立，我关注作品质量，也整理可复用的方法。
+            从重点项目亲自制作，到团队统筹与流程建设，我把内容质量、交付效率和可复用的方法放在同一条链路上。
           </p>
         </header>
 
@@ -389,10 +406,10 @@ export default function Experience() {
             <div className="relative flex flex-wrap items-start justify-between gap-5 lg:block">
               <div>
                 <p className="text-[11px] tracking-[0.08em] text-[#83e2ca]">
-                  教育科技集团 · 内容视频团队
+                  猿辅导 · 后期组长
                 </p>
                 <p className="mt-3 text-sm leading-6 text-white/60">
-                  视频后期 · 制作统筹 · 流程建设
+                  视频后期 · 团队统筹 · AI 流程建设
                 </p>
               </div>
               <span className="inline-flex border-l border-[#83e2ca] py-1 pl-3 text-[11px] tracking-[0.08em] text-white/78 lg:mt-6">
@@ -402,13 +419,13 @@ export default function Experience() {
 
             <p
               className="relative my-12 flex items-end justify-between gap-5 font-sans font-semibold tracking-[-0.045em] max-[360px]:gap-3 lg:my-6 lg:block"
-              aria-label="2020 年至今"
+              aria-label="2020 年 11 月至今"
             >
               <span
                 className="block text-[clamp(3.8rem,6vw,6.2rem)] leading-[0.86] max-[360px]:text-[3.2rem]"
                 aria-hidden="true"
               >
-                2020
+                2020.11
               </span>
               <span
                 className="block whitespace-nowrap text-[clamp(3.1rem,5.2vw,5.2rem)] leading-[0.86] text-white/42 max-[360px]:text-[2.45rem] lg:mt-4 lg:text-right"
@@ -549,6 +566,28 @@ export default function Experience() {
               ))}
             </ol>
           </div>
+        </div>
+
+        <div className="mt-8 border-l border-t border-white/15">
+          {earlierExperience.map((item) => (
+            <article
+              key={item.company}
+              className="grid gap-5 border-b border-r border-white/15 bg-[#0e1113]/65 p-6 md:grid-cols-[180px_1fr] md:p-8"
+            >
+              <p className="font-mono text-[11px] tracking-[0.08em] text-[#83e2ca]">
+                {item.period}
+              </p>
+              <div>
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <h3 className="text-lg font-semibold tracking-[-0.01em]">{item.company}</h3>
+                  <span className="text-xs tracking-[0.06em] text-white/48">{item.role}</span>
+                </div>
+                <p className="copy-pretty mt-3 max-w-4xl text-sm leading-7 text-white/62">
+                  {item.summary}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

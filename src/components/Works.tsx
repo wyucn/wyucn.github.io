@@ -560,7 +560,7 @@ export default function Works() {
           </div>
           <div className="max-w-xl md:justify-self-end">
             <p className="copy-pretty text-[clamp(1rem,1.45vw,1.35rem)] leading-[1.7] text-white/62">
-              <span className="keep-phrase">Haitun Post Studio</span> 已投入团队使用并持续迭代。围绕提示词、本地声音与后期自动化的其他实践，也都来自真实制作中的具体问题。
+              重点项目不只展示界面，也呈现真实使用结果：海豚后期工作台已覆盖 21 名活跃成员，累计处理 1,830 次 AI 生成任务。
             </p>
           </div>
         </div>
@@ -569,7 +569,7 @@ export default function Works() {
           <ProjectCard project={projects[0]} />
           <div className="work-card-reveal flex items-center justify-between gap-5 border-y border-white/15 py-5 lg:col-span-12">
             <span className="font-mono text-[11px] tracking-[0.12em] text-[#83e2ca]">SELECTED PRACTICES</span>
-            <span className="text-[11px] tracking-[0.08em] text-white/45">05 个制作现场中的工具实践</span>
+            <span className="text-[11px] tracking-[0.08em] text-white/45">核心产品之后的 05 个工作流实践</span>
           </div>
           {projects.slice(1).map((project) => (
             <ProjectCard key={project.id} project={project} />
