@@ -84,7 +84,7 @@ function ProjectPoster({ project }: { project: Project }) {
 
 function Card({ project, index }: { project: Project; index: number }) {
   const featured = index === 0 || index === projects.length - 1;
-  return <a className="group block overflow-hidden border border-white/12 bg-[#0d1113] transition-colors duration-500 hover:border-white/32" href={project.href} target="_blank" rel="noopener noreferrer" aria-label={`打开 ${project.title} 的 GitHub 仓库`}>
+  return <a data-tilt-card className="group block overflow-hidden border border-white/12 bg-[#0d1113] transition-colors duration-500 hover:border-white/32 will-change-transform" href={project.href} target="_blank" rel="noopener noreferrer" aria-label={`打开 ${project.title} 的 GitHub 仓库`}>
     <div data-project-poster className={`relative overflow-hidden border-b border-white/12 ${featured ? "aspect-[16/7] max-md:aspect-[4/3]" : "aspect-[4/3]"}`}><ProjectPoster project={project} /></div>
     <div className="grid gap-5 p-5 md:grid-cols-[1fr_auto] md:p-7"><div><p className="font-mono text-[10px] tracking-[0.14em] text-[#83e2ca]">0{index + 1} / {project.category}</p><h3 className="mt-3 text-[clamp(1.8rem,3vw,3rem)] font-semibold leading-none tracking-[-0.045em]">{project.title}</h3></div><div className="flex items-start gap-2 font-mono text-[10px] tracking-[.12em] text-white/48 transition-colors group-hover:text-[#83e2ca]"><span>{project.access === "private" ? "PRIVATE GITHUB" : "VIEW GITHUB"}</span><ArrowUpRightIcon className="text-base transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></div></div>
   </a>;
@@ -102,7 +102,40 @@ export default function Works() {
           gsap.from(card.querySelector("[data-project-poster]"), { scrollTrigger: { trigger: card, start: "top 88%" }, clipPath: "inset(0 0 18% 0)", duration: 1.05, ease: "power3.out" });
         });
       }, ref);
-      return () => ctx.revert();
+
+      // 桌面精指针设备：项目卡片跟随鼠标的轻微 3D 倾斜，离开弹性回位。
+      const removers: Array<() => void> = [];
+      if (window.matchMedia("(pointer: fine)").matches) {
+        gsap.utils.toArray<HTMLElement>("[data-tilt-card]").forEach((card) => {
+          gsap.set(card, { transformPerspective: 1000 });
+          const rotateX = gsap.quickTo(card, "rotationX", { duration: 0.55, ease: "power3.out" });
+          const rotateY = gsap.quickTo(card, "rotationY", { duration: 0.55, ease: "power3.out" });
+
+          const onMove = (event: MouseEvent) => {
+            const rect = card.getBoundingClientRect();
+            const px = (event.clientX - rect.left) / rect.width - 0.5;
+            const py = (event.clientY - rect.top) / rect.height - 0.5;
+            rotateY(px * 4.5);
+            rotateX(-py * 4.5);
+          };
+          const onLeave = () => {
+            gsap.to(card, { rotationX: 0, rotationY: 0, duration: 0.9, ease: "elastic.out(1, 0.5)", overwrite: "auto" });
+          };
+
+          card.addEventListener("mousemove", onMove);
+          card.addEventListener("mouseleave", onLeave);
+          removers.push(() => {
+            card.removeEventListener("mousemove", onMove);
+            card.removeEventListener("mouseleave", onLeave);
+            gsap.killTweensOf(card);
+          });
+        });
+      }
+
+      return () => {
+        ctx.revert();
+        removers.forEach((remove) => remove());
+      };
     });
     return () => media.revert();
   }, []);

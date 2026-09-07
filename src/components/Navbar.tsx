@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
+import Magnetic from "@/components/Magnetic";
 
 const navLinks = [
   { label: "作品", href: "#showreel", index: "01" },
@@ -206,17 +207,19 @@ export default function Navbar() {
           className="shell grid h-full grid-cols-[1fr_auto] items-center md:grid-cols-[1fr_auto_1fr]"
           aria-label="主导航"
         >
-          <a
-            href="#top"
-            tabIndex={menuOpen ? -1 : 0}
-            onClick={menuOpen ? navigateFromMenu : closeMenu}
-            className="inline-flex min-h-11 w-fit items-center text-[#f2f1ec] transition hover:text-[#83e2ca]"
-            aria-label="王玉个人网站首页"
-          >
-            <span className="site-wordmark text-[27px] leading-none md:text-[31px]">
-              WANGYU
-            </span>
-          </a>
+          <Magnetic strength={0.22}>
+            <a
+              href="#top"
+              tabIndex={menuOpen ? -1 : 0}
+              onClick={menuOpen ? navigateFromMenu : closeMenu}
+              className="inline-flex min-h-11 w-fit items-center text-[#f2f1ec] transition hover:text-[#83e2ca]"
+              aria-label="王玉个人网站首页"
+            >
+              <span className="site-wordmark text-[27px] leading-none md:text-[31px]">
+                WANGYU
+              </span>
+            </a>
+          </Magnetic>
 
           <div className="hidden items-center gap-8 md:flex lg:gap-12">
             {navLinks.map((link) => (
@@ -250,17 +253,19 @@ export default function Navbar() {
             ))}
           </div>
 
-          <a
-            href="#contact"
-            aria-current={activeHref === "#contact" ? "location" : undefined}
-            className={`!hidden min-h-11 justify-self-end border-b py-2 text-[13px] font-extrabold tracking-[0.06em] transition-colors duration-300 md:!inline-flex md:items-center md:gap-3 lg:text-[14px] ${
-              activeHref === "#contact"
-                ? "border-[#83e2ca] text-[#83e2ca]"
-                : "border-white/35 hover:border-[#83e2ca] hover:text-[#83e2ca]"
-            }`}
-          >
-            联系 <ArrowUpRightIcon className="text-base" />
-          </a>
+          <Magnetic strength={0.26} className="!hidden justify-self-end md:!inline-block">
+            <a
+              href="#contact"
+              aria-current={activeHref === "#contact" ? "location" : undefined}
+              className={`inline-flex min-h-11 items-center gap-3 border-b py-2 text-[13px] font-extrabold tracking-[0.06em] transition-colors duration-300 lg:text-[14px] ${
+                activeHref === "#contact"
+                  ? "border-[#83e2ca] text-[#83e2ca]"
+                  : "border-white/35 hover:border-[#83e2ca] hover:text-[#83e2ca]"
+              }`}
+            >
+              联系 <ArrowUpRightIcon className="text-base" />
+            </a>
+          </Magnetic>
 
           <button
             ref={menuButtonRef}

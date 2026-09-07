@@ -48,6 +48,25 @@ export default function SelectedFrames() {
             ease: "power3.out",
           });
         });
+
+        // 帧图滚动视差：图片在容器内按交替速度纵向漂移，营造纵深。
+        gsap.utils.toArray<HTMLElement>("[data-frame-parallax]").forEach((layer, index) => {
+          const amount = index % 2 === 0 ? 4.5 : 7;
+          gsap.fromTo(
+            layer,
+            { yPercent: -amount },
+            {
+              yPercent: amount,
+              ease: "none",
+              scrollTrigger: {
+                trigger: layer.closest("[data-frame]") ?? layer,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+              },
+            },
+          );
+        });
       }, ref);
 
       return () => ctx.revert();
@@ -79,13 +98,15 @@ export default function SelectedFrames() {
               className={`group ${layout === "wide" ? "col-span-2" : "col-span-1"} ${DESKTOP_FRAME_LAYOUT[frameIndex]}`}
             >
               <div className={`relative h-full min-h-[10rem] overflow-hidden bg-[#101415] ${layout === "wide" ? "aspect-[16/9] md:aspect-auto" : "aspect-[4/5] md:aspect-auto"}`}>
-                <Image
-                  src={src}
-                  alt={alt}
-                  fill
-                  sizes="(min-width: 768px) 58vw, 100vw"
-                  className="object-cover transition duration-700 ease-out group-hover:scale-[1.025] group-hover:brightness-110"
-                />
+                <div data-frame-parallax className="absolute inset-x-0 -inset-y-[9%] will-change-transform">
+                  <Image
+                    src={src}
+                    alt={alt}
+                    fill
+                    sizes="(min-width: 768px) 58vw, 100vw"
+                    className="object-cover transition duration-700 ease-out group-hover:scale-[1.025] group-hover:brightness-110"
+                  />
+                </div>
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,11,13,.42),transparent_32%,transparent_65%,rgba(9,11,13,.48))]" aria-hidden="true" />
                 <span className="absolute left-3 top-3 font-mono text-[10px] tracking-[.12em] text-white/80">{index}</span>
                 <span className="absolute bottom-3 right-3 font-mono text-[10px] tracking-[.12em] text-white/65">{label}</span>

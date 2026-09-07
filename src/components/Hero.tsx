@@ -8,6 +8,7 @@ import ReactDOM from "react-dom";
 import LiquidEther from "@/components/react-bits/LiquidEther";
 import DotGrid from "@/components/react-bits/DotGrid";
 import ViewportEffect from "@/components/ViewportEffect";
+import Magnetic from "@/components/Magnetic";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -52,9 +53,17 @@ export default function Hero() {
   const [videoPaused, setVideoPaused] = useState(true);
 
   useEffect(() => {
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const ctx = gsap.context(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let preloaderPending = false;
+    try {
+      preloaderPending = !sessionStorage.getItem("wy-preloaded");
+    } catch {
+      preloaderPending = false;
+    }
+
+    const play = () =>
+      gsap.context(() => {
         gsap.from(".hero-reveal", {
           y: 34,
           opacity: 0,
@@ -63,9 +72,24 @@ export default function Hero() {
           ease: "power3.out",
         });
       }, sectionRef);
+
+    // 首访有开场幕布：等幕布开始升起再播入场动画，避免被遮挡浪费。
+    if (!preloaderPending) {
+      const ctx = play();
       return () => ctx.revert();
+    }
+
+    let ctx: gsap.Context | undefined;
+    const onPreloaderDone = () => {
+      ctx = play();
+    };
+    window.addEventListener("wy:preloader-done", onPreloaderDone, {
+      once: true,
     });
-    return () => mm.revert();
+    return () => {
+      window.removeEventListener("wy:preloader-done", onPreloaderDone);
+      ctx?.revert();
+    };
   }, []);
 
   useEffect(() => {
@@ -104,7 +128,7 @@ export default function Hero() {
         const getStartMetrics = () => {
           const slotRect = titleSlot.getBoundingClientRect();
           const stageRect = stage.getBoundingClientRect();
-          const preferredScale = isMobile ? 1.14 : 1.28;
+          const preferredScale = isMobile ? 1.22 : 1.48;
           const availableWidth = stageRect.width - (isMobile ? 28 : 72);
           const safeScale = Math.min(
             preferredScale,
@@ -165,7 +189,7 @@ export default function Hero() {
             titleHeading,
             {
               fontWeight: 900,
-              letterSpacing: isMobile ? "-0.005em" : "0.012em",
+              letterSpacing: isMobile ? "0.02em" : "0.06em",
               lineHeight: isMobile ? 1.14 : 1.12,
             },
             {
@@ -187,15 +211,17 @@ export default function Hero() {
             },
             0,
           )
-          .set(signaturePath, { opacity: 0.68 }, 0.16)
+          // 签名随标题移动早期开始、慢速书写，在标题完全落定（整个
+          // Hero 编舞结束于 0.84）时恰好写完，避免仓促收笔。
+          .set(signaturePath, { opacity: 0.68 }, 0.08)
           .to(
             signaturePath,
             {
               strokeDashoffset: 0,
-              duration: 0.64,
+              duration: 0.76,
               ease: "none",
             },
-            0.16,
+            0.08,
           );
 
         if (isMobile && mobilePrimer) {
@@ -575,7 +601,7 @@ export default function Hero() {
                 </h1>
                 <svg
                   viewBox="-8 -8 1267.34 349.22"
-                  className="pointer-events-none absolute left-[30%] top-[68%] z-0 w-[88%] max-w-none -rotate-[2deg] overflow-visible md:left-[58%] md:top-[61%] md:w-[88%]"
+                  className="pointer-events-none absolute left-[36%] top-[68%] z-0 w-[88%] max-w-none -rotate-[2deg] overflow-visible md:left-[64%] md:top-[61%] md:w-[88%]"
                   aria-hidden="true"
                 >
                   <path
@@ -601,18 +627,22 @@ export default function Hero() {
             <div className="hero-supporting mt-7 grid items-end gap-7 lg:grid-cols-[minmax(320px,580px)_auto] lg:justify-between lg:gap-12">
               <div aria-hidden="true" />
               <div className="flex flex-wrap items-center gap-5 max-[520px]:flex-col max-[520px]:items-start">
-                <a
-                  href="#showreel"
-                  className="inline-flex min-h-[52px] items-center gap-5 rounded-[2px] bg-[#f2f1ec] px-5 text-[11px] font-extrabold tracking-[0.06em] text-[#07090a] transition hover:bg-white hover:-translate-y-0.5"
-                >
-                  观看 Showreel <ArrowUpRightIcon className="rotate-90 text-base" />
-                </a>
-                <a
-                  href="#works"
-                  className="inline-flex min-h-[52px] items-center gap-5 border-b border-white/40 px-1 text-[11px] font-extrabold tracking-[0.06em] transition hover:border-[#83e2ca] hover:text-[#83e2ca]"
-                >
-                  浏览项目 <ArrowUpRightIcon className="rotate-[135deg] text-sm" />
-                </a>
+                <Magnetic strength={0.34}>
+                  <a
+                    href="#showreel"
+                    className="inline-flex min-h-[52px] items-center gap-5 rounded-[2px] bg-[#f2f1ec] px-5 text-[11px] font-extrabold tracking-[0.06em] text-[#07090a] transition hover:bg-white hover:-translate-y-0.5"
+                  >
+                    观看 Showreel <ArrowUpRightIcon className="rotate-90 text-base" />
+                  </a>
+                </Magnetic>
+                <Magnetic strength={0.28}>
+                  <a
+                    href="#works"
+                    className="inline-flex min-h-[52px] items-center gap-5 border-b border-white/40 px-1 text-[11px] font-extrabold tracking-[0.06em] transition hover:border-[#83e2ca] hover:text-[#83e2ca]"
+                  >
+                    浏览项目 <ArrowUpRightIcon className="rotate-[135deg] text-sm" />
+                  </a>
+                </Magnetic>
               </div>
             </div>
 
