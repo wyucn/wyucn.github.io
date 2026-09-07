@@ -542,17 +542,17 @@ export default function Hero() {
           <div className="hero-reveal flex max-w-[34rem] items-start gap-2.5 font-mono text-[9px] font-bold leading-[1.55] tracking-[0.13em] text-white/65 uppercase">
             <span className="mt-[.38em] h-[7px] w-[7px] shrink-0 rounded-full bg-[#83e2ca] shadow-[0_0_0_5px_rgba(131,226,202,.1)]" aria-hidden="true" />
             <span className="copy-pretty">
-              王玉 / 7 年视频后期 · 后期组长 · <span className="keep-phrase">AI 视频工具</span>
+              王玉 / <span className="keep-phrase">MOTION DESIGN</span> · <span className="keep-phrase">CREATIVE TOOLS</span>
             </span>
           </div>
 
           <div className="hero-mobile-primer absolute inset-x-0 bottom-[max(1.25rem,env(safe-area-inset-bottom))] z-20 flex-col gap-4 border-t border-white/20 pt-4">
             <div>
               <p className="text-[1.05rem] font-extrabold leading-[1.35] tracking-[-0.02em] text-white">
-                视频后期组长 / AI 视频工具实践者
+                王玉 / WANGYU
               </p>
               <p className="mt-1.5 font-mono text-[11px] font-bold tracking-[0.09em] text-[#83e2ca] uppercase">
-                7 年经验 · Motion Design · 团队统筹
+                Motion Design · Creative Tools
               </p>
             </div>
             <a
@@ -565,13 +565,13 @@ export default function Hero() {
 
           <div className="mt-auto">
             <p className="hero-supporting mb-4 font-mono text-[9px] font-bold tracking-[0.14em] text-[#83e2ca] uppercase">
-              王玉 · 北京 / 关注后期制作与 AI 视频工具机会
+              WANGYU / 2026
             </p>
             <div ref={titleSlotRef} className="relative w-fit max-w-[900px]">
               <div ref={titleMotionRef} className="hero-title-motion relative will-change-transform">
                 <h1 className="hero-title-heading relative z-10 max-w-[900px] font-sans text-[clamp(3.25rem,6.8vw,7.25rem)] font-extrabold leading-[1.02] tracking-[-0.045em] max-[520px]:text-[clamp(2.65rem,13.5vw,3.6rem)] max-[520px]:leading-[1.06] max-[520px]:tracking-[-0.035em]">
-                  <span className="block">做影像，</span>
-                  <span className="hero-title-secondary mt-[.06em] block text-white/70">也整理方法。</span>
+                  <span className="block">影像与</span>
+                  <span className="hero-title-secondary mt-[.06em] block text-white/70">创作工具。</span>
                 </h1>
                 <svg
                   viewBox="-8 -8 1267.34 349.22"
@@ -599,9 +599,7 @@ export default function Hero() {
             </div>
 
             <div className="hero-supporting mt-7 grid items-end gap-7 lg:grid-cols-[minmax(320px,580px)_auto] lg:justify-between lg:gap-12">
-              <p className="copy-pretty max-w-[580px] text-[clamp(1.05rem,1.45vw,1.38rem)] font-medium leading-[1.62] tracking-[-0.02em] text-white/78">
-                7 年教育视频、动画与创意内容后期经验。兼顾重点项目制作、团队排期与质量验收，并把可用的 <span className="keep-phrase">AIGC 能力</span>带进真实生产流程。
-              </p>
+              <div aria-hidden="true" />
               <div className="flex flex-wrap items-center gap-5 max-[520px]:flex-col max-[520px]:items-start">
                 <a
                   href="#showreel"
@@ -613,24 +611,11 @@ export default function Hero() {
                   href="#works"
                   className="inline-flex min-h-[52px] items-center gap-5 border-b border-white/40 px-1 text-[11px] font-extrabold tracking-[0.06em] transition hover:border-[#83e2ca] hover:text-[#83e2ca]"
                 >
-                  项目与实践 <ArrowUpRightIcon className="rotate-[135deg] text-sm" />
+                  浏览项目 <ArrowUpRightIcon className="rotate-[135deg] text-sm" />
                 </a>
               </div>
             </div>
 
-            <dl className="hero-supporting mt-6 grid grid-cols-2 border-l border-t border-white/15 sm:grid-cols-4">
-              {[
-                ["7 年", "视频后期经验"],
-                ["2024.06—至今", "后期组长"],
-                ["21 人", "AI 工作台活跃成员"],
-                ["90%", "生成任务成功率"],
-              ].map(([value, label]) => (
-                <div key={label} className="border-b border-r border-white/15 px-4 py-3">
-                  <dt className="font-mono text-[clamp(1rem,1.6vw,1.3rem)] font-bold text-[#83e2ca]">{value}</dt>
-                  <dd className="mt-1 text-[10px] tracking-[0.06em] text-white/56">{label}</dd>
-                </div>
-              ))}
-            </dl>
           </div>
 
           <div className="hero-supporting mt-8 flex min-h-11 items-center justify-between border-t border-white/15 pt-4 font-mono text-[9px] font-bold tracking-[0.13em] text-white/50 uppercase">

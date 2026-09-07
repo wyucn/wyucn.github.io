@@ -3,8 +3,6 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Works from "@/components/Works";
 import Showreel from "@/components/Showreel";
-import Experience from "@/components/Experience";
-import Capabilities from "@/components/Capabilities";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
 import AsciiStrip from "@/components/AsciiStrip";
@@ -31,8 +29,7 @@ export const metadata: Metadata = {
     "动态视觉",
     "AIGC",
     "AI Creative Workflow",
-    "AI 视频工具",
-    "后期组长",
+    "Creative Technology",
     "作品集",
   ],
   authors: [{ name: "王玉" }],
@@ -79,7 +76,7 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "王玉",
-  jobTitle: "视频后期组长 / Motion Design / AI 视频工具",
+  jobTitle: "Motion Designer / Creative Technologist",
   description: SITE_DESCRIPTION,
   url: SITE_URL,
   sameAs: [BILIBILI_URL, GITHUB_URL],
@@ -101,8 +98,6 @@ export default function Home() {
         <Showreel />
         <SelectedFrames />
         <Works />
-        <Experience />
-        <Capabilities />
         <About />
       </main>
       <Footer />

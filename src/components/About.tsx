@@ -81,28 +81,11 @@ export default function About() {
           <div className="about-reveal flex flex-col justify-center p-7 md:p-14 lg:p-[clamp(3rem,5.2vw,5.8rem)]">
             <p className="font-mono text-[11px] tracking-[0.1em] text-[#83e2ca]">王玉 / WANGYU</p>
             <h2 className="mt-5 font-sans text-[clamp(3.3rem,6.5vw,6.8rem)] font-extrabold leading-[1.02] tracking-[-0.035em] max-[520px]:leading-[1.04]">
-              <span className="block">关于我</span>
-              <span className="mt-[0.08em] block text-white/38">工作方式</span>
+              <span className="block">王玉</span>
+              <span className="mt-[0.08em] block text-white/38">WANGYU</span>
             </h2>
 
-            <p className="editorial-serif mt-9 max-w-2xl text-[clamp(1.35rem,2.3vw,2rem)] leading-[1.45] text-white/82">
-              做好一条片，也建立一套能复用的方法。
-            </p>
-            <div className="mt-9 grid gap-7 text-sm leading-8 text-white/68 md:grid-cols-2 md:text-[15px]">
-              <p className="copy-pretty">
-                我有 7 年教育视频、动画与创意内容后期经验。自 2024 年起担任后期组长，工作从剪辑、动效和<span className="keep-phrase">声音处理，</span>延伸到团队统筹、跨部门协作、质量验收与<span className="keep-phrase">最终交付。</span>
-              </p>
-              <p className="copy-pretty">
-                我不是为了展示技术而做工具。海豚后期工作台、AI 创意画布与 Qwen3-TTS Studio，都从真实制作问题出发，由我负责需求定义、流程设计、测试验收与持续迭代。
-              </p>
-            </div>
-
-            <div className="mt-10 grid gap-5 border-t border-white/15 pt-7 md:grid-cols-[180px_1fr]">
-              <span className="text-[11px] font-bold tracking-[0.1em] text-[#83e2ca]">与 AI 协作</span>
-              <p className="copy-pretty text-sm leading-7 text-white/68 md:text-[15px]">
-                我更关注工具能否真正进入制作：从内容生产现场发现问题、梳理流程，再用任务成功率、团队反馈和交付结果持续验证。
-              </p>
-            </div>
+            <p className="mt-9 font-mono text-sm leading-8 tracking-[.08em] text-white/62">VIDEO / MOTION DESIGN / CREATIVE TOOLS</p>
           </div>
         </div>
       </div>

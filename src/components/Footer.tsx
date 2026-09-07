@@ -61,21 +61,14 @@ export default function Footer() {
       <div className="shell relative z-10">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-6 text-[11px] tracking-[0.08em]">
           <p className="font-mono text-[#83e2ca]">06 / 联系</p>
-          <span className="text-white/52">关注新的工作机会 · 欢迎来信</span>
         </div>
 
         <h2 className="mt-14 max-w-5xl font-sans text-[clamp(3.3rem,8vw,8rem)] font-extrabold leading-[1.02] tracking-[-0.025em] max-[520px]:leading-[1.04]">
-          <span className="block">联系与</span>
-          <span className="mt-[0.08em] block text-white/45">新的可能</span>
+          <span className="block">联系</span>
         </h2>
 
         <div className="mt-14 grid gap-10 border-t border-white/15 pt-9 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-          <div>
-            <p className="copy-pretty max-w-2xl text-[clamp(1rem,1.45vw,1.3rem)] leading-[1.75] text-white/66">
-              我正在关注北京的视频后期制作与 AI 视频工具方向机会。如果你需要兼具重点项目制作、团队统筹、<span className="keep-phrase">Motion Design</span> 与 <span className="keep-phrase">AI 工作流落地</span>经验的创作者，欢迎来信。
-            </p>
-            <p className="mt-6 text-[11px] tracking-[0.08em] text-white/45">中国 / GMT+8</p>
-          </div>
+          <div />
 
           <div className="grid gap-3 sm:flex sm:flex-wrap md:justify-end">
             <a
@@ -91,11 +84,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 grid gap-8 border-t border-white/15 pt-8 md:grid-cols-[.7fr_1.3fr] md:items-end">
-          <div className="grid grid-cols-2 gap-5 text-[11px] leading-6 tracking-[0.08em] text-white/55">
-            <div><span className="block text-[#83e2ca]">期望方向</span><span>后期制作 / AI 视频工具</span></div>
-            <div><span className="block text-[#83e2ca]">协作方式</span><span>全职 / 项目合作</span></div>
-          </div>
+        <div className="mt-16 grid gap-8 border-t border-white/15 pt-8 md:items-end">
           <div className="max-w-full md:text-right">
             <span className="mb-3 block text-[11px] font-semibold tracking-[0.12em] text-[#83e2ca]">
               邮箱
@@ -116,7 +105,7 @@ export default function Footer() {
 
         <div className="mt-20 flex flex-col gap-3 border-t border-white/15 py-7 text-[10px] tracking-[0.05em] text-white/55 sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} 王玉</span>
-          <span>视频后期 · <span className="keep-phrase">Motion Design</span> · <span className="keep-phrase">AI 创意工作流</span></span>
+          <span>WANGYU.COM</span>
         </div>
       </div>
 

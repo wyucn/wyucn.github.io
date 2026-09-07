@@ -6,9 +6,7 @@ import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
 const navLinks = [
   { label: "作品", href: "#showreel", index: "01" },
   { label: "项目", href: "#works", index: "02" },
-  { label: "经历", href: "#experience", index: "03" },
-  { label: "能力", href: "#capabilities", index: "04" },
-  { label: "关于", href: "#about", index: "05" },
+  { label: "关于", href: "#about", index: "03" },
 ];
 
 export default function Navbar() {
