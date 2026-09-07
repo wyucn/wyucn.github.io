@@ -61,7 +61,7 @@ export default function SelectedFrames() {
       ref={ref}
       id="selected-frames"
       aria-labelledby="selected-frames-title"
-      className="section-dark border-y border-white/10 bg-[#11100f] py-24 md:py-36"
+      className="section-dark border-y border-white/10 bg-[#11100f] pb-14 pt-24 md:pb-20 md:pt-32"
     >
       <div className="shell">
         <div data-frame-heading className="mb-10 flex items-end justify-between border-b border-white/15 pb-5">
