@@ -16,7 +16,7 @@ import {
 } from "@/lib/site";
 
 const shareImageAlt =
-  "王玉 — Video Post-Production / Motion Design / AI Workflow";
+  "王玉 — 动态影像与创作工具";
 
 export const metadata: Metadata = {
   title: SITE_TITLE,

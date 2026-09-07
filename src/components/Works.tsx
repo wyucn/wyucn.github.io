@@ -20,7 +20,11 @@ function Placeholder({ project }: { project: Project }) {
 function Card({ project }: { project: Project }) {
   const content = (
     <>
-      <div className="relative aspect-[4/3] overflow-hidden border-b border-white/12"><Placeholder project={project} /></div>
+      <div className="relative aspect-[4/3] overflow-hidden border-b border-white/12">
+        <div className="relative h-full w-full transition-transform duration-700 ease-out motion-reduce:transition-none group-hover:scale-[1.025] group-hover:-translate-y-1">
+          <Placeholder project={project} />
+        </div>
+      </div>
       <div className="grid gap-5 p-5 md:grid-cols-[1fr_auto] md:p-7">
         <div>
           <p className="font-mono text-[10px] tracking-[0.12em] text-[#83e2ca]">{project.category} / {project.year}</p>
@@ -30,20 +34,24 @@ function Card({ project }: { project: Project }) {
       </div>
     </>
   );
-  const className = "group block overflow-hidden border border-white/12 bg-[#0e1113] transition duration-300 hover:-translate-y-1 hover:border-[#83e2ca]/45";
+  const className = "group block overflow-hidden border border-white/12 bg-[#0e1113] transition-colors duration-300 hover:border-[#83e2ca]/45";
   return <a className={className} href={project.href} target="_blank" rel="noopener noreferrer" aria-label={`打开 ${project.title} 的 GitHub 仓库`}>{content}</a>;
 }
 
 export default function Works() {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from("[data-project]", { scrollTrigger: { trigger: ref.current, start: "top 75%" }, y: 36, opacity: 0, stagger: 0.08, duration: 0.75, ease: "power3.out" });
-    }, ref);
-    return () => ctx.revert();
+    const media = gsap.matchMedia();
+    media.add("(prefers-reduced-motion: no-preference)", () => {
+      const ctx = gsap.context(() => {
+        gsap.from("[data-project]", { scrollTrigger: { trigger: ref.current, start: "top 75%" }, y: 36, opacity: 0, stagger: 0.08, duration: 0.75, ease: "power3.out" });
+      }, ref);
+      return () => ctx.revert();
+    });
+    return () => media.revert();
   }, []);
   return (
-    <section ref={ref} id="works" className="section-dark py-24 md:py-36">
+    <section ref={ref} id="works" className="section-dark bg-[#0a0f12] py-24 md:py-36">
       <div className="shell">
         <div className="mb-14 flex flex-col gap-8 border-b border-white/15 pb-10 md:flex-row md:items-end md:justify-between">
           <div><p className="font-mono text-[11px] tracking-[.1em] text-[#83e2ca]">02 / PROJECTS</p><h2 className="mt-5 text-[clamp(3.5rem,8vw,8rem)] font-extrabold leading-[.92] tracking-[-.05em]">项目</h2></div>

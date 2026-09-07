@@ -1,120 +1,18 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
 import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
 import { BILIBILI_URL, GITHUB_URL } from "@/lib/site";
-import ViewportEffect from "@/components/ViewportEffect";
-import Prism from "@/components/react-bits/Prism";
 
 const EMAIL = "wangyu.hd@qq.com";
 
 export default function Footer() {
-  const copyTimerRef = useRef<number | null>(null);
-  const [copyStatus, setCopyStatus] = useState<string | null>(null);
-
-  useEffect(() => () => {
-    if (copyTimerRef.current) window.clearTimeout(copyTimerRef.current);
-  }, []);
-
-  const copyEmail = async () => {
-    let copied = false;
-
-    try {
-      if (!navigator.clipboard) throw new Error("Clipboard API unavailable");
-      await navigator.clipboard.writeText(EMAIL);
-      copied = true;
-    } catch {
-      const fallback = document.createElement("textarea");
-      fallback.value = EMAIL;
-      fallback.setAttribute("readonly", "");
-      fallback.style.position = "fixed";
-      fallback.style.opacity = "0";
-      document.body.appendChild(fallback);
-      fallback.select();
-      copied = document.execCommand("copy");
-      fallback.remove();
-    }
-
-    setCopyStatus(copied ? "邮箱已复制" : EMAIL);
-    if (copyTimerRef.current) window.clearTimeout(copyTimerRef.current);
-    copyTimerRef.current = window.setTimeout(() => setCopyStatus(null), 2200);
-  };
-
   return (
-    <footer id="contact" className="section-dark relative overflow-hidden pt-24 md:pt-36">
-      <div className="pointer-events-none absolute right-[-18%] top-[5%] h-[42rem] w-[42rem] rounded-full bg-[rgba(131,226,202,.05)] blur-[170px]" aria-hidden="true" />
-      <ViewportEffect className="mobile-prism absolute -right-[18vw] top-0 h-[44rem] w-[70rem] max-w-[110vw] opacity-70 [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]">
-        <Prism
-          animationType="3drotate"
-          glow={1.2}
-          bloom={1.15}
-          noise={0.18}
-          scale={3.9}
-          hueShift={-0.42}
-          colorFrequency={0.8}
-          timeScale={0.28}
-          transparent
-          suspendWhenOffscreen
-        />
-      </ViewportEffect>
-
-      <div className="shell relative z-10">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-6 text-[11px] tracking-[0.08em]">
-          <p className="font-mono text-[#83e2ca]">06 / 联系</p>
+    <footer id="contact" className="section-dark border-t border-white/10 py-20 md:py-28">
+      <div className="shell">
+        <div className="flex items-center justify-between border-b border-white/15 pb-5"><p className="font-mono text-[11px] tracking-[.1em] text-[#83e2ca]">04 / CONTACT</p><span className="font-mono text-[10px] tracking-[.12em] text-white/35">WANGYU / 2026</span></div>
+        <div className="mt-12 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <a href={`mailto:${EMAIL}`} className="break-all text-[clamp(2rem,5vw,5rem)] font-semibold leading-none tracking-[-.05em] text-white transition-colors hover:text-[#83e2ca]">{EMAIL}</a>
+          <div className="flex gap-5 font-mono text-[11px] tracking-[.1em] text-white/55"><a href={BILIBILI_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-[#83e2ca]">BILIBILI <ArrowUpRightIcon /></a><a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-[#83e2ca]">GITHUB <ArrowUpRightIcon /></a></div>
         </div>
-
-        <h2 className="mt-14 max-w-5xl font-sans text-[clamp(3.3rem,8vw,8rem)] font-extrabold leading-[1.02] tracking-[-0.025em] max-[520px]:leading-[1.04]">
-          <span className="block">联系</span>
-        </h2>
-
-        <div className="mt-14 grid gap-10 border-t border-white/15 pt-9 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-          <div />
-
-          <div className="grid gap-3 sm:flex sm:flex-wrap md:justify-end">
-            <a
-              href={`mailto:${EMAIL}`}
-              className="btn-lime w-full sm:w-auto"
-              style={{ borderRadius: 6, backgroundColor: "#83e2ca", borderColor: "#83e2ca", color: "#07090a" }}
-            >
-              发送邮件 <ArrowUpRightIcon className="text-base" />
-            </a>
-            <button type="button" onClick={copyEmail} className="btn-light-outline w-full sm:w-auto" style={{ borderRadius: 6 }}>复制邮箱 <span aria-hidden="true">＋</span></button>
-            <a href={BILIBILI_URL} target="_blank" rel="noopener noreferrer" className="btn-light-outline w-full sm:w-auto" style={{ borderRadius: 6 }}>哔哩哔哩 <ArrowUpRightIcon className="text-base" /></a>
-            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="btn-light-outline w-full sm:w-auto" style={{ borderRadius: 6 }}>GitHub <ArrowUpRightIcon className="text-base" /></a>
-          </div>
-        </div>
-
-        <div className="mt-16 grid gap-8 border-t border-white/15 pt-8 md:items-end">
-          <div className="max-w-full md:text-right">
-            <span className="mb-3 block text-[11px] font-semibold tracking-[0.12em] text-[#83e2ca]">
-              邮箱
-            </span>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="inline-block w-full max-w-full border-b border-[rgba(131,226,202,.68)] pb-2 text-[clamp(1.3125rem,2.15vw,2.25rem)] font-semibold leading-[1.35] tracking-normal text-white transition-colors [overflow-wrap:anywhere] hover:border-[#83e2ca] hover:text-[#83e2ca] focus-visible:border-[#83e2ca] focus-visible:text-[#83e2ca] sm:w-auto"
-              style={{
-                fontFamily: "var(--font-ui)",
-                fontVariantLigatures: "none",
-                fontFeatureSettings: '"liga" 0, "calt" 0',
-              }}
-            >
-              {EMAIL}
-            </a>
-          </div>
-        </div>
-
-        <div className="mt-20 flex flex-col gap-3 border-t border-white/15 py-7 text-[10px] tracking-[0.05em] text-white/55 sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} 王玉</span>
-          <span>WANGYU.COM</span>
-        </div>
-      </div>
-
-      <div
-        role="status"
-        aria-live="polite"
-        className={`pointer-events-none fixed bottom-6 left-1/2 z-[100] max-w-[calc(100vw-32px)] -translate-x-1/2 rounded-md border border-white/20 bg-[rgba(9,11,13,.94)] px-4 py-2 text-sm font-semibold text-[#83e2ca] shadow-2xl backdrop-blur-md transition-all duration-300 [overflow-wrap:anywhere] ${copyStatus ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
-      >
-        {copyStatus ?? ""}
+        <div className="mt-16 flex justify-between border-t border-white/15 pt-5 font-mono text-[10px] tracking-[.1em] text-white/35"><span>© {new Date().getFullYear()} WANGYU</span><span>END /</span></div>
       </div>
     </footer>
   );

@@ -4,571 +4,94 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ArrowUpRightIcon from "@/components/ArrowUpRightIcon";
-import ViewportEffect from "@/components/ViewportEffect";
-import GridDistortion from "@/components/react-bits/GridDistortion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const DESKTOP_MOTION_QUERY =
-  "(min-width: 1024px) and (min-height: 681px) and (prefers-reduced-motion: no-preference)";
-
 const frames = [
-  {
-    src: "/images/selected-frames/01-stage.webp",
-    title: "舞台引子",
-    discipline: "场景调度 / 角色动画",
-    timecode: "00:06",
-    alt: "聚光灯下的动画舞台与中央角色",
-    description: "用聚光、景深与角色入场建立开篇节拍。",
-    itemClassName:
-      "w-[82vw] sm:w-[76vw] lg:w-[min(68vw,1040px)] lg:self-start",
-    objectPosition: "center center",
-  },
-  {
-    src: "/images/selected-frames/02-knowledge.webp",
-    title: "知识可视化",
-    discipline: "动态排版 / 合成",
-    timecode: "00:11",
-    alt: "绿色数字空间中的数学题与白色动画角色",
-    description: "把抽象知识转译为可跟随的空间与动作线索。",
-    itemClassName:
-      "w-[76vw] sm:w-[60vw] lg:w-[min(43vw,660px)] lg:self-end",
-    objectPosition: "center center",
-  },
-  {
-    src: "/images/selected-frames/03-production.webp",
-    title: "材质切换",
-    discipline: "二维动画 / 转场设计",
-    timecode: "00:15",
-    alt: "画笔掠过蓝绿色颜料与水面材质",
-    description: "利用真实材质的方向性，为镜头切换制造触感。",
-    itemClassName:
-      "w-[80vw] sm:w-[68vw] lg:w-[min(54vw,820px)] lg:self-start",
-    objectPosition: "center center",
-  },
-  {
-    src: "/images/selected-frames/04-material.webp",
-    title: "任务界面",
-    discipline: "界面动画 / 信息节奏",
-    timecode: "00:20",
-    alt: "甜点制作游戏中的任务卡片界面",
-    description: "在叙事画面里组织任务、反馈与操作焦点。",
-    itemClassName:
-      "w-[74vw] sm:w-[58vw] lg:w-[min(42vw,640px)] lg:self-end",
-    objectPosition: "center center",
-  },
-  {
-    src: "/images/selected-frames/05-lab.webp",
-    title: "实验室警报",
-    discipline: "场景合成 / 色彩设计",
-    timecode: "00:25",
-    alt: "被红色警报光笼罩的动画实验室场景",
-    description: "通过单色警报与层次雾化快速改变叙事温度。",
-    itemClassName:
-      "w-[82vw] sm:w-[72vw] lg:w-[min(62vw,940px)] lg:self-start",
-    objectPosition: "center center",
-  },
-  {
-    src: "/images/selected-frames/06-ice.webp",
-    title: "空间坠落",
-    discipline: "镜头运动 / 光效合成",
-    timecode: "00:40",
-    alt: "从拱门望向碎裂空间与中央亮光的动画镜头",
-    description: "用纵深、碎片和高亮中心强化失重感。",
-    itemClassName:
-      "w-[76vw] sm:w-[61vw] lg:w-[min(45vw,690px)] lg:self-end",
-    objectPosition: "center center",
-  },
-  {
-    src: "/images/selected-frames/07-ensemble.webp",
-    title: "角色特写",
-    discipline: "角色动画 / 光影塑形",
-    timecode: "00:45",
-    alt: "紫黑色兜帽角色的发光面部特写",
-    description: "压缩景别，让轮廓光和表情承担情绪转折。",
-    itemClassName:
-      "w-[78vw] sm:w-[64vw] lg:w-[min(49vw,750px)] lg:self-start",
-    objectPosition: "center center",
-  },
-  {
-    src: "/images/selected-frames/08-tunnel.webp",
-    title: "群像登场",
-    discipline: "剪辑 / 音画节奏",
-    timecode: "00:50",
-    alt: "三名动画角色在高速运动的场景中集结",
-    description: "以速度线、角色站位与音乐重拍收束段落。",
-    itemClassName:
-      "w-[82vw] sm:w-[76vw] lg:w-[min(68vw,1040px)] lg:self-end",
-    objectPosition: "center center",
-  },
+  { src: "/images/selected-frames-v2/01-stage.webp", index: "01", label: "STAGE", alt: "聚光灯下的动画舞台", layout: "wide" },
+  { src: "/images/selected-frames-v2/02-workshop.webp", index: "02", label: "WORKSHOP", alt: "浅色调的动画工坊场景", layout: "tall" },
+  { src: "/images/selected-frames-v2/03-energy.webp", index: "03", label: "ENERGY", alt: "蓝色能量装置实验室", layout: "tall" },
+  { src: "/images/selected-frames-v2/04-city.webp", index: "04", label: "CITY", alt: "暖色调的动画城市与钟楼", layout: "tall" },
+  { src: "/images/selected-frames-v2/05-character.webp", index: "05", label: "CHARACTER", alt: "霓虹轮廓的动画角色特写", layout: "tall" },
+  { src: "/images/selected-frames-v2/06-neon.webp", index: "06", label: "NEON", alt: "蓝紫霓虹中的角色群像", layout: "wide" },
 ] as const;
 
-function clampProgress(value: number) {
-  return Math.min(1, Math.max(0, value));
-}
+const DESKTOP_FRAME_LAYOUT = [
+  "md:col-span-7 md:row-span-2",
+  "md:col-span-5",
+  "md:col-span-5",
+  "md:col-span-4",
+  "md:col-span-4",
+  "md:col-span-4",
+] as const;
 
 export default function SelectedFrames() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLOListElement>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
-  const progressFillRef = useRef<HTMLDivElement>(null);
-  const progressTextRef = useRef<HTMLSpanElement>(null);
-  const frameIndexTextRef = useRef<HTMLSpanElement>(null);
-  const mobileHintRef = useRef<HTMLDivElement>(null);
-
+  const ref = useRef<HTMLElement>(null);
   useEffect(() => {
-    const section = sectionRef.current;
-    const stage = stageRef.current;
-    const viewport = viewportRef.current;
-    const track = trackRef.current;
-    const progress = progressRef.current;
-    const progressFill = progressFillRef.current;
-    const progressText = progressTextRef.current;
-    const frameIndexText = frameIndexTextRef.current;
-    const mobileHint = mobileHintRef.current;
-
-    if (
-      !section ||
-      !stage ||
-      !viewport ||
-      !track ||
-      !progress ||
-      !progressFill ||
-      !progressText ||
-      !frameIndexText ||
-      !mobileHint
-    ) {
-      return;
-    }
-
-    const frameItems = Array.from(
-      track.querySelectorAll<HTMLElement>("[data-selected-frame-item]"),
-    );
-    const introItem = track.querySelector<HTMLElement>("[data-selected-intro]");
-    const totalFrames = frameItems.length;
-
-    const setProgress = (
-      rawValue: number,
-      itemIndex?: number,
-      isIntro = false,
-    ) => {
-      const value = clampProgress(rawValue);
-      const percentage = Math.round(value * 100);
-      const activeIndex = Math.min(
-        totalFrames - 1,
-        Math.max(
-          0,
-          itemIndex ?? Math.round(value * Math.max(0, totalFrames - 1)),
-        ),
-      );
-
-      progressFill.style.transform = `scaleX(${value})`;
-      progressText.textContent = percentage.toString().padStart(3, "0");
-      frameIndexText.textContent = isIntro
-        ? `INTRO / ${String(totalFrames).padStart(2, "0")}`
-        : `${String(activeIndex + 1).padStart(2, "0")} / ${String(totalFrames).padStart(2, "0")}`;
-      progress.setAttribute("aria-valuenow", percentage.toString());
-      progress.setAttribute(
-        "aria-valuetext",
-        isIntro
-          ? `画廊导览，${percentage}%`
-          : `第 ${activeIndex + 1} / ${totalFrames} 张，${percentage}%`,
-      );
-    };
-
-    const resolveActiveItem = (viewportCenter: number) => {
-      let activeIndex = 0;
-      let closestDistance = Number.POSITIVE_INFINITY;
-      let isIntro = false;
-
-      if (introItem) {
-        closestDistance = Math.abs(
-          introItem.offsetLeft + introItem.offsetWidth / 2 - viewportCenter,
-        );
-        isIntro = true;
-      }
-
-      frameItems.forEach((item, index) => {
-        const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-        const distance = Math.abs(itemCenter - viewportCenter);
-
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          activeIndex = index;
-          isIntro = false;
-        }
-      });
-
-      return { activeIndex, isIntro };
-    };
-
-    const getNativeTravel = () =>
-      Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-    const syncNativeProgress = () => {
-      const travel = getNativeTravel();
-      const value = travel > 0 ? viewport.scrollLeft / travel : 0;
-      const viewportCenter = viewport.scrollLeft + viewport.clientWidth / 2;
-      const { activeIndex, isIntro } = resolveActiveItem(viewportCenter);
-
-      setProgress(value, activeIndex, isIntro);
-      mobileHint.dataset.state =
-        value > 0.985 ? "ended" : viewport.scrollLeft > 8 ? "engaged" : "idle";
-    };
-
-    viewport.addEventListener("scroll", syncNativeProgress, { passive: true });
-    window.addEventListener("resize", syncNativeProgress);
-    const initialSync = window.requestAnimationFrame(syncNativeProgress);
-
-    const preloadedImages: HTMLImageElement[] = [];
-    const preloadFrames = () => {
-      frames.forEach(({ src }) => {
-        const image = new window.Image();
-        image.decoding = "async";
-        image.src = src;
-        preloadedImages.push(image);
-      });
-    };
-    const preloadObserver = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return;
-        preloadFrames();
-        preloadObserver.disconnect();
-      },
-      { rootMargin: "1200px 0px" },
-    );
-    preloadObserver.observe(section);
-
-    const mm = gsap.matchMedia();
-
-    mm.add(DESKTOP_MOTION_QUERY, () => {
-      viewport.scrollLeft = 0;
-      viewport.style.overflowX = "hidden";
-      viewport.style.scrollSnapType = "none";
-
-      const getHorizontalTravel = () =>
-        Math.max(0, track.scrollWidth - viewport.clientWidth);
-
+    const mediaQuery = gsap.matchMedia();
+    mediaQuery.add("(prefers-reduced-motion: no-preference)", () => {
       const ctx = gsap.context(() => {
-        gsap.set(track, { x: 0, willChange: "transform" });
-
-        const horizontalTween = gsap.to(track, {
-          x: () => -getHorizontalTravel(),
-          ease: "none",
-          scrollTrigger: {
-            trigger: stage,
-            start: "top top",
-            end: () =>
-              `+=${Math.max(
-                getHorizontalTravel() / 2.85,
-                window.innerHeight * 0.9,
-              )}`,
-            pin: stage,
-            pinSpacing: true,
-            scrub: 0.65,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            onRefresh: (self) => {
-              const active = resolveActiveItem(
-                self.progress * getHorizontalTravel() + viewport.clientWidth / 2,
-              );
-              setProgress(self.progress, active.activeIndex, active.isIntro);
-            },
-            onUpdate: (self) => {
-              const active = resolveActiveItem(
-                self.progress * getHorizontalTravel() + viewport.clientWidth / 2,
-              );
-              setProgress(self.progress, active.activeIndex, active.isIntro);
-            },
-          },
+        gsap.from("[data-frame-heading]", {
+          scrollTrigger: { trigger: ref.current, start: "top 82%" },
+          y: 18,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.out",
         });
 
-        gsap.utils
-          .toArray<HTMLElement>("[data-selected-frame-media]", section)
-          .forEach((media) => {
-            const image = media.querySelector("img");
-
-            if (!image) return;
-
-            gsap.fromTo(
-              image,
-              { scale: 1.1, xPercent: -2.5 },
-              {
-                scale: 1.06,
-                xPercent: 2.5,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: media,
-                  containerAnimation: horizontalTween,
-                  start: "left right",
-                  end: "right left",
-                  scrub: true,
-                },
-              },
-            );
+        gsap.utils.toArray<HTMLElement>("[data-frame]").forEach((frame) => {
+          gsap.from(frame, {
+            scrollTrigger: { trigger: frame, start: "top 90%" },
+            y: 30,
+            opacity: 0,
+            duration: 0.72,
+            ease: "power3.out",
           });
-      }, section);
+        });
+      }, ref);
 
-      ScrollTrigger.refresh();
-
-      return () => {
-        const currentProgress = clampProgress(
-          Number(progress.getAttribute("aria-valuenow") ?? 0) / 100,
-        );
-
-        ctx.revert();
-        viewport.style.overflowX = "";
-        viewport.style.scrollSnapType = "";
-        viewport.scrollLeft = currentProgress * getNativeTravel();
-        setProgress(currentProgress);
-      };
+      return () => ctx.revert();
     });
 
-    return () => {
-      window.cancelAnimationFrame(initialSync);
-      preloadObserver.disconnect();
-      mm.revert();
-      viewport.removeEventListener("scroll", syncNativeProgress);
-      window.removeEventListener("resize", syncNativeProgress);
-    };
+    return () => mediaQuery.revert();
   }, []);
 
   return (
     <section
-      ref={sectionRef}
+      ref={ref}
       id="selected-frames"
       aria-labelledby="selected-frames-title"
-      className="section-dark relative isolate overflow-hidden border-y border-white/10 bg-[#090b0d]"
+      className="section-dark border-y border-white/10 bg-[#11100f] py-24 md:py-36"
     >
-      <div
-        ref={stageRef}
-        className="selected-frames-stage relative flex flex-col justify-center py-20 lg:py-[clamp(2.5rem,7vh,6rem)]"
-      >
-        <div
-          className="pointer-events-none absolute inset-0 opacity-70 [background-image:radial-gradient(circle_at_18%_16%,rgba(131,226,202,.11),transparent_30%),linear-gradient(rgba(255,255,255,.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.025)_1px,transparent_1px)] [background-size:auto,72px_72px,72px_72px]"
-          aria-hidden="true"
-        />
-        <div
-          className="pointer-events-none absolute inset-0 opacity-50 [background-image:repeating-linear-gradient(to_bottom,transparent_0,transparent_3px,rgba(131,226,202,.035)_3px,rgba(131,226,202,.035)_4px)]"
-          aria-hidden="true"
-        />
-
-        <header className="shell relative z-10 flex items-end justify-between gap-4 sm:gap-8">
-          <div>
-            <p className="font-mono text-[11px] font-bold tracking-[0.12em] text-[#83e2ca]">
-              01.B / SELECTED_FRAMES
-            </p>
-            <h2
-              id="selected-frames-title"
-              className="mt-3 text-[clamp(2.2rem,4.4vw,4.8rem)] font-extrabold leading-none tracking-[-0.04em]"
-            >
-              画面档案
-            </h2>
+      <div className="shell">
+        <div data-frame-heading className="mb-10 flex items-end justify-between border-b border-white/15 pb-5">
+          <div className="flex items-baseline gap-4">
+            <p className="font-mono text-[11px] tracking-[.1em] text-[#83e2ca]">01.B</p>
+            <h2 id="selected-frames-title" className="text-[clamp(1.5rem,3vw,2.5rem)] font-semibold tracking-[-0.04em]">Frames</h2>
           </div>
-
-          <div className="flex shrink-0 flex-col items-end gap-3">
-            <div className="hidden text-right font-mono text-[11px] leading-5 tracking-[0.1em] text-white/60 lg:block">
-              <span className="block text-[#83e2ca]">BUFFER::08</span>
-              <span className="block">SCROLL_Y → TRACK_X</span>
-            </div>
-            <a
-              href="#works"
-              aria-label="跳过画面档案，前往项目案例"
-              className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-black/20 px-4 font-mono text-[11px] font-semibold tracking-[0.08em] text-white/80 backdrop-blur-sm transition-colors hover:border-[#83e2ca]/70 hover:text-[#83e2ca] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#83e2ca] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090b0d]"
-            >
-              跳到项目
-              <ArrowUpRightIcon className="rotate-[135deg] text-[#83e2ca] transition-transform group-hover:translate-y-0.5" />
-            </a>
-          </div>
-        </header>
-
-        <p id="selected-frames-instructions" className="sr-only">
-          画廊包含八张作品画面。支持水平滚动的设备可左右滑动浏览；桌面大屏可继续向下滚动浏览。
-        </p>
-
-        <div
-          ref={mobileHintRef}
-          className="shell relative z-10 mt-6 flex items-center justify-between gap-4 font-mono text-[11px] tracking-[0.1em] text-white/68 transition-opacity duration-300 data-[state=ended]:opacity-0 data-[state=engaged]:opacity-80 lg:hidden"
-        >
-          <span className="inline-flex items-center gap-2.5 text-[#83e2ca]">
-            <svg
-              viewBox="0 0 32 12"
-              className="h-3 w-8"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path d="M1 6h30M6 1 1 6l5 5M26 1l5 5-5 5" stroke="currentColor" />
-            </svg>
-            左右滑动浏览
-          </span>
-          <span>08 FRAMES</span>
+          <span className="font-mono text-[10px] tracking-[.12em] text-white/35">06 / SELECTED</span>
         </div>
-
-        <div
-          ref={viewportRef}
-          tabIndex={0}
-          role="region"
-          aria-label="作品代表画面横向画廊"
-          aria-describedby="selected-frames-instructions"
-          className="relative z-10 mt-4 w-full snap-x snap-mandatory scroll-px-5 overflow-x-auto overflow-y-hidden overscroll-x-contain outline-none [scrollbar-width:none] focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[#83e2ca] [&::-webkit-scrollbar]:hidden md:mt-8 md:scroll-px-9 lg:mt-11"
-        >
-          <ol
-            ref={trackRef}
-            className="flex w-max items-center gap-3 px-5 pb-6 sm:gap-5 sm:px-9 lg:gap-[clamp(1rem,2.6vw,2.75rem)] lg:px-[clamp(1.5rem,4vw,4.5rem)]"
-          >
-            <li
-              role="presentation"
-              data-selected-intro
-              className="flex w-[80vw] max-w-[980px] shrink-0 snap-start snap-always self-stretch sm:w-[76vw] lg:w-[48vw] lg:snap-center"
+        <div className="grid grid-cols-2 gap-2 sm:gap-4 md:auto-rows-[minmax(210px,24vw)] md:grid-cols-12 md:gap-5">
+          {frames.map(({ src, index, label, alt, layout }, frameIndex) => (
+            <figure
+              key={src}
+              data-frame
+              className={`group ${layout === "wide" ? "col-span-2" : "col-span-1"} ${DESKTOP_FRAME_LAYOUT[frameIndex]}`}
             >
-              <div className="relative flex min-h-[calc(48svh+6.5rem)] w-full flex-col justify-between overflow-hidden rounded-[6px] border border-[rgba(131,226,202,.26)] bg-[rgba(13,17,18,.86)] p-6 sm:p-9 lg:p-[clamp(2rem,4vw,4.5rem)]">
-                <span
-                  className="absolute left-4 top-4 h-6 w-6 border-l border-t border-[#83e2ca]"
-                  aria-hidden="true"
+              <div className={`relative h-full min-h-[10rem] overflow-hidden bg-[#101415] ${layout === "wide" ? "aspect-[16/9] md:aspect-auto" : "aspect-[4/5] md:aspect-auto"}`}>
+                <Image
+                  src={src}
+                  alt={alt}
+                  fill
+                  sizes="(min-width: 768px) 58vw, 100vw"
+                  className="object-cover transition duration-700 ease-out group-hover:scale-[1.025] group-hover:brightness-110"
                 />
-                <span
-                  className="absolute bottom-4 right-4 h-6 w-6 border-b border-r border-[#83e2ca]"
-                  aria-hidden="true"
-                />
-
-                <div className="font-mono text-[11px] leading-5 tracking-[0.1em] text-white/60">
-                  <span className="block text-[#83e2ca]">ARCHIVE_NODE::WY_22—25</span>
-                  <span className="block">SOURCE::SHOWREEL_60S</span>
-                  <span className="block">STATUS::FRAME_LOCKED</span>
-                </div>
-
-                <div className="max-w-3xl py-10">
-                  <p className="font-mono text-[11px] tracking-[0.12em] text-[#83e2ca]">
-                    [ 08 SIGNALS SELECTED ]
-                  </p>
-                  <h3 className="mt-5 text-[clamp(3.3rem,7vw,7.8rem)] font-black leading-[0.86] tracking-[-0.055em] max-[360px]:text-[2.85rem]">
-                    SELECTED
-                    <span className="block text-white/36">FRAMES</span>
-                  </h3>
-                  <p className="copy-pretty mt-7 max-w-xl text-sm leading-7 text-white/60 sm:text-base sm:leading-8">
-                    从 60 秒作品选集中截取八个节点，观察场景、动效、合成与剪辑如何共同建立节奏。
-                  </p>
-                </div>
-
-                <div className="flex items-end justify-between gap-6 border-t border-white/12 pt-5 font-mono text-[11px] tracking-[0.1em] text-white/65">
-                  <span>DRAG_X / SCROLL_Y</span>
-                  <span aria-hidden="true" className="text-[#83e2ca]">
-                    ├──────────→
-                  </span>
-                </div>
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,11,13,.42),transparent_32%,transparent_65%,rgba(9,11,13,.48))]" aria-hidden="true" />
+                <span className="absolute left-3 top-3 font-mono text-[10px] tracking-[.12em] text-white/80">{index}</span>
+                <span className="absolute bottom-3 right-3 font-mono text-[10px] tracking-[.12em] text-white/65">{label}</span>
               </div>
-            </li>
-
-            {frames.map((frame, index) => (
-              <li
-                key={frame.src}
-                data-selected-frame-item
-                className={`shrink-0 snap-start snap-always lg:snap-center ${frame.itemClassName}`}
-              >
-                <figure className="group">
-                  <div
-                    data-selected-frame-media
-                    className="relative h-[48svh] min-h-[320px] max-h-[540px] overflow-hidden rounded-[5px] border border-white/14 bg-[#101415]"
-                  >
-                    <Image
-                      src={frame.src}
-                      alt={frame.alt}
-                      fill
-                      sizes="(min-width: 1024px) 68vw, (min-width: 640px) 76vw, 88vw"
-                      draggable={false}
-                      className="select-none object-cover transition-[filter] duration-500 group-hover:brightness-110"
-                      style={{ objectPosition: frame.objectPosition }}
-                    />
-                    {frame.title === "材质切换" ? (
-                      <ViewportEffect
-                        interactive
-                        className="mobile-grid-distortion absolute inset-0 z-[1]"
-                      >
-                        <GridDistortion
-                          imageSrc={frame.src}
-                          grid={18}
-                          mouse={0.16}
-                          strength={0.11}
-                          relaxation={0.93}
-                          className="h-full w-full"
-                        />
-                      </ViewportEffect>
-                    ) : null}
-                    <div
-                      className="pointer-events-none absolute inset-0 z-[2] bg-[linear-gradient(180deg,rgba(9,11,13,.04)_45%,rgba(9,11,13,.74)_100%)]"
-                      aria-hidden="true"
-                    />
-                    <div
-                      className="pointer-events-none absolute inset-0 z-[2] opacity-45 [background-image:repeating-linear-gradient(to_bottom,transparent_0,transparent_4px,rgba(131,226,202,.045)_4px,rgba(131,226,202,.045)_5px)]"
-                      aria-hidden="true"
-                    />
-
-                    <span className="absolute left-4 top-4 z-[3] border border-[rgba(131,226,202,.36)] bg-[rgba(9,11,13,.78)] px-2.5 py-1.5 font-mono text-[11px] tracking-[0.1em] text-[#83e2ca] backdrop-blur-sm">
-                      FRM_{String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="absolute right-4 top-4 z-[3] bg-[rgba(9,11,13,.78)] px-2.5 py-1.5 font-mono text-[11px] tracking-[0.1em] text-white/82 backdrop-blur-sm">
-                      {frame.timecode}
-                    </span>
-                    <span
-                      className="absolute bottom-4 left-4 z-[3] h-5 w-5 border-b border-l border-[#83e2ca]"
-                      aria-hidden="true"
-                    />
-                    <span
-                      className="absolute bottom-4 right-4 z-[3] h-5 w-5 border-b border-r border-white/42"
-                      aria-hidden="true"
-                    />
-                  </div>
-
-                  <figcaption className="grid gap-3 border-t border-white/14 pt-4 sm:grid-cols-[minmax(0,1fr)_minmax(12rem,.7fr)] sm:gap-8">
-                    <div>
-                      <p className="font-mono text-[11px] tracking-[0.1em] text-[#83e2ca]">
-                        {frame.discipline}
-                      </p>
-                      <h3 className="mt-1.5 text-xl font-bold tracking-[-0.025em] sm:text-2xl">
-                        {frame.title}
-                      </h3>
-                    </div>
-                    <p className="copy-pretty text-sm leading-6 text-white/65">
-                      {frame.description}
-                    </p>
-                  </figcaption>
-                </figure>
-              </li>
-            ))}
-
-            <li
-              aria-hidden="true"
-              className="w-[8vw] shrink-0 snap-end lg:w-[14vw]"
-            />
-          </ol>
-        </div>
-
-        <div className="shell relative z-10 mt-2 flex items-center gap-3 font-mono text-[11px] tracking-[0.1em] text-white/60 sm:gap-4">
-          <span
-            ref={frameIndexTextRef}
-            className="min-w-[5.2rem] shrink-0 text-[#83e2ca]"
-          >
-            INTRO / 08
-          </span>
-          <div
-            ref={progressRef}
-            role="progressbar"
-            aria-label="画廊浏览进度"
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={0}
-            className="relative h-px flex-1 overflow-hidden bg-white/15"
-          >
-            <div
-              ref={progressFillRef}
-              className="absolute inset-0 origin-left scale-x-0 bg-[#83e2ca] shadow-[0_0_14px_rgba(131,226,202,.55)]"
-            />
-          </div>
-          <span className="shrink-0 text-white/70">
-            <span ref={progressTextRef}>000</span>%
-          </span>
+            </figure>
+          ))}
         </div>
       </div>
     </section>

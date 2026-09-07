@@ -570,7 +570,7 @@ export default function Hero() {
             <div ref={titleSlotRef} className="relative w-fit max-w-[900px]">
               <div ref={titleMotionRef} className="hero-title-motion relative will-change-transform">
                 <h1 className="hero-title-heading relative z-10 max-w-[900px] font-sans text-[clamp(3.25rem,6.8vw,7.25rem)] font-extrabold leading-[1.02] tracking-[-0.045em] max-[520px]:text-[clamp(2.65rem,13.5vw,3.6rem)] max-[520px]:leading-[1.06] max-[520px]:tracking-[-0.035em]">
-                  <span className="block">影像与</span>
+                  <span className="block">动态影像与</span>
                   <span className="hero-title-secondary mt-[.06em] block text-white/70">创作工具。</span>
                 </h1>
                 <svg
