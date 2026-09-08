@@ -1,5 +1,7 @@
 // 生产站点常量，统一用于 SEO、分享卡片、sitemap 与 robots。
-export const SITE_URL = "https://wyucn.github.io";
+// 简历与对外投递统一使用 wyucn.com，canonical 必须指向该域名，
+// 否则 wyucn.com 的权重会被导向 wyucn.github.io。
+export const SITE_URL = "https://wyucn.com";
 
 export const SITE_TITLE = "王玉｜动态影像与创作工具";
 export const SITE_DESCRIPTION =
